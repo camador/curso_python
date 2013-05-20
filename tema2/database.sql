@@ -13,7 +13,7 @@ drop database if exists crud_camador;
 create database crud_camador;
 
 -- Usuario para la conexión
-grant all on crud_camador.* to 'crud'@'localhost' identified by 'crud';
+grant all on crud_camador.* to 'crud_camador'@'localhost' identified by 'crud';
 
 -- Creación de la tabla
 use crud_camador;

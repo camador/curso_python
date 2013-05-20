@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from gi.repository import Gtk
+import  MySQLdb
 
 class CRUD:
     """
@@ -33,12 +34,30 @@ class CRUD:
             Método de inicio
         """
 
-        # Recupera la ventana principal y la muestra
-        self.window = self.builder.get_object("mainWindow")
-        self.window.show_all()
+        try:
 
-        # A la espera de evento
-        Gtk.main()
+            # Recupera la ventana principal y la muestra
+            self.window = self.builder.get_object("mainWindow")
+            self.window.show_all()
+
+            # Conexión a la base de datos
+            # Se asume la existencia de la base de datos 'crud_camador' en localhost,
+            # con permisos para el usuario 'crud_camador' con password 'crud'
+            self.db = MySQLdb.connect(host = 'localhost', user = 'crud_camador', passwd = 'crud', db = 'crud')
+
+            # A la espera de evento
+            Gtk.main()
+
+        except MySQLdb.OperationalError, e:
+            print '\n'
+            print u'Error de base de datos: '
+            print '\n\t', e, '\n'
+
+        except Exception, e:
+            print '\n'
+            print u'Error inesperado: '
+            print '\n\t', e, '\n'
+
 
     def main_window_destroy(self, window):
         """
