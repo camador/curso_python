@@ -24,18 +24,30 @@ class CRUD:
         # Conecta las señales con las acciones
         self.builder.connect_signals(handlers)
 
+
+    def main(self):
+        """
+            Método de inicio
+        """
+
         # Recupera la ventana principal y la muestra
         self.window = self.builder.get_object("mainWindow")
         self.window.show_all()
 
-    # Muestra la ventana 'Acerca de'
+        # A la espera de eventos...
+        Gtk.main()
+
     def ayuda_about(self, *args):
+        """
+            Muestra la ventana 'Acerca de'
+        """
         about = self.builder.get_object('aboutdialog')
         about.show_all()
 
-def main():
-    app = CRUD()
-    Gtk.main()
-
 if __name__ == "__main__":
-    main()
+
+    # Instancia la clase para la GUI
+    crud = CRUD()
+
+    # Método de inicio
+    crud.main()
