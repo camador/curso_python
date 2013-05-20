@@ -29,7 +29,7 @@ class CRUD:
         self.window.show_all()
 
     # Muestra la ventana 'Acerca de'
-    def ayuda_about(self, args):
+    def ayuda_about(self, *args):
         about = self.builder.get_object('aboutdialog')
         about.show_all()
 
