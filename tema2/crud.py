@@ -40,10 +40,17 @@ class CRUD:
             self.window = self.builder.get_object("mainWindow")
             self.window.show_all()
 
+            # Barra de estado
+            self.status = self.builder.get_object('mainStatusBar')
+            self.status_context_id = self.status.get_context_id('Main Status Bar')
+
             # Conexión a la base de datos
             # Se asume la existencia de la base de datos 'crud_camador' en localhost,
             # con permisos para el usuario 'crud_camador' con password 'crud'
-            self.db = MySQLdb.connect(host = 'localhost', user = 'crud_camador', passwd = 'crud', db = 'crud')
+            self.db = MySQLdb.connect(host = 'localhost', user = 'crud_camador', passwd = 'crud', db = 'crud_camador')
+
+            # Probando status bar
+            self.status.push(self.status_context_id, 'Éxito al conectar!')
 
             # A la espera de evento
             Gtk.main()
