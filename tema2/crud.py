@@ -19,9 +19,12 @@ class CRUD:
         self.builder.add_from_file("crud.glade")
 
         # Manejador de señales
-        handlers = {'ayudaAbout': self.ayuda_about}
+        handlers = {
+                    'mainWindowDestroy': self.main_window_destroy,
+                    'ayudaAbout': self.ayuda_about
+                   }
 
-        # Conecta las señales con las acciones
+        # Conecta las señales con las acciones (callbacks)
         self.builder.connect_signals(handlers)
 
 
@@ -34,8 +37,17 @@ class CRUD:
         self.window = self.builder.get_object("mainWindow")
         self.window.show_all()
 
-        # A la espera de eventos...
+        # A la espera de evento
         Gtk.main()
+
+    def main_window_destroy(self, window):
+        """
+            Termina la ejecución del programa
+        """
+
+        # Saliendo
+        Gtk.main_quit()
+    
 
     def ayuda_about(self, *args):
         """
