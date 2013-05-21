@@ -40,13 +40,16 @@ class CRUD:
 
         # Barra de estado
         self.status = self.builder.get_object('mainStatusBar')
-        self.status_context_id = self.status.get_context_id('Main Status Bar')
+        self.status_context_id = self.status.get_context_id('main')
 
         # Conexión a la base de datos
         # Se asume la existencia de la base de datos 'crud_camador' en localhost,
         # con permisos para el usuario 'crud_camador' con password 'crud'
-        # La tabla esperada se llama 'crud_camador'
+        # La tabla esperada se llama 'crud'
         self.db = MySQLdb.connect(host = 'localhost', user = 'crud_camador', passwd = 'crud', db = 'crud_camador')
+
+        # Creación del cursor
+        self.cursor = self.db.cursor(MySQLdb.cursors.DictCursor)
 
         # Probando status bar
         self.status.push(self.status_context_id, 'Éxito al conectar!')
@@ -59,6 +62,10 @@ class CRUD:
         """
             Termina la ejecución del programa
         """
+
+        # Cierra los objetos de la base de datos
+        self.cursor.close()
+        self.db.close()
 
         # Saliendo
         Gtk.main_quit()
