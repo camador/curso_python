@@ -68,8 +68,15 @@ class CRUD:
         """
             Muestra la ventana 'Acerca de'
         """
+        # Recupera la ventana
         about = self.builder.get_object('aboutdialog')
-        about.show_all()
+
+        # La muestra mientras no se cierre mediante el botón Cerrar o 
+        # pulsando sobre la 'x' de la ventana (se activa un bucle while)
+        about.run()
+
+        # Oculta la ventana tras la orden de cierre que finaliza el bucle while
+        about.hide()
 
 if __name__ == "__main__":
 
