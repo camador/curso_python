@@ -48,6 +48,9 @@ class CRUD:
         # La tabla esperada se llama 'crud_camador'
         self.db = MySQLdb.connect(host = 'localhost', user = 'crud_camador', passwd = 'crud', db = 'crud_camador')
 
+        # Crea el cursor
+        self.cursor = self.db.cursor(MySQLdb.cursors.DictCursor)
+
         # Probando status bar
         self.status.push(self.status_context_id, 'Éxito al conectar!')
 
