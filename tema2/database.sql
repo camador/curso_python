@@ -18,10 +18,11 @@ grant all on crud_camador.* to 'crud_camador'@'localhost' identified by 'crud';
 -- Creación de la tabla
 use crud_camador;
 create table crud (
-  id int,
+  id int not null auto_increment,
   campo1 varchar(15),
   campo2 varchar(5),
   campo3 varchar(10),
   campo4 varchar(10),
-  campo5 int 
+  campo5 int,
+  primary key (id)
 );
