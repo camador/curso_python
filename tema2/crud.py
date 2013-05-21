@@ -60,6 +60,10 @@ class CRUD:
             Termina la ejecución del programa
         """
 
+        # Cierra cursor y conexión de la base de datos
+        self.cursor.close()
+        self.db.close()
+
         # Saliendo
         Gtk.main_quit()
     
