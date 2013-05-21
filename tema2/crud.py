@@ -54,6 +54,23 @@ class CRUD:
         # Probando status bar
         self.status.push(self.status_context_id, 'Éxito al conectar!')
 
+
+
+        # Recupera los IDs de la tabla
+        self.cursor.execute('select id from crud;')
+        registros = self.cursor.fetchall()
+
+        # Llena el combobox con los IDs
+        list_store_IDs = self.builder.get_object('liststoreIDs')
+        for registro in registros:
+            print registro['id']
+            list_store_IDs.append([registro['id']])
+
+        # Limpia la selección de elementos
+        combo_box_IDs = self.builder.get_object('comboboxIDs')
+        combo_box_IDs.set_active(0)
+
+
         # A la espera de evento
         Gtk.main()
 
@@ -100,7 +117,7 @@ if __name__ == "__main__":
         print u'Error de base de datos: '
         print '\n\t', e, '\n'
 
-    except Exception, e:
-        print '\n'
-        print u'Error inesperado: '
-        print '\n\t', e, '\n'
+#    except Exception, e:
+#        print '\n'
+#        print u'Error inesperado: '
+#        print '\n\t', e, '\n'
