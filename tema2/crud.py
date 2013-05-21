@@ -34,36 +34,25 @@ class CRUD:
             Método de inicio
         """
 
-        try:
+        # Recupera la ventana principal y la muestra
+        self.window = self.builder.get_object("mainWindow")
+        self.window.show_all()
 
-            # Recupera la ventana principal y la muestra
-            self.window = self.builder.get_object("mainWindow")
-            self.window.show_all()
+        # Barra de estado
+        self.status = self.builder.get_object('mainStatusBar')
+        self.status_context_id = self.status.get_context_id('Main Status Bar')
 
-            # Barra de estado
-            self.status = self.builder.get_object('mainStatusBar')
-            self.status_context_id = self.status.get_context_id('Main Status Bar')
+        # Conexión a la base de datos
+        # Se asume la existencia de la base de datos 'crud_camador' en localhost,
+        # con permisos para el usuario 'crud_camador' con password 'crud'
+        # La tabla esperada se llama 'crud_camador'
+        self.db = MySQLdb.connect(host = 'localhost', user = 'crud_camador', passwd = 'crud', db = 'crud_camador')
 
-            # Conexión a la base de datos
-            # Se asume la existencia de la base de datos 'crud_camador' en localhost,
-            # con permisos para el usuario 'crud_camador' con password 'crud'
-            self.db = MySQLdb.connect(host = 'localhost', user = 'crud_camador', passwd = 'crud', db = 'crud_camador')
+        # Probando status bar
+        self.status.push(self.status_context_id, 'Éxito al conectar!')
 
-            # Probando status bar
-            self.status.push(self.status_context_id, 'Éxito al conectar!')
-
-            # A la espera de evento
-            Gtk.main()
-
-        except MySQLdb.OperationalError, e:
-            print '\n'
-            print u'Error de base de datos: '
-            print '\n\t', e, '\n'
-
-        except Exception, e:
-            print '\n'
-            print u'Error inesperado: '
-            print '\n\t', e, '\n'
+        # A la espera de evento
+        Gtk.main()
 
 
     def main_window_destroy(self, window):
@@ -84,8 +73,20 @@ class CRUD:
 
 if __name__ == "__main__":
 
-    # Instancia la clase para la GUI
-    crud = CRUD()
+    try:
 
-    # Método de inicio
-    crud.main()
+        # Instancia la clase para la GUI
+        crud = CRUD()
+
+        # Método de inicio
+        crud.main()
+
+    except MySQLdb.OperationalError, e:
+        print '\n'
+        print u'Error de base de datos: '
+        print '\n\t', e, '\n'
+
+    except Exception, e:
+        print '\n'
+        print u'Error inesperado: '
+        print '\n\t', e, '\n'
