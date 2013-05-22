@@ -51,24 +51,28 @@ class CRUD:
         # Crea el cursor
         self.cursor = self.db.cursor(MySQLdb.cursors.DictCursor)
 
-        # Probando status bar
-        self.status.push(self.status_context_id, 'Éxito al conectar!')
-
-
-
         # Recupera los IDs de la tabla
         self.cursor.execute('select id from crud;')
         registros = self.cursor.fetchall()
 
-        # Llena el combobox con los IDs
-        list_store_IDs = self.builder.get_object('liststoreIDs')
-        for registro in registros:
-            print registro['id']
-            list_store_IDs.append([registro['id']])
+        # Llena el combobox con los IDs, si es que hay alguno
+        if len(registros) > 0:
 
-        # Limpia la selección de elementos
-        combo_box_IDs = self.builder.get_object('comboboxIDs')
-        combo_box_IDs.set_active(0)
+            # Informa al usuario del nº de registros encontrados 
+            self.status.push(self.status_context_id, 'Leídos {0} registro/s'.format(len(registros)))
+
+            list_store_IDs = self.builder.get_object('liststoreIDs')
+            for registro in registros:
+                list_store_IDs.append([registro['id']])
+
+            # Limpia la selección de elementos
+            combo_box_IDs = self.builder.get_object('comboboxIDs')
+            combo_box_IDs.set_active(0)
+
+        else:
+            # La tabla no tiene registros
+            # Informa al usuario
+            self.status.push(self.status_context_id, 'La tabla está vacía')
 
 
         # A la espera de evento
@@ -117,7 +121,7 @@ if __name__ == "__main__":
         print u'Error de base de datos: '
         print '\n\t', e, '\n'
 
-#    except Exception, e:
-#        print '\n'
-#        print u'Error inesperado: '
-#        print '\n\t', e, '\n'
+    except Exception, e:
+        print '\n'
+        print u'Error inesperado: '
+        print '\n\t', e, '\n'
