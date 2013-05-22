@@ -28,6 +28,9 @@ class CRUD:
         # Conecta las señales con las acciones (callbacks)
         self.builder.connect_signals(handlers)
 
+        # Gestor de base de datos
+        self.db = crudDB()
+
 
     def main(self):
         """
@@ -42,18 +45,8 @@ class CRUD:
         self.status = self.builder.get_object('mainStatusBar')
         self.status_context_id = self.status.get_context_id('main')
 
-        # Conexión a la base de datos
-        # Se asume la existencia de la base de datos 'crud_camador' en localhost,
-        # con permisos para el usuario 'crud_camador' con password 'crud'
-        # La tabla esperada se llama 'crud'
-        self.db = MySQLdb.connect(host = 'localhost', user = 'crud_camador', passwd = 'crud', db = 'crud_camador')
-
-        # Crea el cursor
-        self.cursor = self.db.cursor(MySQLdb.cursors.DictCursor)
-
         # Recupera los IDs de la tabla
-        self.cursor.execute('select id from crud;')
-        registros = self.cursor.fetchall()
+        registros = self.db.get_ids()
 
         # Llena el combobox con los IDs, si es que hay alguno
         if len(registros) > 0:
@@ -84,8 +77,7 @@ class CRUD:
             Termina la ejecución del programa
         """
 
-        # Cierra cursor y conexión de la base de datos
-        self.cursor.close()
+        # Cierra los objetos de la base de datos
         self.db.close()
 
         # Saliendo
@@ -105,6 +97,48 @@ class CRUD:
 
         # Oculta la ventana tras la orden de cierre que finaliza el bucle while
         about.hide()
+
+
+class crudDB():
+    """
+        Se encarga de todas las operaciones con la base de datos 'crud_camador'
+
+        Dicha base de datos ha de existir en localhost, tener el usuario 'crud_camador'
+        con todos los permisos sobre ella y el password 'crud'.
+
+        La única tabla se llama 'crud'
+    """
+
+    def __init__(self):
+        """
+            Conecta con la base de datos y crea un cursor
+        """
+
+        # Conexión a la base de datos
+        self.db = MySQLdb.connect(host = 'localhost', user = 'crud_camador', passwd = 'crud', db = 'crud_camador')
+
+        # Crea el cursor
+        self.cursor = self.db.cursor(MySQLdb.cursors.DictCursor)
+
+    def get_ids(self):
+        """
+            Recupera todos los IDs de la tabla        
+        """
+
+        # Recupera los IDs de la tabla
+        self.cursor.execute('select id from crud order by id;')
+        return(self.cursor.fetchall())
+
+    def close(self):
+        """
+            Cierra el cursor y la conexión
+        """
+
+        # Cierra cursor y conexión de la base de datos
+        self.cursor.close()
+        self.db.close()
+    
+    
 
 if __name__ == "__main__":
 
