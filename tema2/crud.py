@@ -61,29 +61,6 @@ class CRUD:
         self.status = self.builder.get_object('mainStatusBar')
         self.status_context_id = self.status.get_context_id('main')
 
-        # Recupera los IDs de la tabla
-        registros = self.db.get_ids()
-
-        # Llena el combobox con los IDs, si es que hay alguno
-        if len(registros) > 0:
-
-            # Informa al usuario del nº de registros encontrados 
-            self.status.push(self.status_context_id, 'Leídos {0} registro/s'.format(len(registros)))
-
-            list_store_IDs = self.builder.get_object('liststoreIDs')
-            for registro in registros:
-                list_store_IDs.append([registro['id']])
-
-            # Limpia la selección de elementos
-            combo_box_IDs = self.builder.get_object('comboboxIDs')
-            combo_box_IDs.set_active(0)
-
-        else:
-            # La tabla no tiene registros
-            # Informa al usuario
-            self.status.push(self.status_context_id, 'La tabla está vacía')
-
-
         # A la espera de evento
         Gtk.main()
 
@@ -114,16 +91,47 @@ class CRUD:
         # Oculta la ventana tras la orden de cierre que finaliza el bucle while
         about.hide()
 
+    def rellena_comboboxIDs(self):
+        """
+            Rellena el combobox para las IDs
+        """
+
+        # Recupera los IDs de la tabla
+        registros = self.db.get_ids()
+
+        # Llena el combobox con los IDs, si es que hay alguno
+        if len(registros) > 0:
+
+            # Informa al usuario del nº de registros encontrados 
+            self.status.push(self.status_context_id, 'Leídos {0} registro/s'.format(len(registros)))
+
+            list_store_IDs = self.builder.get_object('liststoreIDs')
+            for registro in registros:
+                list_store_IDs.append([registro['id']])
+
+            # Limpia la selección de elementos
+            combo_box_IDs = self.builder.get_object('comboboxIDs')
+            combo_box_IDs.set_active(0)
+
+        else:
+            # La tabla no tiene registros
+            # Informa al usuario
+            self.status.push(self.status_context_id, 'La tabla está vacía')
+
     def on_crear(self, *args):
+        #limpia combo
         self.status.push(self.status_context_id, 'Pulsado Crear')
 
     def on_obtener(self, *args):
+        self.rellena_comboboxIDs()
         self.status.push(self.status_context_id, 'Pulsado Obtener')
     
     def on_actualizar(self, *args):
+        self.rellena_comboboxIDs()
         self.status.push(self.status_context_id, 'Pulsado Actualizar')
 
     def on_borrar(self, *args):
+        self.rellena_comboboxIDs()
         self.status.push(self.status_context_id, 'Pulsado Borrar')
 
 
