@@ -21,15 +21,23 @@ class CRUD:
 
         # Manejador de señales
         handlers = {
-                    'mainWindowDestroy': self.main_window_destroy,
-                    'ayudaAbout': self.ayuda_about,
-                    'onMenuitemDCrearActivate': self.on_crear,
+                    'onMainWindowDestroy': self.main_window_destroy,
+                    'onImagemenuitemSalirActivate': self.main_window_destroy,
+                    'onToolbuttonSalirClicked': self.main_window_destroy,
+
+                    'onImagemenuitemAboutActivate': self.ayuda_about,
+                    'onToolbuttonAboutClicked': self.ayuda_about,
+
+                    'onImagemenuitemDCrearActivate': self.on_crear,
                     'onToolbuttonDCrearClicked': self.on_crear,
-                    'onMenuitemDObtenerActivate': self.on_obtener,
+
+                    'onImagemenuitemDObtenerActivate': self.on_obtener,
                     'onToolbuttonDObtenerClicked': self.on_obtener,
-                    'onMenuitemDActualizarActivate': self.on_actualizar,
+
+                    'onImagemenuitemDActualizarActivate': self.on_actualizar,
                     'onToolbuttonDActualizarClicked': self.on_actualizar,
-                    'onMenuitemDBorrarActivate': self.on_borrar,
+
+                    'onImagemenuitemDBorrarActivate': self.on_borrar,
                     'onToolbuttonDBorrarClicked': self.on_borrar
                    }
 
