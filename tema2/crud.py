@@ -24,7 +24,13 @@ class CRUD:
                     'mainWindowDestroy': self.main_window_destroy,
                     'ayudaAbout': self.ayuda_about,
                     'onMenuitemDCrearActivate': self.on_crear,
-                    'onToolbuttonDCrearClicked': self.on_crear
+                    'onToolbuttonDCrearClicked': self.on_crear,
+                    'onMenuitemDObtenerActivate': self.on_obtener,
+                    'onToolbuttonDObtenerClicked': self.on_obtener,
+                    'onMenuitemDActualizarActivate': self.on_actualizar,
+                    'onToolbuttonDActualizarClicked': self.on_actualizar,
+                    'onMenuitemDBorrarActivate': self.on_borrar,
+                    'onToolbuttonDBorrarClicked': self.on_borrar
                    }
 
         # Conecta las señales con las acciones (callbacks)
@@ -103,7 +109,14 @@ class CRUD:
     def on_crear(self, *args):
         self.status.push(self.status_context_id, 'Pulsado Crear')
 
+    def on_obtener(self, *args):
+        self.status.push(self.status_context_id, 'Pulsado Obtener')
     
+    def on_actualizar(self, *args):
+        self.status.push(self.status_context_id, 'Pulsado Actualizar')
+
+    def on_borrar(self, *args):
+        self.status.push(self.status_context_id, 'Pulsado Borrar')
 
 
 class crudDB():

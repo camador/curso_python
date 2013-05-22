@@ -204,6 +204,7 @@ camador.git@gmail.com</property>
                         <property name="use_underline">True</property>
                         <property name="image">image2</property>
                         <property name="use_stock">False</property>
+                        <signal name="activate" handler="onMenuitemDObtenerActivate" swapped="no"/>
                       </object>
                     </child>
                     <child>
@@ -214,6 +215,7 @@ camador.git@gmail.com</property>
                         <property name="use_underline">True</property>
                         <property name="image">image3</property>
                         <property name="use_stock">False</property>
+                        <signal name="activate" handler="onMenuitemDActualizarActivate" swapped="no"/>
                       </object>
                     </child>
                     <child>
@@ -224,6 +226,7 @@ camador.git@gmail.com</property>
                         <property name="use_underline">True</property>
                         <property name="image">image4</property>
                         <property name="use_stock">False</property>
+                        <signal name="activate" handler="onMenuitemDBorrarActivate" swapped="no"/>
                       </object>
                     </child>
                   </object>
@@ -288,6 +291,7 @@ camador.git@gmail.com</property>
                 <property name="label" translatable="yes">_Obtener</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-revert-to-saved</property>
+                <signal name="clicked" handler="onMenuitemDObtenerActivate" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -302,6 +306,7 @@ camador.git@gmail.com</property>
                 <property name="label" translatable="yes">Actuali_zar</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-save</property>
+                <signal name="clicked" handler="onMenuitemDActualizarActivate" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -316,6 +321,7 @@ camador.git@gmail.com</property>
                 <property name="label" translatable="yes">_Borrar</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-delete</property>
+                <signal name="clicked" handler="onMenuitemDBorrarActivate" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
