@@ -22,7 +22,9 @@ class CRUD:
         # Manejador de señales
         handlers = {
                     'mainWindowDestroy': self.main_window_destroy,
-                    'ayudaAbout': self.ayuda_about
+                    'ayudaAbout': self.ayuda_about,
+                    'onMenuitemDCrearActivate': self.on_crear,
+                    'onToolbuttonDCrearClicked': self.on_crear
                    }
 
         # Conecta las señales con las acciones (callbacks)
@@ -97,6 +99,11 @@ class CRUD:
 
         # Oculta la ventana tras la orden de cierre que finaliza el bucle while
         about.hide()
+
+    def on_crear(self, *args):
+        self.status.push(self.status_context_id, 'Pulsado Crear')
+
+    
 
 
 class crudDB():

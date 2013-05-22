@@ -193,6 +193,7 @@ camador.git@gmail.com</property>
                         <property name="use_underline">True</property>
                         <property name="image">image1</property>
                         <property name="use_stock">False</property>
+                        <signal name="activate" handler="onMenuitemDCrearActivate" swapped="no"/>
                       </object>
                     </child>
                     <child>
@@ -272,6 +273,7 @@ camador.git@gmail.com</property>
                 <property name="label" translatable="yes">_Crear</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-new</property>
+                <signal name="clicked" handler="onToolbuttonDCrearClicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
