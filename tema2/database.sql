@@ -26,3 +26,8 @@ create table crud (
   campo5 int,
   primary key (id)
 );
+
+-- Algunos datos para pruebas
+insert into crud (campo1, campo2, campo3, campo4) values ('a', 'aa', 'aaa', 1),
+                                                         ('b', 'bb', 'bbb', 2),
+                                                         ('c', 'cc', 'ccc', 3);

@@ -48,11 +48,28 @@ class CRUD:
         # La tabla esperada se llama 'crud'
         self.db = MySQLdb.connect(host = 'localhost', user = 'crud_camador', passwd = 'crud', db = 'crud_camador')
 
-        # Creación del cursor
+        # Crea el cursor
         self.cursor = self.db.cursor(MySQLdb.cursors.DictCursor)
 
         # Probando status bar
         self.status.push(self.status_context_id, 'Éxito al conectar!')
+
+
+
+        # Recupera los IDs de la tabla
+        self.cursor.execute('select id from crud;')
+        registros = self.cursor.fetchall()
+
+        # Llena el combobox con los IDs
+        list_store_IDs = self.builder.get_object('liststoreIDs')
+        for registro in registros:
+            print registro['id']
+            list_store_IDs.append([registro['id']])
+
+        # Limpia la selección de elementos
+        combo_box_IDs = self.builder.get_object('comboboxIDs')
+        combo_box_IDs.set_active(0)
+
 
         # A la espera de evento
         Gtk.main()
@@ -63,7 +80,7 @@ class CRUD:
             Termina la ejecución del programa
         """
 
-        # Cierra los objetos de la base de datos
+        # Cierra cursor y conexión de la base de datos
         self.cursor.close()
         self.db.close()
 
@@ -75,8 +92,15 @@ class CRUD:
         """
             Muestra la ventana 'Acerca de'
         """
+        # Recupera la ventana
         about = self.builder.get_object('aboutdialog')
-        about.show_all()
+
+        # La muestra mientras no se cierre mediante el botón Cerrar o 
+        # pulsando sobre la 'x' de la ventana (se activa un bucle while)
+        about.run()
+
+        # Oculta la ventana tras la orden de cierre que finaliza el bucle while
+        about.hide()
 
 if __name__ == "__main__":
 
@@ -93,7 +117,7 @@ if __name__ == "__main__":
         print u'Error de base de datos: '
         print '\n\t', e, '\n'
 
-    except Exception, e:
-        print '\n'
-        print u'Error inesperado: '
-        print '\n\t', e, '\n'
+#    except Exception, e:
+#        print '\n'
+#        print u'Error inesperado: '
+#        print '\n\t', e, '\n'
