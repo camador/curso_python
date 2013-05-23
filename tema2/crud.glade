@@ -554,6 +554,7 @@ camador.git@gmail.com</property>
                     <property name="invisible_char">●</property>
                     <property name="width_chars">5</property>
                     <property name="xalign">1</property>
+                    <property name="input_purpose">digits</property>
                   </object>
                   <packing>
                     <property name="left_attach">0</property>
@@ -646,6 +647,7 @@ camador.git@gmail.com</property>
                     <property name="invisible_char">●</property>
                     <property name="width_chars">5</property>
                     <property name="xalign">1</property>
+                    <property name="input_purpose">digits</property>
                   </object>
                   <packing>
                     <property name="left_attach">5</property>
