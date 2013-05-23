@@ -679,7 +679,7 @@ camador.git@gmail.com</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="no_show_all">True</property>
-                    <signal name="activate" handler="onButtonConfirmacionCrearActivate" swapped="no"/>
+                    <signal name="clicked" handler="onButtonConfirmacionCrearClicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -693,7 +693,7 @@ camador.git@gmail.com</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="no_show_all">True</property>
-                    <signal name="activate" handler="onButtonConfirmacionActualizarActivate" swapped="no"/>
+                    <signal name="clicked" handler="onButtonConfirmacionActualizarClicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -707,7 +707,7 @@ camador.git@gmail.com</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="no_show_all">True</property>
-                    <signal name="activate" handler="onButtonConfirmacionBorrarActivate" swapped="no"/>
+                    <signal name="clicked" handler="onButtonConfirmacionBorrarClicked" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
