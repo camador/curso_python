@@ -55,7 +55,11 @@ class CRUD:
         self.list_store_IDs = self.builder.get_object('liststoreIDs')
         self.combo_box_IDs = self.builder.get_object('comboboxIDs')
 
+        # Identificador de la señal 'changed' del combobox (inicialmente a None)
+        self.combo_box_IDs_changed_signal = None
+
         # Campos de edición
+        self.entry_ID = self.builder.get_object('entryID')
         self.entry_campo1 = self.builder.get_object('entryCampo1')
         self.entry_campo2 = self.builder.get_object('entryCampo2')
         self.entry_campo3 = self.builder.get_object('entryCampo3')
@@ -183,6 +187,10 @@ class CRUD:
             Prepara la obtención de un registro
         """
 
+        # Desconecta la señal changed previamente asignada, si había alguna
+        if self.combo_box_IDs_changed_signal is not None:
+            self.combo_box_IDs.disconnect(self.combo_box_IDs_changed_signal)
+
         # Carga los IDs de la tabla en el combobox y fija el foco en él
         self.rellena_comboboxIDs()
         self.combo_box_IDs.grab_focus()
@@ -193,21 +201,57 @@ class CRUD:
         self.button_confirmacion_Crear.hide()
 
         # Establece la acción a realizar tras la selección del ID
-        self.combo_box_IDs.connect('changed', self.on_obtener_registro)
+        self.combo_box_IDs_changed_signal = self.combo_box_IDs.connect('changed', self.on_obtener_registro)
 
         # Instrucciones para el usuario
         self.status.push(self.status_context_id, 'Seleccione el registro a mostrar')
 
     def on_obtener_registro(self, combo):
+        """
+            Recupera el registro seleccionado por el usuario y rellena los entryboxes
+            con él
+        """
 
+        # Recupera el ID
         id = self.get_id_seleccionado() 
+
+        # Si es un ID válido lo recupera y rellena los campos con él
         if id != '--':
-            print id
+
+            registro = self.db.get_registro(id)
+            self.entry_ID.set_text(str(registro['id']))
+            self.entry_campo1.set_text(registro['campo1'])
+            self.entry_campo2.set_text(registro['campo2'])
+            self.entry_campo3.set_text(registro['campo3'])
+            self.entry_campo4.set_text(registro['campo4'])
+            self.entry_campo5.set_text(str(registro['campo5']))
+
+            # Limpia la barra de estado
+            self.status.push(self.status_context_id, '')
+            
+        else:
+            # El ID no es válido
+
+            # Limpia los campos
+            self.entry_ID.set_text('')
+            self.entry_campo1.set_text('')
+            self.entry_campo2.set_text('')
+            self.entry_campo3.set_text('')
+            self.entry_campo4.set_text('')
+            self.entry_campo5.set_text('')
+
+            # Informa al usuario
+            self.status.push(self.status_context_id, 'Por favor, seleccione un ID válido')
+
+            
     
     def on_actualizar(self, *args):
         """
             Prepara la actualización de un registro
         """
+        # Desconecta la señal changed previamente asignada, si había alguna
+        if self.combo_box_IDs_changed_signal is not None:
+            self.combo_box_IDs.disconnect(self.combo_box_IDs_changed_signal)
 
         # Carga los IDs de la tabla en el combobox y fija el foco en él
         self.rellena_comboboxIDs()
@@ -218,6 +262,9 @@ class CRUD:
         self.button_confirmacion_Borrar.hide()
         self.button_confirmacion_Actualizar.show()
 
+        # Establece la acción a realizar tras la selección del ID
+        self.combo_box_IDs.connect('changed', self.on_actualizar_registro)
+
         # Instrucciones para el usuario
         self.status.push(self.status_context_id, 'Seleccione el registro a actualizar')
 
@@ -225,6 +272,10 @@ class CRUD:
         """
             Prepara la eliminación de un registro
         """
+
+        # Desconecta la señal changed previamente asignada, si había alguna
+        if self.combo_box_IDs_changed_signal is not None:
+            self.combo_box_IDs.disconnect(self.combo_box_IDs_changed_signal)
 
         # Carga los IDs de la tabla en el combobox y fija el foco en él
         self.rellena_comboboxIDs()
@@ -234,6 +285,9 @@ class CRUD:
         self.button_confirmacion_Crear.hide()
         self.button_confirmacion_Actualizar.hide()
         self.button_confirmacion_Borrar.show()
+
+        # Establece la acción a realizar tras la selección del ID
+        self.combo_box_IDs.connect('changed', self.on_borrar_registro)
 
         # Instrucciones para el usuario
         self.status.push(self.status_context_id, 'Seleccione el registro a eliminar')
@@ -268,6 +322,15 @@ class crudDB():
         # Recupera los IDs de la tabla
         self.cursor.execute('select id from crud order by id;')
         return(self.cursor.fetchall())
+    
+    def get_registro(self, id):
+        """
+            Recupera y devuelve el registro con el id recibido como parámetro
+        """
+
+        self.cursor.execute('select * from crud where id = {0};'.format(id)) 
+        return(self.cursor.fetchone())
+    
 
     def close(self):
         """
