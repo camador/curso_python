@@ -123,8 +123,12 @@ class CRUD:
         # Llena el combobox con los IDs, si es que hay alguno
         if len(registros) > 0:
 
+            # Primer elemento no válido para poder detectar la selección del primer ID
+            # con la señal 'changed'
+            self.list_store_IDs.append(['--'])
+
             for registro in registros:
-                self.list_store_IDs.append([registro['id']])
+                self.list_store_IDs.append([str(registro['id'])])
 
             # Establece el primer elemento como activo
             self.combo_box_IDs.set_active(0)
@@ -196,7 +200,9 @@ class CRUD:
 
     def on_obtener_registro(self, combo):
 
-        print self.get_id_seleccionado() 
+        id = self.get_id_seleccionado() 
+        if id != '--':
+            print id
     
     def on_actualizar(self, *args):
         """
