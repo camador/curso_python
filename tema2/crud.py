@@ -74,7 +74,9 @@ class CRUD:
         # Gestor de base de datos
         self.db = crudDB()
 
-
+    ##
+    ## MAIN
+    ##
     def main(self):
         """
             Método de inicio
@@ -87,6 +89,9 @@ class CRUD:
         Gtk.main()
 
 
+    ##
+    ## VENTANA PRINCIPAL
+    ##
     def main_window_destroy(self, window):
         """
             Termina la ejecución del programa
@@ -99,6 +104,9 @@ class CRUD:
         Gtk.main_quit()
     
 
+    ##
+    ## ACERCA DE
+    ##
     def ayuda_about(self, *args):
         """
             Muestra la ventana 'Acerca de'
@@ -113,6 +121,9 @@ class CRUD:
         # Oculta la ventana tras la orden de cierre que finaliza el bucle while
         about.hide()
 
+    ##
+    ## COMBOBOX
+    ##
     def rellena_comboboxIDs(self):
         """
             Rellena el combobox para las IDs
@@ -164,6 +175,45 @@ class CRUD:
         # Devuelve el ID asociado al elemento seleccionado
         return(lista_ids[item][0])
 
+    ##
+    ## BOTONES DE CONFIRMACIÓN
+    ##
+    def oculta_botones_confirmacion(self):
+        """
+            Oculta todos los botones de confirmación
+        """
+        self.button_confirmacion_Actualizar.hide()
+        self.button_confirmacion_Borrar.hide()
+        self.button_confirmacion_Crear.hide()
+
+    ##
+    ## ENTRYBOXES 
+    ##
+    def rellena_campos(self, registro):
+        """
+            Rellena los entryboxes con los datos del registro recibido como parámetro
+        """
+        self.entry_ID.set_text(str(registro['id']))
+        self.entry_campo1.set_text(registro['campo1'])
+        self.entry_campo2.set_text(registro['campo2'])
+        self.entry_campo3.set_text(registro['campo3'])
+        self.entry_campo4.set_text(registro['campo4'])
+        self.entry_campo5.set_text(str(registro['campo5']))
+
+    def limpia_campos(self):
+        """
+            Limpia los entryboxes para los datos
+        """
+        self.entry_ID.set_text('')
+        self.entry_campo1.set_text('')
+        self.entry_campo2.set_text('')
+        self.entry_campo3.set_text('')
+        self.entry_campo4.set_text('')
+        self.entry_campo5.set_text('')
+
+    ##
+    ## CREAR
+    ##
     def on_crear(self, *args):
         """
             Prepara la creación de un nuevo registro
@@ -182,6 +232,9 @@ class CRUD:
         # Instrucciones para el usuario
         self.status.push(self.status_context_id, 'Introduzca los datos para el nuevo registro')
 
+    ##
+    ## OBTENER
+    ##
     def on_obtener(self, *args):
         """
             Prepara la obtención de un registro
@@ -196,9 +249,7 @@ class CRUD:
         self.combo_box_IDs.grab_focus()
 
         # Oculta los botones de confirmación porque en esta acción no hay nada que confirmar
-        self.button_confirmacion_Actualizar.hide()
-        self.button_confirmacion_Borrar.hide()
-        self.button_confirmacion_Crear.hide()
+        self.oculta_botones_confirmacion()
 
         # Establece la acción a realizar tras la selección del ID
         self.combo_box_IDs_changed_signal = self.combo_box_IDs.connect('changed', self.on_obtener_registro)
@@ -219,12 +270,7 @@ class CRUD:
         if id != '--':
 
             registro = self.db.get_registro(id)
-            self.entry_ID.set_text(str(registro['id']))
-            self.entry_campo1.set_text(registro['campo1'])
-            self.entry_campo2.set_text(registro['campo2'])
-            self.entry_campo3.set_text(registro['campo3'])
-            self.entry_campo4.set_text(registro['campo4'])
-            self.entry_campo5.set_text(str(registro['campo5']))
+            self.rellena_campos(registro)
 
             # Limpia la barra de estado
             self.status.push(self.status_context_id, '')
@@ -233,18 +279,14 @@ class CRUD:
             # El ID no es válido
 
             # Limpia los campos
-            self.entry_ID.set_text('')
-            self.entry_campo1.set_text('')
-            self.entry_campo2.set_text('')
-            self.entry_campo3.set_text('')
-            self.entry_campo4.set_text('')
-            self.entry_campo5.set_text('')
+            self.limpia_campos()
 
             # Informa al usuario
             self.status.push(self.status_context_id, 'Por favor, seleccione un ID válido')
-
-            
     
+    ##
+    ## ACTUALIZAR
+    ##
     def on_actualizar(self, *args):
         """
             Prepara la actualización de un registro
@@ -257,17 +299,48 @@ class CRUD:
         self.rellena_comboboxIDs()
         self.combo_box_IDs.grab_focus()
 
-        # Oculta los botones de confirmación y muestra el correspondiente a esta acción 
-        self.button_confirmacion_Crear.hide()
-        self.button_confirmacion_Borrar.hide()
-        self.button_confirmacion_Actualizar.show()
+        # Oculta los botones de confirmación
+        self.oculta_botones_confirmacion()
 
         # Establece la acción a realizar tras la selección del ID
-        self.combo_box_IDs.connect('changed', self.on_actualizar_registro)
+        self.combo_box_IDs_changed_signal = self.combo_box_IDs.connect('changed', self.on_actualizar_registro)
 
         # Instrucciones para el usuario
         self.status.push(self.status_context_id, 'Seleccione el registro a actualizar')
 
+    def on_actualizar_registro(self, combo):
+        """
+            Recupera el registro seleccionado por el usuario, rellena los entryboxes
+            con él y muestra el botón 'Actualizar'
+        """
+
+        # Recupera el ID
+        id = self.get_id_seleccionado() 
+
+        # Si es un ID válido lo recupera y rellena los campos con él
+        if id != '--':
+
+            registro = self.db.get_registro(id)
+            self.rellena_campos(registro)
+            
+            # Muestra el botón de confirmación
+            self.button_confirmacion_Actualizar.show()
+
+            # Limpia la barra de estado
+            self.status.push(self.status_context_id, 'Pulse Actualizar para guardar los cambios')
+            
+        else:
+            # El ID no es válido
+
+            # Limpia los campos
+            self.limpia_campos()
+
+            # Informa al usuario
+            self.status.push(self.status_context_id, 'Por favor, seleccione un ID válido')
+
+    ##
+    ## BORRAR
+    ##
     def on_borrar(self, *args):
         """
             Prepara la eliminación de un registro
@@ -281,10 +354,8 @@ class CRUD:
         self.rellena_comboboxIDs()
         self.combo_box_IDs.grab_focus()
 
-        # Oculta los botones de confirmación y muestra el correspondiente a esta acción 
-        self.button_confirmacion_Crear.hide()
-        self.button_confirmacion_Actualizar.hide()
-        self.button_confirmacion_Borrar.show()
+        # Oculta los botones de confirmación
+        self.oculta_botones_confirmacion()
 
         # Establece la acción a realizar tras la selección del ID
         self.combo_box_IDs.connect('changed', self.on_borrar_registro)
