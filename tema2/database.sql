@@ -28,6 +28,6 @@ create table crud (
 );
 
 -- Algunos datos para pruebas
-insert into crud (campo1, campo2, campo3, campo4) values ('a', 'aa', 'aaa', 1),
-                                                         ('b', 'bb', 'bbb', 2),
-                                                         ('c', 'cc', 'ccc', 3);
+insert into crud (campo1, campo2, campo3, campo4, campo5) values ('a', 'aa', 'aaa', 'aaaa', 1),
+                                                         ('b', 'bb', 'bbb', 'bbbb', 2),
+                                                         ('c', 'cc', 'ccc', 'cccc', 3);
