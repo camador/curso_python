@@ -44,6 +44,20 @@ class CRUD:
         # Conecta las señales con las acciones (callbacks)
         self.builder.connect_signals(handlers)
 
+        # Ventana principal
+        self.window = self.builder.get_object("mainWindow")
+
+        # Barra de estado
+        self.status = self.builder.get_object('mainStatusBar')
+        self.status_context_id = self.status.get_context_id('main')
+
+        # Campos de edición
+        self.entryCampo1 = self.builder.get_object('entryCampo1')
+        self.entryCampo2 = self.builder.get_object('entryCampo2')
+        self.entryCampo3 = self.builder.get_object('entryCampo3')
+        self.entryCampo4 = self.builder.get_object('entryCampo4')
+        self.entryCampo5 = self.builder.get_object('entryCampo5')
+
         # Gestor de base de datos
         self.db = crudDB()
 
@@ -53,13 +67,8 @@ class CRUD:
             Método de inicio
         """
 
-        # Recupera la ventana principal y la muestra
-        self.window = self.builder.get_object("mainWindow")
+        # Muestra la ventana principal
         self.window.show_all()
-
-        # Barra de estado
-        self.status = self.builder.get_object('mainStatusBar')
-        self.status_context_id = self.status.get_context_id('main')
 
         # A la espera de evento
         Gtk.main()
@@ -119,8 +128,18 @@ class CRUD:
             self.status.push(self.status_context_id, 'La tabla está vacía')
 
     def on_crear(self, *args):
-        #limpia combo
-        self.status.push(self.status_context_id, 'Pulsado Crear')
+        """
+            Prepara la creación de un nuevo registro
+        """
+        # Limpia combobox de las IDs
+        list_store_IDs = self.builder.get_object('liststoreIDs')
+        list_store_IDs.clear()
+
+        # Situa el foco en el primer campo
+        self.entryCampo1.grab_focus()
+        
+        # Instrucciones para el usuario
+        self.status.push(self.status_context_id, 'Introduzca los datos para el nuevo registro')
 
     def on_obtener(self, *args):
         self.rellena_comboboxIDs()
