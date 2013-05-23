@@ -423,6 +423,11 @@ class CRUD:
         # Recupera el ID
         id = self.get_id_seleccionado() 
 
+        # Desconecta la señal changed previamente asignada, si había alguna, para evitar
+        # que se active el 'changed' al modificar los datos
+        if self.combo_box_IDs_changed_signal is not None:
+            self.combo_box_IDs.disconnect(self.combo_box_IDs_changed_signal)
+
         # Elimina el registro
         self.db.borra_registro(id)
 
@@ -435,6 +440,9 @@ class CRUD:
         # Rellena el combobox
         self.rellena_comboboxIDs()
         self.combo_box_IDs.grab_focus()
+
+        # Establece la acción a realizar tras la selección del ID
+        self.combo_box_IDs_changed_signal = self.combo_box_IDs.connect('changed', self.on_borrar_registro)
 
         # Informa al usuario
         self.status.push(self.status_context_id, 'El registro ha sido borrado')
