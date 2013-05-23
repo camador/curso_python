@@ -62,6 +62,11 @@ class CRUD:
         self.entryCampo4 = self.builder.get_object('entryCampo4')
         self.entryCampo5 = self.builder.get_object('entryCampo5')
 
+        # Botones de confirmación
+        self.buttonCrear = self.builder.get_object('buttonCrear')
+        self.buttonActualizar = self.builder.get_object('buttonActualizar')
+        self.buttonBorrar = self.builder.get_object('buttonBorrar')
+
         # Gestor de base de datos
         self.db = crudDB()
 
