@@ -134,7 +134,7 @@ camador.git@gmail.com</property>
   <object class="GtkListStore" id="liststoreIDs">
     <columns>
       <!-- column-name ID -->
-      <column type="gint"/>
+      <column type="gchararray"/>
     </columns>
   </object>
   <object class="GtkWindow" id="mainWindow">
