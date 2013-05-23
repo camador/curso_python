@@ -674,7 +674,7 @@ camador.git@gmail.com</property>
                 <property name="margin_bottom">5</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkButton" id="buttonCrear">
+                  <object class="GtkButton" id="buttonConfirmacionCrear">
                     <property name="label" translatable="yes">Crear</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -687,7 +687,7 @@ camador.git@gmail.com</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="buttonActualizar">
+                  <object class="GtkButton" id="buttonConfirmacionActualizar">
                     <property name="label" translatable="yes">Actualizar</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -700,7 +700,7 @@ camador.git@gmail.com</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="buttonBorrar">
+                  <object class="GtkButton" id="buttonConfirmacionBorrar">
                     <property name="label" translatable="yes">Borrar</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>

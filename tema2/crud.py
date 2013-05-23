@@ -63,9 +63,9 @@ class CRUD:
         self.entryCampo5 = self.builder.get_object('entryCampo5')
 
         # Botones de confirmación
-        self.buttonCrear = self.builder.get_object('buttonCrear')
-        self.buttonActualizar = self.builder.get_object('buttonActualizar')
-        self.buttonBorrar = self.builder.get_object('buttonBorrar')
+        self.buttonConfirmacionCrear = self.builder.get_object('buttonConfirmacionCrear')
+        self.buttonConfirmacionActualizar = self.builder.get_object('buttonConfirmacionActualizar')
+        self.buttonConfirmacionBorrar = self.builder.get_object('buttonConfirmacionBorrar')
 
         # Gestor de base de datos
         self.db = crudDB()
@@ -153,9 +153,9 @@ class CRUD:
         self.entryCampo1.grab_focus()
 
         # Oculta los botones de confirmación y muestra el correspondiente a esta acción 
-        self.buttonActualizar.hide()
-        self.buttonBorrar.hide()
-        self.buttonCrear.show()
+        self.buttonConfirmacionActualizar.hide()
+        self.buttonConfirmacionBorrar.hide()
+        self.buttonConfirmacionCrear.show()
         
         # Instrucciones para el usuario
         self.status.push(self.status_context_id, 'Introduzca los datos para el nuevo registro')
@@ -165,9 +165,9 @@ class CRUD:
         self.combo_box_IDs.grab_focus()
 
         # Oculta los botones de confirmación porque en esta acción no hay nada que confirmar
-        self.buttonActualizar.hide()
-        self.buttonBorrar.hide()
-        self.buttonCrear.hide()
+        self.buttonConfirmacionActualizar.hide()
+        self.buttonConfirmacionBorrar.hide()
+        self.buttonConfirmacionCrear.hide()
 
         self.status.push(self.status_context_id, 'Pulsado Obtener')
     
@@ -176,9 +176,9 @@ class CRUD:
         self.combo_box_IDs.grab_focus()
 
         # Oculta los botones de confirmación y muestra el correspondiente a esta acción 
-        self.buttonCrear.hide()
-        self.buttonBorrar.hide()
-        self.buttonActualizar.show()
+        self.buttonConfirmacionCrear.hide()
+        self.buttonConfirmacionBorrar.hide()
+        self.buttonConfirmacionActualizar.show()
 
         self.status.push(self.status_context_id, 'Pulsado Actualizar')
 
@@ -187,9 +187,9 @@ class CRUD:
         self.combo_box_IDs.grab_focus()
 
         # Oculta los botones de confirmación y muestra el correspondiente a esta acción 
-        self.buttonCrear.hide()
-        self.buttonActualizar.hide()
-        self.buttonBorrar.show()
+        self.buttonConfirmacionCrear.hide()
+        self.buttonConfirmacionActualizar.hide()
+        self.buttonConfirmacionBorrar.show()
 
         self.status.push(self.status_context_id, 'Pulsado Borrar')
 
