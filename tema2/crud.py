@@ -222,6 +222,12 @@ class CRUD:
         """
             Prepara la creación de un nuevo registro
         """
+        # Desconecta la señal changed previamente asignada, si había alguna
+        if self.combo_box_IDs_changed_signal is not None:
+            self.combo_box_IDs.disconnect(self.combo_box_IDs_changed_signal)
+            self.combo_box_IDs_changed_signal = None
+
+
         # Limpia combobox de las IDs
         self.limpia_comboboxIDs()
 
