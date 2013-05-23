@@ -51,6 +51,10 @@ class CRUD:
         self.status = self.builder.get_object('mainStatusBar')
         self.status_context_id = self.status.get_context_id('main')
 
+        # Selección de ID
+        self.list_store_IDs = self.builder.get_object('liststoreIDs')
+        self.combo_box_IDs = self.builder.get_object('comboboxIDs')
+
         # Campos de edición
         self.entryCampo1 = self.builder.get_object('entryCampo1')
         self.entryCampo2 = self.builder.get_object('entryCampo2')
@@ -105,35 +109,40 @@ class CRUD:
             Rellena el combobox para las IDs
         """
 
+        # Limpia el liststore
+        self.limpia_comboboxIDs()
+
         # Recupera los IDs de la tabla
         registros = self.db.get_ids()
 
         # Llena el combobox con los IDs, si es que hay alguno
         if len(registros) > 0:
 
-            # Informa al usuario del nº de registros encontrados 
-            self.status.push(self.status_context_id, 'Leídos {0} registro/s'.format(len(registros)))
-
-            list_store_IDs = self.builder.get_object('liststoreIDs')
             for registro in registros:
-                list_store_IDs.append([registro['id']])
+                self.list_store_IDs.append([registro['id']])
 
             # Limpia la selección de elementos
-            combo_box_IDs = self.builder.get_object('comboboxIDs')
-            combo_box_IDs.set_active(0)
+            self.combo_box_IDs.set_active(0)
 
         else:
             # La tabla no tiene registros
             # Informa al usuario
             self.status.push(self.status_context_id, 'La tabla está vacía')
 
+    def limpia_comboboxIDs(self):
+        """
+            Vacía el combobox para las IDs     
+        """
+
+        # Limpia el listsotre
+        self.list_store_IDs.clear()
+
     def on_crear(self, *args):
         """
             Prepara la creación de un nuevo registro
         """
         # Limpia combobox de las IDs
-        list_store_IDs = self.builder.get_object('liststoreIDs')
-        list_store_IDs.clear()
+        self.limpia_comboboxIDs()
 
         # Situa el foco en el primer campo
         self.entryCampo1.grab_focus()
@@ -143,14 +152,20 @@ class CRUD:
 
     def on_obtener(self, *args):
         self.rellena_comboboxIDs()
+        self.combo_box_IDs.grab_focus()
+
         self.status.push(self.status_context_id, 'Pulsado Obtener')
     
     def on_actualizar(self, *args):
         self.rellena_comboboxIDs()
+        self.combo_box_IDs.grab_focus()
+
         self.status.push(self.status_context_id, 'Pulsado Actualizar')
 
     def on_borrar(self, *args):
         self.rellena_comboboxIDs()
+        self.combo_box_IDs.grab_focus()
+
         self.status.push(self.status_context_id, 'Pulsado Borrar')
 
 
