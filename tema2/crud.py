@@ -142,6 +142,20 @@ class CRUD:
         # Limpia el listsotre
         self.list_store_IDs.clear()
 
+    def get_id_seleccionado(self):
+        """
+            Devuelve el ID seleccionado por el usuario mediante el comboboxIDs
+        """
+    
+        # Elemento seleccionado
+        item = self.combo_box_IDs.get_active() 
+
+        # Lista de IDs del combobox
+        lista_ids = self.combo_box_IDs.get_model()
+        
+        # Devuelve el ID asociado al elemento seleccionado
+        return(lista_ids[item][0])
+
     def on_crear(self, *args):
         """
             Prepara la creación de un nuevo registro
@@ -180,9 +194,9 @@ class CRUD:
         # Instrucciones para el usuario
         self.status.push(self.status_context_id, 'Seleccione el registro a mostrar')
 
-    def on_obtener_registro(self, *args):
-        id = self.combo_box_IDs.get_active() 
-        print id
+    def on_obtener_registro(self, combo):
+
+        print self.get_id_seleccionado() 
     
     def on_actualizar(self, *args):
         """
