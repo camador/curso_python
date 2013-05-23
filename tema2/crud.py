@@ -161,6 +161,11 @@ class CRUD:
         self.status.push(self.status_context_id, 'Introduzca los datos para el nuevo registro')
 
     def on_obtener(self, *args):
+        """
+            Prepara la obtención de un registro
+        """
+
+        # Carga los IDs de la tabla en el combobox y fija el foco en él
         self.rellena_comboboxIDs()
         self.combo_box_IDs.grab_focus()
 
@@ -169,9 +174,15 @@ class CRUD:
         self.buttonConfirmacionBorrar.hide()
         self.buttonConfirmacionCrear.hide()
 
-        self.status.push(self.status_context_id, 'Pulsado Obtener')
+        # Instrucciones para el usuario
+        self.status.push(self.status_context_id, 'Seleccione el registro a mostrar')
     
     def on_actualizar(self, *args):
+        """
+            Prepara la actualización de un registro
+        """
+
+        # Carga los IDs de la tabla en el combobox y fija el foco en él
         self.rellena_comboboxIDs()
         self.combo_box_IDs.grab_focus()
 
@@ -180,9 +191,15 @@ class CRUD:
         self.buttonConfirmacionBorrar.hide()
         self.buttonConfirmacionActualizar.show()
 
-        self.status.push(self.status_context_id, 'Pulsado Actualizar')
+        # Instrucciones para el usuario
+        self.status.push(self.status_context_id, 'Seleccione el registro a actualizar')
 
     def on_borrar(self, *args):
+        """
+            Prepara la eliminación de un registro
+        """
+
+        # Carga los IDs de la tabla en el combobox y fija el foco en él
         self.rellena_comboboxIDs()
         self.combo_box_IDs.grab_focus()
 
@@ -191,7 +208,8 @@ class CRUD:
         self.buttonConfirmacionActualizar.hide()
         self.buttonConfirmacionBorrar.show()
 
-        self.status.push(self.status_context_id, 'Pulsado Borrar')
+        # Instrucciones para el usuario
+        self.status.push(self.status_context_id, 'Seleccione el registro a eliminar')
 
 
 class crudDB():
