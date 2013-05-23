@@ -151,6 +151,11 @@ class CRUD:
 
         # Situa el foco en el primer campo
         self.entryCampo1.grab_focus()
+
+        # Oculta los botones de confirmación y muestra el correspondiente a esta acción 
+        self.buttonActualizar.hide()
+        self.buttonBorrar.hide()
+        self.buttonCrear.show()
         
         # Instrucciones para el usuario
         self.status.push(self.status_context_id, 'Introduzca los datos para el nuevo registro')
@@ -159,17 +164,32 @@ class CRUD:
         self.rellena_comboboxIDs()
         self.combo_box_IDs.grab_focus()
 
+        # Oculta los botones de confirmación porque en esta acción no hay nada que confirmar
+        self.buttonActualizar.hide()
+        self.buttonBorrar.hide()
+        self.buttonCrear.hide()
+
         self.status.push(self.status_context_id, 'Pulsado Obtener')
     
     def on_actualizar(self, *args):
         self.rellena_comboboxIDs()
         self.combo_box_IDs.grab_focus()
 
+        # Oculta los botones de confirmación y muestra el correspondiente a esta acción 
+        self.buttonCrear.hide()
+        self.buttonBorrar.hide()
+        self.buttonActualizar.show()
+
         self.status.push(self.status_context_id, 'Pulsado Actualizar')
 
     def on_borrar(self, *args):
         self.rellena_comboboxIDs()
         self.combo_box_IDs.grab_focus()
+
+        # Oculta los botones de confirmación y muestra el correspondiente a esta acción 
+        self.buttonCrear.hide()
+        self.buttonActualizar.hide()
+        self.buttonBorrar.show()
 
         self.status.push(self.status_context_id, 'Pulsado Borrar')
 
