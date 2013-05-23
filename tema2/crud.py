@@ -40,9 +40,9 @@ class CRUD:
                     'onImagemenuitemDBorrarActivate': self.on_borrar,
                     'onToolbuttonDBorrarClicked': self.on_borrar,
 
-                    'onButtonConfirmacionCrearActivate': self.on_crear_confirmacion,
-                    'onButtonConfirmacionActualizarActivate': self.on_actualizar_confirmacion,
-                    'onButtonConfirmacionBorrarActivate': self.on_borrar_confirmacion
+                    'onButtonConfirmacionCrearClicked': self.on_crear_confirmacion,
+                    'onButtonConfirmacionActualizarClicked': self.on_actualizar_confirmacion,
+                    'onButtonConfirmacionBorrarClicked': self.on_borrar_confirmacion
                    }
 
         # Conecta las señales con las acciones (callbacks)
@@ -288,6 +288,12 @@ class CRUD:
             # Informa al usuario
             self.status.push(self.status_context_id, 'Por favor, seleccione un ID válido')
     
+    def on_crear_confirmacion(self, *args):
+        """
+            Crea un registro con los datos contenidos en los entryboxes
+        """
+        pass
+
     ##
     ## ACTUALIZAR
     ##
@@ -342,6 +348,12 @@ class CRUD:
             # Informa al usuario
             self.status.push(self.status_context_id, 'Por favor, seleccione un ID válido')
 
+    def on_actualizar_confirmacion(self, *args):
+        """
+            Actualiza un registro con los datos contenidos en los entryboxes
+        """
+        pass
+
     ##
     ## BORRAR
     ##
@@ -362,7 +374,7 @@ class CRUD:
         self.oculta_botones_confirmacion()
 
         # Establece la acción a realizar tras la selección del ID
-        self.combo_box_IDs.connect('changed', self.on_borrar_registro)
+        self.combo_box_IDs_changed_signal = self.combo_box_IDs.connect('changed', self.on_borrar_registro)
 
         # Instrucciones para el usuario
         self.status.push(self.status_context_id, 'Seleccione el registro a eliminar')
@@ -396,6 +408,31 @@ class CRUD:
 
             # Informa al usuario
             self.status.push(self.status_context_id, 'Por favor, seleccione un ID válido')
+
+    def on_borrar_confirmacion(self, *args):
+        """
+            Elimina el registro seleccionado
+        """
+
+        # Recupera el ID
+        id = self.get_id_seleccionado() 
+
+        # Elimina el registro
+        self.db.borra_registro(id)
+
+        # Limpia los campos
+        self.limpia_campos()
+
+        # Oculta el botón
+        self.oculta_botones_confirmacion()
+
+        # Rellena el combobox
+        self.rellena_comboboxIDs()
+        self.combo_box_IDs.grab_focus()
+
+        # Informa al usuario
+        self.status.push(self.status_context_id, 'El registro ha sido borrado')
+    
 
 class crudDB():
     """
@@ -434,7 +471,14 @@ class crudDB():
 
         self.cursor.execute('select * from crud where id = {0};'.format(id)) 
         return(self.cursor.fetchone())
+
+    def borra_registro(self, id):
+        """
+            Elimina el registro con el id recibido como parámetro
+        """
     
+        self.cursor.execute('delete from crud where id = {0};'.format(id)) 
+        self.db.commit()
 
     def close(self):
         """
