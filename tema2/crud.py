@@ -38,7 +38,11 @@ class CRUD:
                     'onToolbuttonDActualizarClicked': self.on_actualizar,
 
                     'onImagemenuitemDBorrarActivate': self.on_borrar,
-                    'onToolbuttonDBorrarClicked': self.on_borrar
+                    'onToolbuttonDBorrarClicked': self.on_borrar,
+
+                    'onButtonConfirmacionCrearActivate': self.on_crear_confirmacion,
+                    'onButtonConfirmacionActualizarActivate': self.on_actualizar_confirmacion,
+                    'onButtonConfirmacionBorrarActivate': self.on_borrar_confirmacion
                    }
 
         # Conecta las señales con las acciones (callbacks)
