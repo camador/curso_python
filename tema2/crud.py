@@ -363,6 +363,35 @@ class CRUD:
         # Instrucciones para el usuario
         self.status.push(self.status_context_id, 'Seleccione el registro a eliminar')
 
+    def on_borrar_registro(self, combo):
+        """
+            Recupera el registro seleccionado por el usuario, rellena los entryboxes
+            con él y muestra el botón 'Borrar'
+        """
+
+        # Recupera el ID
+        id = self.get_id_seleccionado() 
+
+        # Si es un ID válido lo recupera y rellena los campos con él
+        if id != '--':
+
+            registro = self.db.get_registro(id)
+            self.rellena_campos(registro)
+            
+            # Muestra el botón de confirmación
+            self.button_confirmacion_Borrar.show()
+
+            # Limpia la barra de estado
+            self.status.push(self.status_context_id, 'Pulse Borrar para eliminar el registro')
+            
+        else:
+            # El ID no es válido
+
+            # Limpia los campos
+            self.limpia_campos()
+
+            # Informa al usuario
+            self.status.push(self.status_context_id, 'Por favor, seleccione un ID válido')
 
 class crudDB():
     """
