@@ -707,7 +707,7 @@ camador.git@gmail.com</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="no_show_all">True</property>
-                    <signal name="activate" handler="onBbuttonConfirmacionBorrarActivate" swapped="no"/>
+                    <signal name="activate" handler="onButtonConfirmacionBorrarActivate" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
