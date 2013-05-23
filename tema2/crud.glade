@@ -140,7 +140,8 @@ camador.git@gmail.com</property>
   <object class="GtkWindow" id="mainWindow">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Ejercicio CRUD - César Amador</property>
-    <signal name="destroy" handler="mainWindowDestroy" swapped="no"/>
+    <property name="resizable">False</property>
+    <signal name="destroy" handler="onMainWindowDestroy" swapped="no"/>
     <child>
       <object class="GtkBox" id="mainBox">
         <property name="visible">True</property>
@@ -161,13 +162,13 @@ camador.git@gmail.com</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkImageMenuItem" id="imagemenuSalir">
+                      <object class="GtkImageMenuItem" id="imagemenuitemSalir">
                         <property name="label">gtk-quit</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <signal name="activate" handler="mainWindowDestroy" swapped="no"/>
+                        <signal name="activate" handler="onImagemenuitemSalirActivate" swapped="no"/>
                       </object>
                     </child>
                   </object>
@@ -185,43 +186,47 @@ camador.git@gmail.com</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkImageMenuItem" id="menuitemDCrear">
+                      <object class="GtkImageMenuItem" id="imagemenuitemDCrear">
                         <property name="label" translatable="yes">_Crear</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="image">image1</property>
                         <property name="use_stock">False</property>
+                        <signal name="activate" handler="onImagemenuitemDCrearActivate" swapped="no"/>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem" id="menuitemDObtener">
+                      <object class="GtkImageMenuItem" id="imagemenuitemDObtener">
                         <property name="label" translatable="yes">_Obtener</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="image">image2</property>
                         <property name="use_stock">False</property>
+                        <signal name="activate" handler="onImagemenuitemDObtenerActivate" swapped="no"/>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem" id="menuitemDActualizar">
+                      <object class="GtkImageMenuItem" id="imagemenuitemDActualizar">
                         <property name="label" translatable="yes">Actuali_zar</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="image">image3</property>
                         <property name="use_stock">False</property>
+                        <signal name="activate" handler="onImagemenuitemDActualizarActivate" swapped="no"/>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkImageMenuItem" id="menuitemDBorrar">
+                      <object class="GtkImageMenuItem" id="imagemenuitemDBorrar">
                         <property name="label" translatable="yes">_Borrar</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="image">image4</property>
                         <property name="use_stock">False</property>
+                        <signal name="activate" handler="onImagemenuitemDBorrarActivate" swapped="no"/>
                       </object>
                     </child>
                   </object>
@@ -239,13 +244,13 @@ camador.git@gmail.com</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkImageMenuItem" id="imagemenuitem10">
+                      <object class="GtkImageMenuItem" id="imagemenuitemAbout">
                         <property name="label">gtk-about</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <signal name="activate" handler="ayudaAbout" swapped="no"/>
+                        <signal name="activate" handler="onImagemenuitemAboutActivate" swapped="no"/>
                       </object>
                     </child>
                   </object>
@@ -271,6 +276,7 @@ camador.git@gmail.com</property>
                 <property name="label" translatable="yes">_Crear</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-new</property>
+                <signal name="clicked" handler="onToolbuttonDCrearClicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -285,6 +291,7 @@ camador.git@gmail.com</property>
                 <property name="label" translatable="yes">_Obtener</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-revert-to-saved</property>
+                <signal name="clicked" handler="onToolbuttonDObtenerClicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -299,6 +306,7 @@ camador.git@gmail.com</property>
                 <property name="label" translatable="yes">Actuali_zar</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-save</property>
+                <signal name="clicked" handler="onToolbuttonDActualizarClicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -313,6 +321,7 @@ camador.git@gmail.com</property>
                 <property name="label" translatable="yes">_Borrar</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-delete</property>
+                <signal name="clicked" handler="onToolbuttonDBorrarClicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -337,7 +346,7 @@ camador.git@gmail.com</property>
                 <property name="label" translatable="yes">Acerca _de</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-about</property>
-                <signal name="clicked" handler="ayudaAbout" swapped="no"/>
+                <signal name="clicked" handler="onToolbuttonAboutClicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -362,7 +371,7 @@ camador.git@gmail.com</property>
                 <property name="label" translatable="yes">_Salir</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-quit</property>
-                <signal name="clicked" handler="mainWindowDestroy" swapped="no"/>
+                <signal name="clicked" handler="onToolbuttonSalirClicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -405,6 +414,7 @@ camador.git@gmail.com</property>
                 <property name="margin_top">5</property>
                 <property name="margin_bottom">5</property>
                 <property name="orientation">vertical</property>
+                <property name="spacing">2</property>
                 <child>
                   <object class="GtkLabel" id="labelIDs">
                     <property name="visible">True</property>
@@ -454,6 +464,8 @@ camador.git@gmail.com</property>
                 <property name="margin_right">5</property>
                 <property name="margin_top">5</property>
                 <property name="margin_bottom">5</property>
+                <property name="row_spacing">2</property>
+                <property name="column_spacing">2</property>
                 <child>
                   <object class="GtkLabel" id="labelID">
                     <property name="visible">True</property>
@@ -537,11 +549,12 @@ camador.git@gmail.com</property>
                 <child>
                   <object class="GtkEntry" id="entryID">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
+                    <property name="can_focus">False</property>
                     <property name="editable">False</property>
                     <property name="invisible_char">●</property>
                     <property name="width_chars">5</property>
                     <property name="xalign">1</property>
+                    <property name="input_purpose">digits</property>
                   </object>
                   <packing>
                     <property name="left_attach">0</property>
@@ -554,6 +567,7 @@ camador.git@gmail.com</property>
                   <object class="GtkEntry" id="entryCampo1">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="max_length">15</property>
                     <property name="invisible_char">●</property>
                     <property name="width_chars">15</property>
                   </object>
@@ -568,6 +582,7 @@ camador.git@gmail.com</property>
                   <object class="GtkEntry" id="entryCampo2">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="max_length">5</property>
                     <property name="invisible_char">●</property>
                     <property name="width_chars">5</property>
                   </object>
@@ -582,6 +597,7 @@ camador.git@gmail.com</property>
                   <object class="GtkEntry" id="entryCampo3">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="max_length">10</property>
                     <property name="invisible_char">●</property>
                     <property name="width_chars">10</property>
                   </object>
@@ -596,9 +612,9 @@ camador.git@gmail.com</property>
                   <object class="GtkEntry" id="entryCampo4">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="max_length">10</property>
                     <property name="invisible_char">●</property>
                     <property name="width_chars">10</property>
-                    <property name="xalign">1</property>
                   </object>
                   <packing>
                     <property name="left_attach">4</property>
@@ -627,9 +643,11 @@ camador.git@gmail.com</property>
                   <object class="GtkEntry" id="entryCampo5">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="max_length">5</property>
                     <property name="invisible_char">●</property>
                     <property name="width_chars">5</property>
                     <property name="xalign">1</property>
+                    <property name="input_purpose">digits</property>
                   </object>
                   <packing>
                     <property name="left_attach">5</property>
