@@ -265,8 +265,14 @@ class CRUD:
                     'campo5': self.entry_campo5.get_text()
                    }
 
+        # Introduce un 0 en el campo 5 cuando está vacío
+        if registro['campo5'] == '':
+            registro['campo5'] = 0
+
         # Comprueba la validez de los datos
-        if self.db.datos_validos(registro):
+        errores = self.db.valida_registro(registro)
+
+        if not errores:
 
             # Guarda el registro
             id = self.db.crea_registro(registro)
@@ -537,21 +543,23 @@ class crudDB():
         self.cursor.execute('select * from crud where id = {0};'.format(id)) 
         return(self.cursor.fetchone())
 
-    def datos_validos(self, registro):
+    def valida_registro(self, registro):
         """
             Comprueba la validez de los datos del registro recibido como parámetro.
 
-            Devuelve True o False según el resultado de la comprobación.
+            Devuelve un array con los errores encontrados o vacío si los datos son 
+            correctos
         """
 
-        # Hasta que no se validen los datos no son válidos
-        validos = False
+        # Todavía no hay errores
+        errores = [] 
 
         # El parámetro recibido ha de ser un diccionario
-        if isinstance(registro, dict):
-           validos = True 
+        if not isinstance(registro, dict):
+            errores.append('Registro con formato incorrecto')
 
-        return validos
+
+        return errores 
 
     def crea_registro(self, registro):
         """
@@ -560,9 +568,12 @@ class crudDB():
         
         insert = "insert into crud (campo1, campo2, campo3, campo4, campo5) values ('{0[campo1]}', '{0[campo2]}', '{0[campo3]}', '{0[campo4]}', {0[campo5]});".format(registro)
         self.cursor.execute(insert)
+        nuevo_id = self.db.insert_id()
         self.db.commit()
-    
 
+        # Devuelve el ID del nuevo registro
+        return nuevo_id
+    
     def borra_registro(self, id):
         """
             Elimina el registro con el id recibido como parámetro
