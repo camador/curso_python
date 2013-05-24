@@ -70,6 +70,9 @@ class CRUD:
         self.entry_campo4 = self.builder.get_object('entryCampo4')
         self.entry_campo5 = self.builder.get_object('entryCampo5')
 
+        # Etiquetas de los campos
+        self.label_ID = self.builder.get_object('labelID')
+
         # Botones de confirmación
         self.button_confirmacion_Crear = self.builder.get_object('buttonConfirmacionCrear')
         self.button_confirmacion_Actualizar = self.builder.get_object('buttonConfirmacionActualizar')
@@ -231,6 +234,13 @@ class CRUD:
         # Limpia combobox de las IDs
         self.limpia_comboboxIDs()
 
+        # Limpia los campos
+        self.limpia_campos()
+
+        # Oculta el campo ID y su etiqueta
+        self.label_ID.hide()
+        self.entry_ID.hide()
+
         # Situa el foco en el primer campo
         self.entry_campo1.grab_focus()
 
@@ -263,6 +273,10 @@ class CRUD:
         # Carga los IDs de la tabla en el combobox y fija el foco en él
         self.rellena_comboboxIDs()
         self.combo_box_IDs.grab_focus()
+
+        # Muestra el campo ID y su etiqueta
+        self.label_ID.show()
+        self.entry_ID.show()
 
         # Oculta los botones de confirmación porque en esta acción no hay nada que confirmar
         self.oculta_botones_confirmacion()
@@ -314,6 +328,10 @@ class CRUD:
         # Carga los IDs de la tabla en el combobox y fija el foco en él
         self.rellena_comboboxIDs()
         self.combo_box_IDs.grab_focus()
+
+        # Muestra el campo ID y su etiqueta
+        self.label_ID.show()
+        self.entry_ID.show()
 
         # Oculta los botones de confirmación
         self.oculta_botones_confirmacion()
@@ -375,6 +393,10 @@ class CRUD:
         # Carga los IDs de la tabla en el combobox y fija el foco en él
         self.rellena_comboboxIDs()
         self.combo_box_IDs.grab_focus()
+
+        # Muestra el campo ID y su etiqueta
+        self.label_ID.show()
+        self.entry_ID.show()
 
         # Oculta los botones de confirmación
         self.oculta_botones_confirmacion()
