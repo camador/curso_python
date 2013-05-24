@@ -244,9 +244,8 @@ class CRUD:
         # Situa el foco en el primer campo
         self.entry_campo1.grab_focus()
 
-        # Oculta los botones de confirmación y muestra el correspondiente a esta acción 
-        self.button_confirmacion_Actualizar.hide()
-        self.button_confirmacion_Borrar.hide()
+        # Oculta los botones de confirmación y excepto el correspondiente a esta acción 
+        self.oculta_botones_confirmacion()
         self.button_confirmacion_Crear.show()
         
         # Instrucciones para el usuario
@@ -256,7 +255,37 @@ class CRUD:
         """
             Crea un registro con los datos contenidos en los entryboxes
         """
-        pass
+
+        # Recupera los datos de los campos
+        registro = {
+                    'campo1': self.entry_campo1.get_text(),
+                    'campo2': self.entry_campo2.get_text(),
+                    'campo3': self.entry_campo3.get_text(),
+                    'campo4': self.entry_campo4.get_text(),
+                    'campo5': self.entry_campo5.get_text()
+                   }
+
+        # Comprueba la validez de los datos
+        if self.db.datos_validos(registro):
+
+            # Guarda el registro
+            id = self.db.crea_registro(registro)
+
+            # Limpia los campos
+            self.limpia_campos()
+
+            # Fija el foco en el prime campo
+            self.entry_campo1.grab_focus()
+
+            # Informa al usuario
+            self.status.push(self.status_context_id, 'Registro creado con ID: {0}'.format(id))
+
+        else:
+
+            # Errores de validación de los datos
+
+            # Informa al usuario
+            self.status.push(self.status_context_id, 'Datos no válidos')
 
     ##
     ## OBTENER
@@ -508,6 +537,32 @@ class crudDB():
         self.cursor.execute('select * from crud where id = {0};'.format(id)) 
         return(self.cursor.fetchone())
 
+    def datos_validos(self, registro):
+        """
+            Comprueba la validez de los datos del registro recibido como parámetro.
+
+            Devuelve True o False según el resultado de la comprobación.
+        """
+
+        # Hasta que no se validen los datos no son válidos
+        validos = False
+
+        # El parámetro recibido ha de ser un diccionario
+        if isinstance(registro, dict):
+           validos = True 
+
+        return validos
+
+    def crea_registro(self, registro):
+        """
+            Crea un registro con los datos recibidos
+        """
+        
+        insert = "insert into crud (campo1, campo2, campo3, campo4, campo5) values ('{0[campo1]}', '{0[campo2]}', '{0[campo3]}', '{0[campo4]}', {0[campo5]});".format(registro)
+        self.cursor.execute(insert)
+        self.db.commit()
+    
+
     def borra_registro(self, id):
         """
             Elimina el registro con el id recibido como parámetro
@@ -537,7 +592,7 @@ if __name__ == "__main__":
         # Método de inicio
         crud.main()
 
-    except MySQLdb.OperationalError, e:
+    except (MySQLdb.OperationalError, MySQLdb.ProgrammingError), e:
         print '\n'
         print u'Error de base de datos: '
         print '\n\t', e, '\n'
