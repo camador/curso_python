@@ -567,6 +567,7 @@ camador.git@gmail.com</property>
                   <object class="GtkEntry" id="entryCampo1">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="tooltip_text" translatable="yes">Campo tipo texto</property>
                     <property name="max_length">15</property>
                     <property name="invisible_char">●</property>
                     <property name="width_chars">15</property>
@@ -582,6 +583,7 @@ camador.git@gmail.com</property>
                   <object class="GtkEntry" id="entryCampo2">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="tooltip_text" translatable="yes">Campo tipo texto</property>
                     <property name="max_length">5</property>
                     <property name="invisible_char">●</property>
                     <property name="width_chars">5</property>
@@ -597,6 +599,7 @@ camador.git@gmail.com</property>
                   <object class="GtkEntry" id="entryCampo3">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="tooltip_text" translatable="yes">Campo tipo texto</property>
                     <property name="max_length">10</property>
                     <property name="invisible_char">●</property>
                     <property name="width_chars">10</property>
@@ -612,6 +615,7 @@ camador.git@gmail.com</property>
                   <object class="GtkEntry" id="entryCampo4">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="tooltip_text" translatable="yes">Campo tipo texto</property>
                     <property name="max_length">10</property>
                     <property name="invisible_char">●</property>
                     <property name="width_chars">10</property>
@@ -643,6 +647,7 @@ camador.git@gmail.com</property>
                   <object class="GtkEntry" id="entryCampo5">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="tooltip_text" translatable="yes">Campo tipo entero</property>
                     <property name="max_length">5</property>
                     <property name="invisible_char">●</property>
                     <property name="width_chars">5</property>
