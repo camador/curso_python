@@ -241,6 +241,12 @@ class CRUD:
         
         # Instrucciones para el usuario
         self.status.push(self.status_context_id, 'Introduzca los datos para el nuevo registro')
+    
+    def on_crear_confirmacion(self, *args):
+        """
+            Crea un registro con los datos contenidos en los entryboxes
+        """
+        pass
 
     ##
     ## OBTENER
@@ -293,12 +299,6 @@ class CRUD:
 
             # Informa al usuario
             self.status.push(self.status_context_id, 'Por favor, seleccione un ID válido')
-    
-    def on_crear_confirmacion(self, *args):
-        """
-            Crea un registro con los datos contenidos en los entryboxes
-        """
-        pass
 
     ##
     ## ACTUALIZAR
