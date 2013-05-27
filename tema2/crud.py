@@ -324,6 +324,9 @@ class CRUD:
         # Oculta los botones de confirmación porque en esta acción no hay nada que confirmar
         self.oculta_botones_confirmacion()
 
+        # Limpia los campos
+        self.limpia_campos()
+
         # Establece la acción a realizar tras la selección del ID
         self.combo_box_IDs_changed_signal = self.combo_box_IDs.connect('changed', self.on_obtener_registro)
 
@@ -382,6 +385,9 @@ class CRUD:
 
         # Oculta los botones de confirmación
         self.oculta_botones_confirmacion()
+
+        # Limpia los campos
+        self.limpia_campos()
 
         # Establece la acción a realizar tras la selección del ID
         self.combo_box_IDs_changed_signal = self.combo_box_IDs.connect('changed', self.on_actualizar_registro)
@@ -451,6 +457,9 @@ class CRUD:
 
         # Oculta los botones de confirmación
         self.oculta_botones_confirmacion()
+
+        # Limpia los campos
+        self.limpia_campos()
 
         # Establece la acción a realizar tras la selección del ID
         self.combo_box_IDs_changed_signal = self.combo_box_IDs.connect('changed', self.on_borrar_registro)
