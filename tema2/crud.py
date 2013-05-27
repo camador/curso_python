@@ -266,8 +266,8 @@ class CRUD:
         self.campos_editables()
 
         # Oculta el campo ID y su etiqueta
-        self.label_ID.hide()
-        self.entry_ID.hide()
+        #self.label_ID.hide()
+        #self.entry_ID.hide()
 
         # Situa el foco en el primer campo
         self.entry_campo1.grab_focus()
@@ -342,8 +342,8 @@ class CRUD:
         self.combo_box_IDs.grab_focus()
 
         # Muestra el campo ID y su etiqueta
-        self.label_ID.show()
-        self.entry_ID.show()
+        #self.label_ID.show()
+        #self.entry_ID.show()
 
         # Oculta los botones de confirmación porque en esta acción no hay nada que confirmar
         self.oculta_botones_confirmacion()
@@ -405,8 +405,8 @@ class CRUD:
         self.combo_box_IDs.grab_focus()
 
         # Muestra el campo ID y su etiqueta
-        self.label_ID.show()
-        self.entry_ID.show()
+        #self.label_ID.show()
+        #self.entry_ID.show()
 
         # Oculta los botones de confirmación
         self.oculta_botones_confirmacion()
@@ -482,8 +482,8 @@ class CRUD:
         self.combo_box_IDs.grab_focus()
 
         # Muestra el campo ID y su etiqueta
-        self.label_ID.show()
-        self.entry_ID.show()
+        #self.label_ID.show()
+        #self.entry_ID.show()
 
         # Oculta los botones de confirmación
         self.oculta_botones_confirmacion()

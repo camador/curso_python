@@ -468,7 +468,6 @@ camador.git@gmail.com</property>
                 <property name="column_spacing">2</property>
                 <child>
                   <object class="GtkLabel" id="labelID">
-                    <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label" translatable="yes">ID</property>
                     <attributes>
@@ -548,7 +547,6 @@ camador.git@gmail.com</property>
                 </child>
                 <child>
                   <object class="GtkEntry" id="entryID">
-                    <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="editable">False</property>
                     <property name="invisible_char">●</property>
