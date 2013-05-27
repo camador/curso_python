@@ -219,6 +219,29 @@ class CRUD:
         self.entry_campo4.set_text('')
         self.entry_campo5.set_text('')
 
+    def campos_editables(self, editable = True):
+        """
+            Establece si los datos de los entryboxes puede ser editados y 
+            recibir el foco o no
+        """
+
+        self.entry_campo1.set_editable(editable)
+        self.entry_campo1.set_can_focus(editable)
+
+        self.entry_campo2.set_editable(editable)
+        self.entry_campo2.set_can_focus(editable)
+
+        self.entry_campo3.set_editable(editable)
+        self.entry_campo3.set_can_focus(editable)
+
+        self.entry_campo4.set_editable(editable)
+        self.entry_campo4.set_can_focus(editable)
+
+        self.entry_campo5.set_editable(editable)
+        self.entry_campo5.set_can_focus(editable)
+
+    
+
     ##
     ## CREAR
     ##
@@ -238,8 +261,9 @@ class CRUD:
         # Limpia combobox de las IDs
         self.limpia_comboboxIDs()
 
-        # Limpia los campos
+        # Limpia los campos y los hace editables
         self.limpia_campos()
+        self.campos_editables()
 
         # Oculta el campo ID y su etiqueta
         self.label_ID.hide()
@@ -324,8 +348,9 @@ class CRUD:
         # Oculta los botones de confirmación porque en esta acción no hay nada que confirmar
         self.oculta_botones_confirmacion()
 
-        # Limpia los campos
+        # Limpia los campos y los hace no editables
         self.limpia_campos()
+        self.campos_editables(False)
 
         # Establece la acción a realizar tras la selección del ID
         self.combo_box_IDs_changed_signal = self.combo_box_IDs.connect('changed', self.on_obtener_registro)
@@ -386,8 +411,9 @@ class CRUD:
         # Oculta los botones de confirmación
         self.oculta_botones_confirmacion()
 
-        # Limpia los campos
+        # Limpia los campos y los hace no editables
         self.limpia_campos()
+        self.campos_editables(False)
 
         # Establece la acción a realizar tras la selección del ID
         self.combo_box_IDs_changed_signal = self.combo_box_IDs.connect('changed', self.on_actualizar_registro)
@@ -409,6 +435,9 @@ class CRUD:
 
             registro = self.db.get_registro(id)
             self.rellena_campos(registro)
+
+            # Hace los campos editables
+            self.campos_editables()
             
             # Muestra el botón de confirmación
             self.button_confirmacion_Actualizar.show()
@@ -419,8 +448,9 @@ class CRUD:
         else:
             # El ID no es válido
 
-            # Limpia los campos
+            # Limpia los campos y los hace no editables
             self.limpia_campos()
+            self.campos_editables(False)
 
             # Informa al usuario
             self.status.push(self.status_context_id, 'Por favor, seleccione un ID válido')
@@ -458,8 +488,9 @@ class CRUD:
         # Oculta los botones de confirmación
         self.oculta_botones_confirmacion()
 
-        # Limpia los campos
+        # Limpia los campos y los hace no editables
         self.limpia_campos()
+        self.campos_editables(False)
 
         # Establece la acción a realizar tras la selección del ID
         self.combo_box_IDs_changed_signal = self.combo_box_IDs.connect('changed', self.on_borrar_registro)
