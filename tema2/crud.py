@@ -93,6 +93,10 @@ class CRUD:
         # Muestra la ventana principal
         self.window.show_all()
 
+        # Oculta el campo ID y su etiqueta
+        self.label_ID.hide()
+        self.entry_ID.hide()
+
         # A la espera de evento
         Gtk.main()
 
