@@ -58,6 +58,7 @@ class CRUD:
         # Selección de ID
         self.list_store_IDs = self.builder.get_object('liststoreIDs')
         self.combo_box_IDs = self.builder.get_object('comboboxIDs')
+        self.labelIDs = self.builder.get_object('labelIDs')
 
         # Identificador de la señal 'changed' del combobox (inicialmente a None)
         self.combo_box_IDs_changed_signal = None
@@ -230,6 +231,9 @@ class CRUD:
             self.combo_box_IDs.disconnect(self.combo_box_IDs_changed_signal)
             self.combo_box_IDs_changed_signal = None
 
+        # Oculta el combo y su etiqueta
+        self.combo_box_IDs.hide()
+        self.labelIDs.hide()
 
         # Limpia combobox de las IDs
         self.limpia_comboboxIDs()
@@ -305,6 +309,10 @@ class CRUD:
         if self.combo_box_IDs_changed_signal is not None:
             self.combo_box_IDs.disconnect(self.combo_box_IDs_changed_signal)
 
+        # Muestra el combo y su etiqueta
+        self.combo_box_IDs.show()
+        self.labelIDs.show()
+
         # Carga los IDs de la tabla en el combobox y fija el foco en él
         self.rellena_comboboxIDs()
         self.combo_box_IDs.grab_focus()
@@ -359,6 +367,10 @@ class CRUD:
         # Desconecta la señal changed previamente asignada, si había alguna
         if self.combo_box_IDs_changed_signal is not None:
             self.combo_box_IDs.disconnect(self.combo_box_IDs_changed_signal)
+
+        # Muestra el combo y su etiqueta
+        self.combo_box_IDs.show()
+        self.labelIDs.show()
 
         # Carga los IDs de la tabla en el combobox y fija el foco en él
         self.rellena_comboboxIDs()
@@ -424,6 +436,10 @@ class CRUD:
         # Desconecta la señal changed previamente asignada, si había alguna
         if self.combo_box_IDs_changed_signal is not None:
             self.combo_box_IDs.disconnect(self.combo_box_IDs_changed_signal)
+
+        # Muestra el combo y su etiqueta
+        self.combo_box_IDs.show()
+        self.labelIDs.show()
 
         # Carga los IDs de la tabla en el combobox y fija el foco en él
         self.rellena_comboboxIDs()
