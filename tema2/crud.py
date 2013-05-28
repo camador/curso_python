@@ -323,7 +323,7 @@ class CRUD:
             # Errores de validación de los datos
 
             # Informa al usuario
-            self.status.push(self.status_context_id, 'Datos no válidos')
+            self.status.push(self.status_context_id, 'Errores en los datos: ' + ', '.join(errores))
 
     ##
     ## OBTENER
@@ -463,7 +463,46 @@ class CRUD:
         """
             Actualiza un registro con los datos contenidos en los entryboxes
         """
-        pass
+
+        # Recupera los datos de los campos
+        registro = {
+                    'campo1': self.entry_campo1.get_text(),
+                    'campo2': self.entry_campo2.get_text(),
+                    'campo3': self.entry_campo3.get_text(),
+                    'campo4': self.entry_campo4.get_text(),
+                    'campo5': self.entry_campo5.get_text()
+                   }
+
+        # Introduce un 0 en el campo 5 cuando está vacío
+        if registro['campo5'] == '':
+            registro['campo5'] = 0
+
+        # Comprueba la validez de los datos
+        errores = self.db.valida_registro(registro)
+
+        if not errores:
+
+            # Recupera el ID
+            id = self.get_id_seleccionado() 
+
+            # Guarda el registro
+            self.db.actualiza_registro(id, registro)
+
+            # Limpia los campos
+            self.limpia_campos()
+
+            # Fija el foco en el prime campo
+            self.entry_campo1.grab_focus()
+
+            # Informa al usuario
+            self.status.push(self.status_context_id, 'Registro actualizado')
+
+        else:
+
+            # Errores de validación de los datos
+
+            # Informa al usuario
+            self.status.push(self.status_context_id, 'Errores en los datos: ' + ', '.join(errores))
 
     ##
     ## BORRAR
@@ -618,6 +657,13 @@ class crudDB():
         if not isinstance(registro, dict):
             errores.append('Registro con formato incorrecto')
 
+        # El campo5 es entero
+        if registro['campo5'] is not None:
+
+            try:
+                int(registro['campo5'])
+            except:
+                errores.append('El campo 5 debe ser un entero')
 
         return errores 
 
@@ -633,6 +679,15 @@ class crudDB():
 
         # Devuelve el ID del nuevo registro
         return nuevo_id
+
+    def actualiza_registro(self, id, registro):
+        """
+            Actualiza un registro con los datos recibidos
+        """
+        
+        update = "update crud set campo1 = '{1[campo1]}', campo2 = '{1[campo2]}', campo3 = '{1[campo3]}', campo4 = '{1[campo4]}', campo5 = {1[campo5]} where id = {0};".format(id, registro)
+        self.cursor.execute(update)
+        self.db.commit()
     
     def borra_registro(self, id):
         """
