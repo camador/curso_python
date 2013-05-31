@@ -6,6 +6,9 @@
 from scrapy.item import Item, Field
 
 class PostsOslItem(Item):
-    # define the fields for your item here like:
-    # name = Field()
-    pass
+
+    titulo = Field()
+    autor = Field()
+    contenido = Field()
+    categorias = Field()
+    etiquetas = Field()
