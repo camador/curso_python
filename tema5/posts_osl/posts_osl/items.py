@@ -5,7 +5,7 @@
 
 from scrapy.item import Item, Field
 
-class PostsOslItem(Item):
+class oslItem(Item):
 
     titulo = Field()
     autor = Field()
