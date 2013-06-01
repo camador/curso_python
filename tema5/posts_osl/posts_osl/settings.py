@@ -13,3 +13,7 @@ SPIDER_MODULES = ['posts_osl.spiders']
 NEWSPIDER_MODULE = 'posts_osl.spiders'
 USER_AGENT = '%s/%s' % (BOT_NAME, BOT_VERSION)
 
+ITEM_PIPELINES = [
+                    'posts_osl.pipelines.TagPipeline', 
+                    'posts_osl.pipelines.NoTagPipeline'
+                 ]
