@@ -42,5 +42,6 @@ class oslSpider(BaseSpider):
             item['contenido'] = post.select("div[@class='entry-content']/*").extract()
             item['categorias'] = post.select("p[@class='entry-meta']/span[@class='entry-categories']/a/text()").extract()
             item['etiquetas'] = post.select("p[@class='entry-meta']/span[@class='entry-tags']/a/text()").extract()
+            items.append(item)
 
         return items
