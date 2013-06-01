@@ -35,7 +35,7 @@ class TagPipeline(object):
 
 class NoTagPipeline(object):
     """
-        Sólo admite los posts sin etiquetas (tags) definidas
+        Sólo exporta los posts sin etiquetas (tags) definidas
     """
 
     def spider_opened(self, spider):
