@@ -3,6 +3,8 @@
 from scrapy.spider import BaseSpider
 from scrapy.selector import HtmlXPathSelector
 
+from posts_osl.items import oslItem
+
 class oslSpider(BaseSpider):
 
     name = 'osl'
@@ -21,6 +23,9 @@ class oslSpider(BaseSpider):
         # Categorías: "//div[@class='entry hentry']/p[@class='entry-meta']/span[@class='entry-categories']/a/text()"
         # Etiquetas: "//div[@class='entry hentry']/p[@class='entry-meta']/span[@class='entry-tags']/a/text()"
 
+        # Items a devolver
+        items = []
+
         # Instancia un selector
         hxs = HtmlXPathSelector(response)
 
@@ -29,11 +34,13 @@ class oslSpider(BaseSpider):
 
         # Recorre los posts extrayendo la información
         for post in posts:
-            print '--------------------'
-            print u'Título: ', post.select("h2[@class='entry-title']/a/text()").extract()[0]
-            print u'Autor: ', post.select("div[@class='entry-byline']/address[@class='author vcard']/a/text()").extract()[0]
-            print u'Contenido: ', '\n'.join(post.select("div[@class='entry-content']/*").extract())
-            print u'Categorías: ', ', '.join(post.select("p[@class='entry-meta']/span[@class='entry-categories']/a/text()").extract())
-            print u'Tags: ', ', '.join(post.select("p[@class='entry-meta']/span[@class='entry-tags']/a/text()").extract())
 
-        print '--------------------'
+            # Item para almacenar los datos
+            item = oslItem()
+            item['titulo'] = post.select("h2[@class='entry-title']/a/text()").extract()
+            item['autor'] = post.select("div[@class='entry-byline']/address[@class='author vcard']/a/text()").extract()
+            item['contenido'] = post.select("div[@class='entry-content']/*").extract()
+            item['categorias'] = post.select("p[@class='entry-meta']/span[@class='entry-categories']/a/text()").extract()
+            item['etiquetas'] = post.select("p[@class='entry-meta']/span[@class='entry-tags']/a/text()").extract()
+
+        return items
