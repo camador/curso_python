@@ -3,3 +3,6 @@
 
 # Scripts python compilados
 *.pyc
+
+# Ficheros de salida del ejercicio del tema 5
+tema5/posts_osl/*.xml
