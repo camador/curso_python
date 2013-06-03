@@ -1,11 +1,18 @@
 # -*- coding: utf-8 -*-
 
+from scrapy.xlib.pydispatch import dispatcher
+from scrapy import signals
 from scrapy.contrib.exporter import XmlItemExporter
 
 class TagPipeline(object):
     """
         Sólo exporta los posts con etiquetas (tags) definidas
     """
+
+    def __init__(self):
+        # Conexión de las señales de apertura y cierre del spider
+        dispatcher.connect(self.spider_opened, signals.spider_opened)
+        dispatcher.connect(self.spider_closed, signals.spider_closed)
 
     def spider_opened(self, spider):
 
@@ -37,6 +44,11 @@ class NoTagPipeline(object):
     """
         Sólo exporta los posts sin etiquetas (tags) definidas
     """
+
+    def __init__(self):
+        # Conexión de las señales de apertura y cierre del spider
+        dispatcher.connect(self.spider_opened, signals.spider_opened)
+        dispatcher.connect(self.spider_closed, signals.spider_closed)
 
     def spider_opened(self, spider):
 
