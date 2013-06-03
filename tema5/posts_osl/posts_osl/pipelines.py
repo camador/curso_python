@@ -26,7 +26,7 @@ class TagPipeline(object):
     def spider_closed(self, spider):
     
         # Termina la exportación
-        self.exporter.finish_sporting()
+        self.exporter.finish_exporting()
 
         # Cierra el fichero
         self.file.close()
@@ -62,7 +62,7 @@ class NoTagPipeline(object):
     def spider_closed(self, spider):
     
         # Termina la exportación
-        self.exporter.finish_sporting()
+        self.exporter.finish_exporting()
 
         # Cierra el fichero
         self.file.close()
