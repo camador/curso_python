@@ -33,6 +33,9 @@ ALTO = 600
 # Ubicación de los ficheros
 IMG_DIR = 'imagenes'
 
+# Velocidad base para todos los sprites
+VELOCIDAD_BASE = 1
+
 ##
 ## JUGADOR
 ##
@@ -56,6 +59,9 @@ class Jugador(pygame.sprite.Sprite):
         # Estable el centro de la ventana como posición inicial
         self.rect.centerx = ANCHO / 2
         self.rect.centery = ALTO / 2
+
+        # Velocidad de movimiento
+        self.velocidad = VELOCIDAD_BASE
 
 ##
 ## MAIN
