@@ -21,6 +21,9 @@
 #
 
 import pygame
+from pygame.locals import *
+
+import sys
 
 # Constantes con el tamaño de la ventana
 ANCHO = 800
@@ -33,6 +36,17 @@ def main():
 
     # Título de la ventana
     pygame.display.set_caption('Da rienda suelta a tu imaginación - César Amador')
+
+    # El programa permanece funcionando hasta que se cierra la ventana
+    while True:
+
+        # Obtiene y recorre la lista de eventos que están teniendo lugar
+        for evento in pygame.event.get():
+
+            # Si encuentra el evento QUIT termina la ejecución
+            if evento.type == QUIT:
+                sys.exit(0)
+
 
     return 0
 
