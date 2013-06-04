@@ -25,9 +25,12 @@ from pygame.locals import *
 
 import sys
 
-# Constantes con el tamaño de la ventana
+# Tamaño de la ventana
 ANCHO = 800
 ALTO = 600
+
+# Ubicación de los ficheros
+IMG_DIR = 'imagenes'
 
 def main():
 
@@ -40,7 +43,7 @@ def main():
         pygame.display.set_caption('Da rienda suelta a tu imaginación - César Amador')
 
         # Carga el fondo (convirtiéndolo al formato usado en SDL para mejorar la eficiencia)
-        fondo = pygame.image.load('imagenes/fondo.jpg').convert()
+        fondo = pygame.image.load('%s/fondo.jpg' % IMG_DIR).convert()
 
         # El programa permanece funcionando hasta que se cierra la ventana
         while True:
@@ -51,6 +54,12 @@ def main():
                 # Si encuentra el evento QUIT termina la ejecución
                 if evento.type == QUIT:
                     sys.exit(0)
+
+            # Situa el fondo en el primer pixel de la ventana
+            ventana.blit(fondo, (0, 0))
+
+            # Dibuja la escena
+            pygame.display.flip()
 
         return 0
 
