@@ -73,20 +73,49 @@ class Jugador(pygame.sprite.Sprite):
             El cálculo de la posición del personaje se realiza en función de la velocidad y
             del tiempo (d = v * t, distancia = velocidad * tiempo), o sea, la nueva posición
             será igual a la posición actual más la distancia recorrida en el eje correspondiente
+
+            El tiempo recibido como parámetro es el tiempo transcurrido por cada frame
         """
 
-        # Los límites del movimiento son los bordes de la ventana
-        if self.rect.top >= 0 and self.rect.bottom <= ALTO and self.rect.left >= 0 and self.rect.right <= ANCHO:
+        # Obtiene las pulsaciones de teclas
+        teclas = pygame.key.get_pressed()
 
-            # Obtiene las pulsaciones de teclas
-            teclas = pygame.key.get_pressed()
+        # Cálculo de la distancia recorrida en un frame
+        distancia = self.velocidad * tiempo
+
+        # Los límites del movimiento son los bordes de la ventana
+        #if self.rect.top >= 0 and self.rect.bottom <= ALTO and self.rect.left >= 0 and self.rect.right <= ANCHO:
+        if self.rect.top >= 0:
 
             # Cursor Arriba
             if teclas[K_UP]:
 
                 # Desplazamiento hacia arriba
-                self.rect.centery -=  self.velocidad * tiempo
+                self.rect.centery -= distancia
 
+        if self.rect.bottom <= ALTO:
+
+            # Cursor Abajo
+            if teclas[K_DOWN]:
+
+                # Desplazamiento hacia abajo
+                self.rect.centery += distancia
+
+        if self.rect.left >= 0:
+
+            # Cursor Izquierda
+            if teclas[K_LEFT]:
+
+                # Desplazamiento hacia la izquierda 
+                self.rect.centerx -= distancia
+
+        if self.rect.right <= ANCHO:
+
+            # Cursor Derecha
+            if teclas[K_RIGHT]:
+
+                # Desplazamiento hacia la derecha
+                self.rect.centerx += distancia
 ##
 ## MAIN
 ##
