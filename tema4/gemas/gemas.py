@@ -47,8 +47,14 @@ class Jugador(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         # Carga la imagen
-        self.imagen = pygame.image.load('%s/jugador.png').convert() 
+        self.imagen = pygame.image.load('%s/jugador.png' % IMG_DIR).convert() 
 
+        # Obtiene un rectángulo con las dimensiones y posición de la imagen
+        self.rect = self.imagen.get_rect()
+
+        # Estable el centro de la ventana como posición inicial
+        self.rect.centerx = ANCHO / 2
+        self.rect.centery = ALTO / 2
 
 ##
 ## MAIN
@@ -67,6 +73,9 @@ def main():
         # Carga el fondo (convirtiéndolo al formato usado en SDL para mejorar la eficiencia)
         fondo = pygame.image.load('%s/fondo.jpg' % IMG_DIR).convert()
 
+        # Instancia al jugador
+        jugador = Jugador()
+
         # El programa permanece funcionando hasta que se cierra la ventana
         while True:
 
@@ -79,6 +88,9 @@ def main():
 
             # Situa el fondo en el primer pixel de la ventana
             ventana.blit(fondo, (0, 0))
+
+            # Situa al jugador en la ventana
+            ventana.blit(jugador.imagen, jugador.rect)
 
             # Dibuja la escena
             pygame.display.flip()
