@@ -24,6 +24,7 @@ import pygame
 from pygame.locals import *
 
 import sys
+import os
 
 # Tamaño de la ventana
 ANCHO = 800
@@ -47,7 +48,7 @@ class Jugador(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         # Carga la imagen
-        self.imagen = pygame.image.load('%s/jugador.png' % IMG_DIR).convert() 
+        self.imagen = pygame.image.load(os.path.join(IMG_DIR, 'jugador.png')).convert() 
 
         # Obtiene un rectángulo con las dimensiones y posición de la imagen
         self.rect = self.imagen.get_rect()
@@ -71,7 +72,7 @@ def main():
         pygame.display.set_caption('Da rienda suelta a tu imaginación - César Amador')
 
         # Carga el fondo (convirtiéndolo al formato usado en SDL para mejorar la eficiencia)
-        fondo = pygame.image.load('%s/fondo.jpg' % IMG_DIR).convert()
+        fondo = pygame.image.load(os.path.join(IMG_DIR, 'fondo.jpg')).convert()
 
         # Instancia al jugador
         jugador = Jugador()
