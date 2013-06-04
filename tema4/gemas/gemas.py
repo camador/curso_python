@@ -32,6 +32,28 @@ ALTO = 600
 # Ubicación de los ficheros
 IMG_DIR = 'imagenes'
 
+##
+## JUGADOR
+##
+
+class Jugador(pygame.sprite.Sprite):
+    """
+        Sprite para el jugador
+    """
+
+    def __init__(self):
+
+        # Inicializa el ancestro
+        pygame.sprite.Sprite.__init__(self)
+
+        # Carga la imagen
+        self.imagen = pygame.image.load('%s/jugador.png').convert() 
+
+
+##
+## MAIN
+##
+
 def main():
 
     try:
