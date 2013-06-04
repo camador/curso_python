@@ -47,8 +47,8 @@ class Jugador(pygame.sprite.Sprite):
         # Inicializa el ancestro
         pygame.sprite.Sprite.__init__(self)
 
-        # Carga la imagen
-        self.imagen = pygame.image.load(os.path.join(IMG_DIR, 'jugador.png')).convert() 
+        # Carga la imagen (convert_alpha() convierte la imagen con transparencias (per pixel transparency)
+        self.imagen = pygame.image.load(os.path.join(IMG_DIR, 'jugador.png')).convert_alpha() 
 
         # Obtiene un rectángulo con las dimensiones y posición de la imagen
         self.rect = self.imagen.get_rect()
