@@ -31,29 +31,46 @@ ALTO = 600
 
 def main():
 
-    # Crea la ventana
-    ventana = pygame.display.set_mode((ANCHO, ALTO))
+    try:
 
-    # Título de la ventana
-    pygame.display.set_caption('Da rienda suelta a tu imaginación - César Amador')
+        # Crea la ventana
+        ventana = pygame.display.set_mode((ANCHO, ALTO))
 
-    # El programa permanece funcionando hasta que se cierra la ventana
-    while True:
+        # Título de la ventana
+        pygame.display.set_caption('Da rienda suelta a tu imaginación - César Amador')
 
-        # Obtiene y recorre la lista de eventos que están teniendo lugar
-        for evento in pygame.event.get():
+        # Carga el fondo (convirtiéndolo al formato usado en SDL para mejorar la eficiencia)
+        fondo = pygame.image.load('imagenes/fondo.jpg').convert()
 
-            # Si encuentra el evento QUIT termina la ejecución
-            if evento.type == QUIT:
-                sys.exit(0)
+        # El programa permanece funcionando hasta que se cierra la ventana
+        while True:
 
+            # Obtiene y recorre la lista de eventos que están teniendo lugar
+            for evento in pygame.event.get():
 
-    return 0
+                # Si encuentra el evento QUIT termina la ejecución
+                if evento.type == QUIT:
+                    sys.exit(0)
+
+        return 0
+
+    except pygame.error, e:
+        print '\n'
+        print u'Error en Pygame: '
+        print '\n\t' , e, '\n'
+
 
 if __name__ == '__main__':
 
-    # Inicializa Pygame
-    pygame.init()
+    try:
 
-    # Empezando...
-    main()
+        # Inicializa Pygame
+        pygame.init()
+
+        # Empezando...
+        main()
+
+    except Exception, e:
+        print '\n'
+        print u'Error inesperado: '
+        print '\n\t' , e, '\n'
