@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 #
+# DA RIENDA SUELTA A TU IMAGINACIÓN
+#
 # Requisitos mínimos:
 # 
 # - Debe haber una imagen de fondo.
@@ -26,10 +28,18 @@ ALTO = 600
 
 def main():
 
-    # Inicializa Pygame
-    pygame.init()
+    # Crea la ventana
+    ventana = pygame.display.set_mode((ANCHO, ALTO))
+
+    # Título de la ventana
+    pygame.display.set_caption('Da rienda suelta a tu imaginación - César Amador')
 
     return 0
 
 if __name__ == '__main__':
+
+    # Inicializa Pygame
+    pygame.init()
+
+    # Empezando...
     main()
