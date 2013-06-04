@@ -27,8 +27,8 @@ import sys
 import os
 
 # Tamaño de la ventana
-ANCHO = 800
-ALTO = 600
+ANCHO = 1024
+ALTO = 768
 
 # Ubicación de los ficheros
 IMG_DIR = 'imagenes'
