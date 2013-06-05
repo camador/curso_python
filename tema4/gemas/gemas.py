@@ -25,6 +25,7 @@ from pygame.locals import *
 
 import sys
 import os
+from random import randint
 
 # Tamaño de la ventana
 ANCHO = 1024
@@ -38,6 +39,9 @@ VELOCIDAD_BASE = 1
 
 # Número de frames por segundo
 FRAMERATE = 60
+
+# Puntos de spawn
+SPAWN_POINTS = [(100,100), (100, ALTO - 100), (ANCHO - 100, 100), (ANCHO - 100, ALTO - 100)]
 
 ##
 ## JUGADOR
@@ -116,6 +120,41 @@ class Jugador(pygame.sprite.Sprite):
 
                 # Desplazamiento hacia la derecha
                 self.rect.centerx += distancia
+
+##
+## ENEMIGOS
+##
+
+class Enemigo(pygame.sprite.Sprite):
+    """
+        Sprite para los enemigos
+    """
+
+    def __init__(self):
+
+        # Inicializa el ancestro
+        pygame.sprite.Sprite.__init__(self)
+
+        # Carga la imagen (convert_alpha() convierte la imagen con transparencias (per pixel transparency)
+        self.imagen = pygame.image.load(os.path.join(IMG_DIR, 'enemigo.png')).convert_alpha() 
+
+        # Obtiene un rectángulo con las dimensiones y posición de la imagen
+        self.rect = self.imagen.get_rect()
+
+        # Fila la posición de inicio
+        self.rect.centerx, self.rect.centery = self.__get_spawn()
+
+        # Velocidad de movimiento
+        self.velocidad = VELOCIDAD_BASE * 0.5
+
+    def __get_spawn(self):
+        """
+            Selecciona aleatoriamente un punto de spawn de entre los disponibles
+        """
+        
+        return SPAWN_POINTS[randint(0, len(SPAWN_POINTS) - 1)]
+
+
 ##
 ## MAIN
 ##
@@ -135,6 +174,9 @@ def main():
 
         # Instancia al jugador
         jugador = Jugador()
+
+        # Instancia a un enemigo
+        enemigo = Enemigo()
 
         # Instancia un reloj para controlar el tiempo
         reloj = pygame.time.Clock()
