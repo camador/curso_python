@@ -249,6 +249,14 @@ class Gema(pygame.sprite.Sprite):
         Sprite para las gemas
     """
 
+    # Duración de la gema en segundos
+    duracion = 5 
+
+    # Vida restante de la gema
+    # La vida viene dada por un número de segundos (duración) multiplicado por el framerate, de
+    # forma que se pueda calcular cuánta vida pierde la gema por cada frame
+    puntos = duracion * FRAMERATE
+
     def __init__(self):
 
         # Inicializa el ancestro
