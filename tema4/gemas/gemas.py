@@ -211,6 +211,9 @@ def main():
             # Situa al jugador en la ventana
             ventana.blit(jugador.imagen, jugador.rect)
 
+            # Situa al enemigo en la ventana
+            ventana.blit(enemigo.imagen, enemigo.rect)
+
             #
             # ACTUALIZACIÓN DE LA PANTALLA
             # 
