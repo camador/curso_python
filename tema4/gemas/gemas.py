@@ -192,9 +192,29 @@ class Enemigo(pygame.sprite.Sprite):
             distancia = self.__get_distancia(EJE_Y, tiempo)
             self.rect.centery += distancia
 
+        #
         # Detección de colisiones
+        #
+
+        # Jugador
         if pygame.sprite.collide_rect(self, sprites_activos['jugador']):
             raise Exception("Perdiste!")
+
+        # Gema
+        if pygame.sprite.collide_rect(self, sprites_activos['gema']):
+
+            gema = sprites_activos['gema']
+
+            # Las gemas hacen que el enemigo rebote
+            if self.rect.left <= gema.rect.right or self.rect.right >= gema.rect.left:
+                self.velocidad[EJE_X] *= -1
+                distancia = self.__get_distancia(EJE_X, tiempo)
+                self.rect.centerx += distancia
+
+            if self.rect.top <= gema.rect.bottom or self.rect.bottom >= gema.rect.top:
+                self.velocidad[EJE_Y] *= -1
+                distancia = self.__get_distancia(EJE_Y, tiempo)
+                self.rect.centery += distancia
 
     def __get_spawn(self):
         """
