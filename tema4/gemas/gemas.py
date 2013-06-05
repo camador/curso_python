@@ -208,11 +208,11 @@ def main():
             # Situa el fondo en el primer pixel de la ventana
             ventana.blit(fondo, (0, 0))
 
-            # Situa al jugador en la ventana
-            ventana.blit(jugador.imagen, jugador.rect)
-
             # Situa al enemigo en la ventana
             ventana.blit(enemigo.imagen, enemigo.rect)
+
+            # Situa al jugador en la ventana
+            ventana.blit(jugador.imagen, jugador.rect)
 
             #
             # ACTUALIZACIÓN DE LA PANTALLA
