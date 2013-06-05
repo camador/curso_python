@@ -159,7 +159,7 @@ class Enemigo(pygame.sprite.Sprite):
                             EJE_Y: VELOCIDAD_BASE * 0.5
                          }
 
-    def mover(self, tiempo):
+    def mover(self, tiempo, sprites_activos):
         """
             Gestiona el movimiento del enemigo: movimiento automático en diagonal con rebote
             en los bordes de la ventana
@@ -192,6 +192,10 @@ class Enemigo(pygame.sprite.Sprite):
             distancia = self.__get_distancia(EJE_Y, tiempo)
             self.rect.centery += distancia
 
+        # Detección de colisiones
+        if pygame.sprite.collide_rect(self, sprites_activos['jugador']):
+            raise Exception("Perdiste!")
+
     def __get_spawn(self):
         """
             Selecciona aleatoriamente un punto de spawn de entre los disponibles
@@ -215,6 +219,9 @@ def main():
 
     try:
 
+        # Diccionario de sprites activos en cada momento
+        sprites_activos = {}
+
         # Crea la ventana
         ventana = pygame.display.set_mode((ANCHO, ALTO))
 
@@ -224,11 +231,13 @@ def main():
         # Carga el fondo (convirtiéndolo al formato usado en SDL para mejorar la eficiencia)
         fondo = pygame.image.load(os.path.join(IMG_DIR, 'fondo.jpg')).convert()
 
-        # Instancia al jugador
+        # Instancia al jugador y lo añade a la lista de sprites activos
         jugador = Jugador()
+        sprites_activos['jugador'] = jugador
 
-        # Instancia a un enemigo
+        # Instancia a un enemigo y lo añade a la lista de sprites activos
         enemigo = Enemigo()
+        sprites_activos['enemigo'] = enemigo 
 
         # Instancia un reloj para controlar el tiempo
         reloj = pygame.time.Clock()
@@ -253,7 +262,7 @@ def main():
             # CALCULO DEL MOVIMIENTO
             # 
             jugador.mover(tiempo)
-            enemigo.mover(tiempo)
+            enemigo.mover(tiempo, sprites_activos)
 
             #
             # ACTUALIZACIÓN DE POSICIONES EN PANTALLA
