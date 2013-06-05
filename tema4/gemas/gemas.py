@@ -183,14 +183,10 @@ class Enemigo(pygame.sprite.Sprite):
         # correspondiente y se recalcula la posición
 
         if self.rect.left <= 0 or self.rect.right >= ANCHO:
-            self.velocidad[EJE_X] *= -1
-            distancia = self.__get_distancia(EJE_X, tiempo)
-            self.rect.centerx += distancia
+            self.__rebote(EJE_X, tiempo)
 
         if self.rect.top <= 0 or self.rect.bottom >= ALTO:
-            self.velocidad[EJE_Y] *= -1
-            distancia = self.__get_distancia(EJE_Y, tiempo)
-            self.rect.centery += distancia
+            self.__rebote(EJE_Y, tiempo)
 
         #
         # Detección de colisiones
@@ -207,14 +203,10 @@ class Enemigo(pygame.sprite.Sprite):
 
             # Las gemas hacen que el enemigo rebote
             if self.rect.left <= gema.rect.right or self.rect.right >= gema.rect.left:
-                self.velocidad[EJE_X] *= -1
-                distancia = self.__get_distancia(EJE_X, tiempo)
-                self.rect.centerx += distancia
+                self.__rebote(EJE_X, tiempo)
 
             if self.rect.top <= gema.rect.bottom or self.rect.bottom >= gema.rect.top:
-                self.velocidad[EJE_Y] *= -1
-                distancia = self.__get_distancia(EJE_Y, tiempo)
-                self.rect.centery += distancia
+                self.__rebote(EJE_Y, tiempo)
 
     def __get_spawn(self):
         """
@@ -229,6 +221,24 @@ class Enemigo(pygame.sprite.Sprite):
         """
 
         return self.velocidad[eje] * tiempo
+
+    def __rebote(self, eje, tiempo):
+        """
+            Invierte el sentido del movimiento en el eje especificado y recalcula la
+            posición
+        """
+
+        # Invierte el sentido del movimiento
+        self.velocidad[eje] *= -1
+
+        # Recalcula la distancia recorrida
+        distancia = self.__get_distancia(eje, tiempo)
+
+        # Fija la nueva posición
+        if eje == EJE_X:
+            self.rect.centerx += distancia
+        else:
+            self.rect.centery += distancia
 
 
 ##
