@@ -212,6 +212,38 @@ class Enemigo(pygame.sprite.Sprite):
 
 
 ##
+## GEMAS
+##
+class Gema(pygame.sprite.Sprite):
+    """
+        Sprite para las gemas
+    """
+
+    def __init__(self):
+
+        # Inicializa el ancestro
+        pygame.sprite.Sprite.__init__(self)
+
+        # Carga la imagen (convert_alpha() convierte la imagen con transparencias (per pixel transparency)
+        self.imagen = pygame.image.load(os.path.join(IMG_DIR, 'gema.png')).convert_alpha() 
+
+        # Obtiene un rectángulo con las dimensiones y posición de la imagen
+        self.rect = self.imagen.get_rect()
+
+        # Fila la posición de inicio
+        self.rect.centerx, self.rect.centery = self.__get_spawn()
+
+    def __get_spawn(self):
+        """
+            Genera un punto de spawn en cualquier punto de la pantalla excluyendo
+            los márgenes
+        """
+        x = randint(SPAWN_MARGEN_X, ANCHO - SPAWN_MARGEN_X)  
+        y = randint(SPAWN_MARGEN_Y, ALTO - SPAWN_MARGEN_Y)  
+
+        return (x, y)
+
+##
 ## MAIN
 ##
 
@@ -235,9 +267,13 @@ def main():
         jugador = Jugador()
         sprites_activos['jugador'] = jugador
 
-        # Instancia a un enemigo y lo añade a la lista de sprites activos
+        # Instancia un enemigo y lo añade a la lista de sprites activos
         enemigo = Enemigo()
         sprites_activos['enemigo'] = enemigo 
+
+        # Instancia una gema y la añade a la lista de sprites activos
+        gema = Gema()
+        sprites_activos['gema'] = gema 
 
         # Instancia un reloj para controlar el tiempo
         reloj = pygame.time.Clock()
@@ -271,9 +307,9 @@ def main():
             # Situa el fondo en el primer pixel de la ventana
             ventana.blit(fondo, (0, 0))
 
-            # Enemigo y jugador
-            ventana.blit(enemigo.imagen, enemigo.rect)
-            ventana.blit(jugador.imagen, jugador.rect)
+            # Actualiza la posición de los sprites
+            for nombre in sprites_activos.keys():
+                ventana.blit(sprites_activos[nombre].imagen, sprites_activos[nombre].rect)
 
             #
             # ACTUALIZACIÓN DE LA PANTALLA
