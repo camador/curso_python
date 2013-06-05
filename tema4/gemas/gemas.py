@@ -46,7 +46,7 @@ FRAMERATE = 60
 
 # Puntos de spawn (las 4 esquinas)
 SPAWN_MARGEN_X = ANCHO / 10 
-SPAWN_MARGEN_Y = ALTO / 10
+SPAWN_MARGEN_Y = ALTO / 8
 SPAWN_POINTS = [
                 (SPAWN_MARGEN_X, SPAWN_MARGEN_Y), 
                 (SPAWN_MARGEN_X, ALTO - SPAWN_MARGEN_Y), 
