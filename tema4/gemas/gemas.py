@@ -31,6 +31,10 @@ from random import randint
 ANCHO = 1024
 ALTO = 768
 
+# Nombre de los ejes
+EJE_X = 'x'
+EJE_Y = 'y'
+
 # Ubicación de los ficheros
 IMG_DIR = 'imagenes'
 
@@ -40,8 +44,14 @@ VELOCIDAD_BASE = 1
 # Número de frames por segundo
 FRAMERATE = 60
 
-# Puntos de spawn
-SPAWN_POINTS = [(100,100), (100, ALTO - 100), (ANCHO - 100, 100), (ANCHO - 100, ALTO - 100)]
+# Puntos de spawn (las 4 esquinas)
+SPAWN_MARGEN_X = ANCHO / 10 
+SPAWN_MARGEN_Y = ALTO / 10
+SPAWN_POINTS = [
+                (SPAWN_MARGEN_X, SPAWN_MARGEN_Y), 
+                (SPAWN_MARGEN_X, ALTO - SPAWN_MARGEN_Y), 
+                (ANCHO - SPAWN_MARGEN_X, SPAWN_MARGEN_Y), 
+                (ANCHO - SPAWN_MARGEN_X, ALTO - SPAWN_MARGEN_Y)]
 
 ##
 ## JUGADOR
@@ -72,7 +82,7 @@ class Jugador(pygame.sprite.Sprite):
 
     def mover(self, tiempo):
         """
-            Gestiona el movimiento del personaje
+            Gestiona el movimiento del personaje: movimiento con los cursores
 
             El cálculo de la posición del personaje se realiza en función de la velocidad y
             del tiempo (d = v * t, distancia = velocidad * tiempo), o sea, la nueva posición
@@ -88,7 +98,6 @@ class Jugador(pygame.sprite.Sprite):
         distancia = self.velocidad * tiempo
 
         # Los límites del movimiento son los bordes de la ventana
-        #if self.rect.top >= 0 and self.rect.bottom <= ALTO and self.rect.left >= 0 and self.rect.right <= ANCHO:
         if self.rect.top >= 0:
 
             # Cursor Arriba
@@ -144,8 +153,44 @@ class Enemigo(pygame.sprite.Sprite):
         # Fila la posición de inicio
         self.rect.centerx, self.rect.centery = self.__get_spawn()
 
-        # Velocidad de movimiento
-        self.velocidad = VELOCIDAD_BASE * 0.5
+        # Velocidad de movimiento en cada eje
+        self.velocidad = {
+                            EJE_X: VELOCIDAD_BASE * 0.5,
+                            EJE_Y: VELOCIDAD_BASE * 0.5
+                         }
+
+    def mover(self, tiempo):
+        """
+            Gestiona el movimiento del enemigo: movimiento automático en diagonal con rebote
+            en los bordes de la ventana
+
+            El cálculo de la posición del personaje se realiza en función de la velocidad y
+            del tiempo (d = v * t, distancia = velocidad * tiempo), o sea, la nueva posición
+            será igual a la posición actual más la distancia recorrida en el eje correspondiente
+
+            El tiempo recibido como parámetro es el tiempo transcurrido por cada frame
+        """
+
+        # Cálculo de la distancia recorrida en un frame
+        distancia_x = self.__get_distancia(EJE_X, tiempo)
+        distancia_y = self.__get_distancia(EJE_Y, tiempo)
+
+        # Modifica la posición en los dos ejes
+        self.rect.centerx += distancia_x
+        self.rect.centery += distancia_y
+
+        # Al llegar a un borde de la ventana se invierte el sentido del movimiento en el eje
+        # correspondiente y se recalcula la posición
+
+        if self.rect.left <= 0 or self.rect.right >= ANCHO:
+            self.velocidad[EJE_X] *= -1
+            distancia = self.__get_distancia(EJE_X, tiempo)
+            self.rect.centerx += distancia
+
+        if self.rect.top <= 0 or self.rect.bottom >= ALTO:
+            self.velocidad[EJE_Y] *= -1
+            distancia = self.__get_distancia(EJE_Y, tiempo)
+            self.rect.centery += distancia
 
     def __get_spawn(self):
         """
@@ -153,6 +198,13 @@ class Enemigo(pygame.sprite.Sprite):
         """
         
         return SPAWN_POINTS[randint(0, len(SPAWN_POINTS) - 1)]
+
+    def __get_distancia(self, eje, tiempo):
+        """
+            Calcula la distancia recorrida en el eje indicado 
+        """
+
+        return self.velocidad[eje] * tiempo
 
 
 ##
@@ -182,9 +234,10 @@ def main():
         reloj = pygame.time.Clock()
 
         # El programa permanece funcionando hasta que se cierra la ventana
+        # Cada iteración del bucle es un frame
         while True:
 
-            # Averigua el tiempo (en milisegundos) transcurrido por cada frame (cada iteración del bucle)
+            # Averigua el tiempo (en milisegundos) transcurrido por cada frame
             # Además, al usar FRAMERATE en la llamada, se fija el número de frames por segundo 
             # independientemente del hardware de la máquina
             tiempo = reloj.tick(FRAMERATE)
@@ -200,6 +253,7 @@ def main():
             # CALCULO DEL MOVIMIENTO
             # 
             jugador.mover(tiempo)
+            enemigo.mover(tiempo)
 
             #
             # ACTUALIZACIÓN DE POSICIONES EN PANTALLA
@@ -208,10 +262,8 @@ def main():
             # Situa el fondo en el primer pixel de la ventana
             ventana.blit(fondo, (0, 0))
 
-            # Situa al enemigo en la ventana
+            # Enemigo y jugador
             ventana.blit(enemigo.imagen, enemigo.rect)
-
-            # Situa al jugador en la ventana
             ventana.blit(jugador.imagen, jugador.rect)
 
             #
