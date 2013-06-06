@@ -10,7 +10,7 @@ algunas de las técnicas aprendidas.
 
 Requisitos
 ----------
-* [Python 2.7](Python 2.7)
+* [Python 2.7](http://www.python.org/)
 * [Pygame](http://www.pygame.org)
 * [MySQLdb](http://sourceforge.net/projects/mysql-python/)
 * [PyGObjet](https://live.gnome.org/PyGObject)
