@@ -24,7 +24,7 @@ class Gema(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         # Carga la imagen (convert_alpha() convierte la imagen con transparencias (per pixel transparency)
-        self.imagen = pygame.image.load(os.path.join(Config.IMG_DIR, 'gema.png')).convert_alpha() 
+        self.imagen = pygame.image.load(os.path.join(Config.IMG_DIR, 'gema1.png')).convert_alpha() 
 
         # Obtiene un rectángulo con las dimensiones y posición de la imagen
         self.rect = self.imagen.get_rect()
