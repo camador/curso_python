@@ -1,9 +1,9 @@
 GEMAS
 =====
 
-Gemas es un juego inspirado en [Geometry Wars: Retro Evolved 2](http://en.wikipedia.org/wiki/Geometry_Wars:_Retro_Evolved_2), concretamente en el modo 'Rey'.
+Gemas está inspirado en el modo *Rey* de [Geometry Wars: Retro Evolved 2](http://en.wikipedia.org/wiki/Geometry_Wars:_Retro_Evolved_2).
 
-Es el Proyecto del **Curso de Programación
+Es mi Proyecto para el **Curso de Programación
 Avanzada en Python, 2ª Edición** del [Centro de Enseñanzas Virtuales de la
 Universidad de Granada](http://cevug.ugr.es), y su objetivo es poner en práctica
 algunas de las técnicas aprendidas.
@@ -23,7 +23,7 @@ To-Do
 
 Créditos
 --------
-- [PlanetCute](http://www.lostgarden.com/2007/05dd/dancs-miraculously-flexible-game.html) art by Daniel Cook 
+- [PlanetCute](http://www.lostgarden.com/2007/05/dancs-miraculously-flexible-game.html) art by Daniel Cook 
 - Gráficos adaptados por José Antonio Rodríguez Vázquez
 
 Licencia
