@@ -96,10 +96,10 @@ def main():
             ############ Vida de la gema
             ############ Vida de la gema
             #
-            for gema in sprites_activos['gema']:
-                gema.tick()
-                if gema.vida <= 0:
-                    raise Exception('Gema vacía')
+            #for gema in sprites_activos['gema']:
+            #    gema.tick()
+            #    if gema.vida <= 0:
+            #        raise Exception('Gema vacía')
 
             #
             # ACTUALIZACIÓN DE POSICIONES EN PANTALLA
