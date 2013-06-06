@@ -58,9 +58,8 @@ def main():
         jugador = Jugador()
         sprites_activos['jugador'] = jugador
 
-        # Instancia un enemigo y lo añade a la lista de sprites activos
-        enemigo = Enemigo()
-        sprites_activos['enemigo'] = enemigo 
+        # Instancia dos enemigos y los añade a la lista de sprites activos
+        sprites_activos['enemigo'] = [Enemigo(0), Enemigo(1)]
 
         # Instancia tres gemas y las añade a la lista de sprites activos
         sprites_activos['gema'] = [Gema(), Gema(), Gema()]
@@ -87,8 +86,10 @@ def main():
             #
             # CALCULO DEL MOVIMIENTO
             # 
+
             jugador.mover(tiempo)
-            enemigo.mover(tiempo, sprites_activos)
+            for enemigo in sprites_activos['enemigo']:
+                enemigo.mover(tiempo, sprites_activos)
 
             #
             ############ Vida de la gema
