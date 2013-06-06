@@ -14,16 +14,22 @@ class Enemigo(pygame.sprite.Sprite):
         Sprite para los enemigos
     """
 
-    def __init__(self):
+    # Tipos de enemigos
+    ENEMIGO = [
+                {'fichero': 'enemigo.png', 'tamanio': (49, 38), 'factor_velocidad': 0.5},
+                {'fichero': 'roca.png', 'tamanio': (48, 49), 'factor_velocidad': 0.25},
+              ]
+
+    def __init__(self, tipo = 0):
 
         # Inicializa el ancestro
         pygame.sprite.Sprite.__init__(self)
 
         # Carga la imagen (convert_alpha() convierte la imagen con transparencias (per pixel transparency)
-        self.imagen = pygame.image.load(os.path.join(Config.IMG_DIR, 'enemigo.png')).convert_alpha() 
+        self.imagen = pygame.image.load(os.path.join(Config.IMG_DIR, self.ENEMIGO[tipo]['fichero'])).convert_alpha() 
 
         # Disminuye el tamaño del sprite para que no se vea demasiado grande
-        self.imagen = pygame.transform.scale(self.imagen, (49, 38))
+        self.imagen = pygame.transform.scale(self.imagen, self.ENEMIGO[tipo]['tamanio'])
 
         # Obtiene un rectángulo con las dimensiones y posición de la imagen
         self.rect = self.imagen.get_rect()
@@ -33,8 +39,8 @@ class Enemigo(pygame.sprite.Sprite):
 
         # Velocidad de movimiento en cada eje
         self.velocidad = {
-                            Config.EJE_X: Config.VELOCIDAD_BASE * 0.5,
-                            Config.EJE_Y: Config.VELOCIDAD_BASE * 0.5
+                            Config.EJE_X: Config.VELOCIDAD_BASE * self.ENEMIGO[tipo]['factor_velocidad'],
+                            Config.EJE_Y: Config.VELOCIDAD_BASE * self.ENEMIGO[tipo]['factor_velocidad']
                          }
 
     def mover(self, tiempo, sprites_activos):
