@@ -20,281 +20,19 @@
 # - Solicitar un nombre de usuario, para mostrarlo en ranking junto a su puntuación.
 #
 
+# Pygame
 import pygame
 from pygame.locals import *
 
+# Juego
+from lib.config import Config
+from lib.jugador import Jugador
+from lib.enemigo import Enemigo
+from lib.gema import Gema
+
+# Otros
 import sys
 import os
-from random import randint
-
-# Tamaño de la ventana
-ANCHO = 1024
-ALTO = 768
-
-# Nombre de los ejes
-EJE_X = 'x'
-EJE_Y = 'y'
-
-# Ubicación de los ficheros
-IMG_DIR = 'imagenes'
-
-# Velocidad base para todos los sprites
-VELOCIDAD_BASE = 1
-
-# Número de frames por segundo
-FRAMERATE = 60
-
-# Puntos de spawn (las 4 esquinas)
-SPAWN_MARGEN_X = ANCHO / 10 
-SPAWN_MARGEN_Y = ALTO / 8
-SPAWN_POINTS = [
-                (SPAWN_MARGEN_X, SPAWN_MARGEN_Y), 
-                (SPAWN_MARGEN_X, ALTO - SPAWN_MARGEN_Y), 
-                (ANCHO - SPAWN_MARGEN_X, SPAWN_MARGEN_Y), 
-                (ANCHO - SPAWN_MARGEN_X, ALTO - SPAWN_MARGEN_Y)]
-
-##
-## JUGADOR
-##
-
-class Jugador(pygame.sprite.Sprite):
-    """
-        Sprite para el jugador
-    """
-
-    def __init__(self):
-
-        # Inicializa el ancestro
-        pygame.sprite.Sprite.__init__(self)
-
-        # Carga la imagen (convert_alpha() convierte la imagen con transparencias (per pixel transparency)
-        self.imagen = pygame.image.load(os.path.join(IMG_DIR, 'jugador.png')).convert_alpha() 
-
-        # Obtiene un rectángulo con las dimensiones y posición de la imagen
-        self.rect = self.imagen.get_rect()
-
-        # Estable el centro de la ventana como posición inicial
-        self.rect.centerx = ANCHO / 2
-        self.rect.centery = ALTO / 2
-
-        # Velocidad de movimiento
-        self.velocidad = VELOCIDAD_BASE
-
-    def mover(self, tiempo):
-        """
-            Gestiona el movimiento del personaje: movimiento con los cursores
-
-            El cálculo de la posición del personaje se realiza en función de la velocidad y
-            del tiempo (d = v * t, distancia = velocidad * tiempo), o sea, la nueva posición
-            será igual a la posición actual más la distancia recorrida en el eje correspondiente
-
-            El tiempo recibido como parámetro es el tiempo transcurrido por cada frame
-        """
-
-        # Obtiene las pulsaciones de teclas
-        teclas = pygame.key.get_pressed()
-
-        # Cálculo de la distancia recorrida en un frame
-        distancia = self.velocidad * tiempo
-
-        # Los límites del movimiento son los bordes de la ventana
-        if self.rect.top >= 0:
-
-            # Cursor Arriba
-            if teclas[K_UP]:
-
-                # Desplazamiento hacia arriba
-                self.rect.centery -= distancia
-
-        if self.rect.bottom <= ALTO:
-
-            # Cursor Abajo
-            if teclas[K_DOWN]:
-
-                # Desplazamiento hacia abajo
-                self.rect.centery += distancia
-
-        if self.rect.left >= 0:
-
-            # Cursor Izquierda
-            if teclas[K_LEFT]:
-
-                # Desplazamiento hacia la izquierda 
-                self.rect.centerx -= distancia
-
-        if self.rect.right <= ANCHO:
-
-            # Cursor Derecha
-            if teclas[K_RIGHT]:
-
-                # Desplazamiento hacia la derecha
-                self.rect.centerx += distancia
-
-##
-## ENEMIGOS
-##
-
-class Enemigo(pygame.sprite.Sprite):
-    """
-        Sprite para los enemigos
-    """
-
-    def __init__(self):
-
-        # Inicializa el ancestro
-        pygame.sprite.Sprite.__init__(self)
-
-        # Carga la imagen (convert_alpha() convierte la imagen con transparencias (per pixel transparency)
-        self.imagen = pygame.image.load(os.path.join(IMG_DIR, 'enemigo.png')).convert_alpha() 
-
-        # Obtiene un rectángulo con las dimensiones y posición de la imagen
-        self.rect = self.imagen.get_rect()
-
-        # Fila la posición de inicio
-        self.rect.centerx, self.rect.centery = self.__get_spawn()
-
-        # Velocidad de movimiento en cada eje
-        self.velocidad = {
-                            EJE_X: VELOCIDAD_BASE * 0.5,
-                            EJE_Y: VELOCIDAD_BASE * 0.5
-                         }
-
-    def mover(self, tiempo, sprites_activos):
-        """
-            Gestiona el movimiento del enemigo: movimiento automático en diagonal con rebote
-            en los bordes de la ventana
-
-            El cálculo de la posición del personaje se realiza en función de la velocidad y
-            del tiempo (d = v * t, distancia = velocidad * tiempo), o sea, la nueva posición
-            será igual a la posición actual más la distancia recorrida en el eje correspondiente
-
-            El tiempo recibido como parámetro es el tiempo transcurrido por cada frame
-        """
-
-        # Cálculo de la distancia recorrida en un frame
-        distancia_x = self.__get_distancia(EJE_X, tiempo)
-        distancia_y = self.__get_distancia(EJE_Y, tiempo)
-
-        # Modifica la posición en los dos ejes
-        self.rect.centerx += distancia_x
-        self.rect.centery += distancia_y
-
-        # Al llegar a un borde de la ventana se invierte el sentido del movimiento en el eje
-        # correspondiente y se recalcula la posición
-
-        if self.rect.left <= 0 or self.rect.right >= ANCHO:
-            self.__rebote(EJE_X, tiempo)
-
-        if self.rect.top <= 0 or self.rect.bottom >= ALTO:
-            self.__rebote(EJE_Y, tiempo)
-
-        #
-        # Detección de colisiones
-        #
-
-        # Jugador
-        if pygame.sprite.collide_rect(self, sprites_activos['jugador']):
-            raise Exception("Perdiste!")
-
-        # Gema
-        if pygame.sprite.collide_rect(self, sprites_activos['gema']):
-
-            gema = sprites_activos['gema']
-
-            # Las gemas hacen que el enemigo rebote
-            if self.rect.left <= gema.rect.right or self.rect.right >= gema.rect.left:
-                self.__rebote(EJE_X, tiempo)
-
-            if self.rect.top <= gema.rect.bottom or self.rect.bottom >= gema.rect.top:
-                self.__rebote(EJE_Y, tiempo)
-
-    def __get_spawn(self):
-        """
-            Selecciona aleatoriamente un punto de spawn de entre los disponibles
-        """
-        
-        return SPAWN_POINTS[randint(0, len(SPAWN_POINTS) - 1)]
-
-    def __get_distancia(self, eje, tiempo):
-        """
-            Calcula la distancia recorrida en el eje indicado 
-        """
-
-        return self.velocidad[eje] * tiempo
-
-    def __rebote(self, eje, tiempo):
-        """
-            Invierte el sentido del movimiento en el eje especificado y recalcula la
-            posición
-        """
-
-        # Invierte el sentido del movimiento
-        self.velocidad[eje] *= -1
-
-        # Recalcula la distancia recorrida
-        distancia = self.__get_distancia(eje, tiempo)
-
-        # Fija la nueva posición
-        if eje == EJE_X:
-            self.rect.centerx += distancia
-        else:
-            self.rect.centery += distancia
-
-
-##
-## GEMAS
-##
-class Gema(pygame.sprite.Sprite):
-    """
-        Sprite para las gemas
-    """
-
-    # Vida de la gema
-    # La vida viene dada por un número de segundos
-    vida = 3
-
-    def __init__(self):
-
-        # Inicializa el ancestro
-        pygame.sprite.Sprite.__init__(self)
-
-        # Carga la imagen (convert_alpha() convierte la imagen con transparencias (per pixel transparency)
-        self.imagen = pygame.image.load(os.path.join(IMG_DIR, 'gema.png')).convert_alpha() 
-
-        # Obtiene un rectángulo con las dimensiones y posición de la imagen
-        self.rect = self.imagen.get_rect()
-
-        # Fila la posición de inicio
-        self.rect.centerx, self.rect.centery = self.__get_spawn()
-
-    def tick(self):
-        """
-            Resta puntos de vida a la gema por cada frame que el jugador pase colisionando con
-            ella
-        """
-        
-        # La gema ha de seguir viva
-        if self.vida > 0:
-
-            # La cantidad de vida restada por cada frame viene dada por la fórmula:
-            #
-            # vida_restada_por_frame = 1 / FRAMERATE
-            #
-            # Como el framerate es el número de frames por segundo (fps) y la vida de la gema
-            # viene expresada en segundos, dividiendo un segundo entre el número de frames 
-            # que tienen lugar en él se obtiene la cantidad de vida que pierde la gema en cada frame.
-            self.vida -= (1.0 / FRAMERATE)
-        
-
-    def __get_spawn(self):
-        """
-            Genera un punto de spawn en cualquier punto de la pantalla excluyendo
-            los márgenes
-        """
-        x = randint(SPAWN_MARGEN_X, ANCHO - SPAWN_MARGEN_X)  
-        y = randint(SPAWN_MARGEN_Y, ALTO - SPAWN_MARGEN_Y)  
-
-        return (x, y)
 
 ##
 ## MAIN
@@ -308,13 +46,13 @@ def main():
         sprites_activos = {}
 
         # Crea la ventana
-        ventana = pygame.display.set_mode((ANCHO, ALTO))
+        ventana = pygame.display.set_mode((Config.ANCHO, Config.ALTO))
 
         # Título de la ventana
         pygame.display.set_caption('Da rienda suelta a tu imaginación - César Amador')
 
         # Carga el fondo (convirtiéndolo al formato usado en SDL para mejorar la eficiencia)
-        fondo = pygame.image.load(os.path.join(IMG_DIR, 'fondo.jpg')).convert()
+        fondo = pygame.image.load(os.path.join(Config.IMG_DIR, 'fondo.jpg')).convert()
 
         # Instancia al jugador y lo añade a la lista de sprites activos
         jugador = Jugador()
@@ -338,7 +76,7 @@ def main():
             # Averigua el tiempo (en milisegundos) transcurrido por cada frame
             # Además, al usar FRAMERATE en la llamada, se fija el número de frames por segundo 
             # independientemente del hardware de la máquina
-            tiempo = reloj.tick(FRAMERATE)
+            tiempo = reloj.tick(Config.FRAMERATE)
 
             # Obtiene y recorre la lista de eventos que están teniendo lugar
             for evento in pygame.event.get():
