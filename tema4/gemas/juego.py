@@ -62,9 +62,8 @@ def main():
         enemigo = Enemigo()
         sprites_activos['enemigo'] = enemigo 
 
-        # Instancia una gema y la añade a la lista de sprites activos
-        gema = Gema()
-        sprites_activos['gema'] = gema 
+        # Instancia tres gemas y las añade a la lista de sprites activos
+        sprites_activos['gema'] = [Gema(), Gema(), Gema()]
 
         # Instancia un reloj para controlar el tiempo
         reloj = pygame.time.Clock()
@@ -93,10 +92,13 @@ def main():
 
             #
             ############ Vida de la gema
+            ############ Vida de la gema
+            ############ Vida de la gema
             #
-            gema.tick()
-            if gema.vida <= 0:
-                raise Exception('Gema vacía')
+            for gema in sprites_activos['gema']:
+                gema.tick()
+                if gema.vida <= 0:
+                    raise Exception('Gema vacía')
 
             #
             # ACTUALIZACIÓN DE POSICIONES EN PANTALLA
@@ -107,7 +109,13 @@ def main():
 
             # Actualiza la posición de los sprites
             for nombre in sprites_activos.keys():
-                ventana.blit(sprites_activos[nombre].imagen, sprites_activos[nombre].rect)
+                # Si se trata de una lista de sprites la recorre y
+                # procesa cada elemento
+                if isinstance(sprites_activos[nombre], list):
+                    for elemento in sprites_activos[nombre]:
+                        ventana.blit(elemento.imagen, elemento.rect)
+                else:
+                    ventana.blit(sprites_activos[nombre].imagen, sprites_activos[nombre].rect)
 
             #
             # ACTUALIZACIÓN DE LA PANTALLA
