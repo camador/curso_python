@@ -21,6 +21,9 @@ class Jugador(pygame.sprite.Sprite):
         # Carga la imagen (convert_alpha() convierte la imagen con transparencias (per pixel transparency)
         self.imagen = pygame.image.load(os.path.join(Config.IMG_DIR, 'jugador.png')).convert_alpha() 
 
+        # Disminuye el tamaño del sprite para que no se vea demasiado grande
+        self.imagen = pygame.transform.scale(self.imagen, (57, 67))
+
         # Obtiene un rectángulo con las dimensiones y posición de la imagen
         self.rect = self.imagen.get_rect()
 
