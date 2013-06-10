@@ -32,5 +32,18 @@ class DB():
             print u'Error de base de datos: '
             print '\n\t', e, '\n'
 
+    def get_config(self, clave):
+        """
+            Devuelve el valor de configuración correspondiente a la clave recibida por parámetros
+        """
+
+        consulta = 'select valor from config where clave = "{0}"'.format(clave)
+
+        self.cursor.execute(consulta)
+        registro = self.cursor.fetchone()
+        
+        return registro['valor']
+
+
 if __name__ == '__main__':
     print u'Módulo no ejecutable.'
