@@ -59,10 +59,22 @@ def main():
 
         return 0
 
+    except pygame.error, e:
+        print '\n'
+        print u'Error en Pygame: '
+        print '\n\t' , e, '\n'
+
+if __name__ == '__main__':
+
+    try:
+        
+        # Inicializa Pygame
+        pygame.init()
+
+        # Empezando...
+        main()
+        
     except Exception, e:
         print '\n'
         print u'Error inesperado: '
         print '\n\t', e, '\n'
-
-if __name__ == '__main__':
-    main()
