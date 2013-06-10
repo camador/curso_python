@@ -33,6 +33,9 @@ def main():
         # Diccionario de sprites activos en cada momento
         sprites_activos = {}
 
+        # Instancia un reloj para controlar el tiempo
+        reloj = pygame.time.Clock()
+
         #
         # VENTANA
         #
@@ -62,6 +65,11 @@ def main():
         # Cada iteración del bucle es un frame
         while True:
 
+            # Averigua el tiempo (en milisegundos) transcurrido por cada frame
+            # Además, al usar FRAMERATE en la llamada, se fija el número de frames por segundo
+            # independientemente del hardware de la máquina
+            tiempo = reloj.tick(config.framerate)
+
             # Obtiene y recorre la lista de eventos que están teniendo lugar
             for evento in pygame.event.get():
 
@@ -85,6 +93,12 @@ def main():
                         ventana.blit(elemento.imagen, elemento.rect)
                 else:
                     ventana.blit(sprites_activos[nombre].imagen, sprites_activos[nombre].rect)
+
+            #
+            # CALCULO DEL MOVIMIENTO
+            #
+
+            jugador.mover(tiempo)
 
             #
             # ACTUALIZACIÓN DE LA PANTALLA
