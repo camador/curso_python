@@ -28,6 +28,10 @@ class GUI():
         # Ventana principal
         self.window = self.builder.get_object("windowMain")
 
+        # Barra de estado
+        self.status = self.builder.get_object('statusBar')
+        self.status_context_id = self.status.get_context_id('main')
+
     ##
     ## MAIN
     ##
@@ -45,7 +49,7 @@ class GUI():
     ##
     ## VENTANA PRINCIPAL
     ##
-    def window_main_destroy(self, window):
+    def window_main_destroy(self, *args):
         """
             Termina la ejecución del programa
         """
