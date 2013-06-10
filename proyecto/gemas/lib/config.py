@@ -11,40 +11,47 @@ class Config():
             Establece los valores de configuración
         """
 
-        # 
-        # Toma los valores de la base de datos
-        # 
+        try:
 
-        # Tamaño de la ventana
-        self.ventana_ancho = int(db.get_config('VENTANA_ANCHO'))
-        self.ventana_alto = int(db.get_config('VENTANA_ALTO'))
+            # 
+            # Toma los valores de la base de datos
+            # 
 
-        # Ubicación de los ficheros
-        self.dir_img = db.get_config('DIR_IMG')
+            # Tamaño de la ventana
+            self.ventana_ancho = int(db.get_config('VENTANA_ANCHO'))
+            self.ventana_alto = int(db.get_config('VENTANA_ALTO'))
 
-        # Velocidad base para todos los sprites
-        self.velocidad_base = int(db.get_config('VELOCIDAD_BASE'))
+            # Ubicación de los ficheros
+            self.dir_img = db.get_config('DIR_IMG')
 
-        # Número de frames por segundo
-        self.framerate = int(db.get_config('FRAMERATE'))
- 
-        # 
-        # Otros valores no tomados de la base de datos
-        # 
+            # Velocidad base para todos los sprites
+            self.velocidad_base = int(db.get_config('VELOCIDAD_BASE'))
 
-        # Nombre de los ejes
-        self.eje_x = 'x'
-        self.eje_y = 'y'
+            # Número de frames por segundo
+            self.framerate = int(db.get_config('FFRAMERATE'))
+    
+            # 
+            # Otros valores no tomados de la base de datos
+            # 
 
-        # Puntos de spawn (las 4 esquinas)
-        self.spawn_margen_x = self.ventana_ancho / 10
-        self.spawn_margen_y = self.ventana_alto / 8
-        self.spawn_points = [
-                                (self.spawn_margen_x, self.spawn_margen_y),
-                                (self.spawn_margen_x, self.ventana_alto - self.spawn_margen_y),
-                                (self.ventana_ancho - self.spawn_margen_x, self.spawn_margen_y),
-                                (self.ventana_ancho - self.spawn_margen_x, self.ventana_alto - self.spawn_margen_y)
-                            ]
+            # Nombre de los ejes
+            self.eje_x = 'x'
+            self.eje_y = 'y'
+
+            # Puntos de spawn (las 4 esquinas)
+            self.spawn_margen_x = self.ventana_ancho / 10
+            self.spawn_margen_y = self.ventana_alto / 8
+            self.spawn_points = [
+                                    (self.spawn_margen_x, self.spawn_margen_y),
+                                    (self.spawn_margen_x, self.ventana_alto - self.spawn_margen_y),
+                                    (self.ventana_ancho - self.spawn_margen_x, self.spawn_margen_y),
+                                    (self.ventana_ancho - self.spawn_margen_x, self.ventana_alto - self.spawn_margen_y)
+                                ]
+
+        except Exception, e:
+            print '\n'
+            print u'Error de Configuración: '
+            print '\n\t', e, '\n'
 
 if __name__ == '__main__':
     print u'Módulo no ejecutable.'
