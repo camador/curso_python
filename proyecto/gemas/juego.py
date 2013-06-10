@@ -6,6 +6,7 @@ from lib.db import DB
 
 # Juego
 from lib.config import Config
+from lib.jugador import Jugador
 
 # Pygame
 import pygame
@@ -29,6 +30,9 @@ def main():
         # Carga los valores de configuración
         config = Config(db)
 
+        # Diccionario de sprites activos en cada momento
+        sprites_activos = {}
+
         #
         # VENTANA
         #
@@ -41,6 +45,14 @@ def main():
 
         # Carga el fondo (convirtiéndolo al formato usado en SDL para mejorar la eficiencia)
         fondo = pygame.image.load(os.path.join(config.dir_img, 'fondo.jpg')).convert()
+
+        #
+        # SPRITES
+        #
+
+        # Instancia al jugador y lo añade a la lista de sprites activos
+        jugador = Jugador(config)
+        sprites_activos['jugador'] = jugador
 
         #
         # BUCLE DE EVENTOS
@@ -56,6 +68,31 @@ def main():
                 # Si encuentra el evento QUIT termina la ejecución
                 if evento.type == QUIT:
                     sys.exit(0)
+
+            #
+            # ACTUALIZACIÓN DE POSICIONES EN PANTALLA
+            #
+
+            # Situa el fondo en el primer pixel de la ventana
+            ventana.blit(fondo, (0, 0))
+
+            # Actualiza la posición de los sprites
+            for nombre in sprites_activos.keys():
+                # Si se trata de una lista de sprites la recorre y
+                # procesa cada elemento
+                if isinstance(sprites_activos[nombre], list):
+                    for elemento in sprites_activos[nombre]:
+                        ventana.blit(elemento.imagen, elemento.rect)
+                else:
+                    ventana.blit(sprites_activos[nombre].imagen, sprites_activos[nombre].rect)
+
+            #
+            # ACTUALIZACIÓN DE LA PANTALLA
+            #
+
+            # Dibuja la escena
+            pygame.display.flip()
+
 
         return 0
 
