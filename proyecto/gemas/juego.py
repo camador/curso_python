@@ -7,6 +7,7 @@ from lib.db import DB
 # Juego
 from lib.config import Config
 from lib.jugador import Jugador
+from lib.enemigo import Enemigo
 
 # Pygame
 import pygame
@@ -57,6 +58,9 @@ def main():
         jugador = Jugador(config)
         sprites_activos['jugador'] = jugador
 
+        # Instancia dos enemigos y los añade a la lista de sprites activos
+        sprites_activos['enemigo'] = [Enemigo(config, 0), Enemigo(config, 1)]
+
         #
         # BUCLE DE EVENTOS
         #
@@ -99,6 +103,8 @@ def main():
             #
 
             jugador.mover(tiempo)
+            for enemigo in sprites_activos['enemigo']:
+                enemigo.mover(tiempo, sprites_activos)
 
             #
             # ACTUALIZACIÓN DE LA PANTALLA
