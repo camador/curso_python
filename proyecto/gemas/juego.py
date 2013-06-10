@@ -9,13 +9,20 @@ from lib.config import Config
 
 def main():
 
-    # Gestor de base de datos
-    db = DB()
+    try :
 
-    # Carga los valores de configuración
-    config = Config(db)
+        # Gestor de base de datos
+        db = DB()
 
-    return 0
+        # Carga los valores de configuración
+        config = Config(db)
+
+        return 0
+
+    except Exception, e:
+        print '\n'
+        print u'Error inesperado: '
+        print '\n\t', e, '\n'
 
 if __name__ == '__main__':
     main()
