@@ -28,7 +28,7 @@ class Config():
             self.velocidad_base = int(db.get_config('VELOCIDAD_BASE'))
 
             # Número de frames por segundo
-            self.framerate = int(db.get_config('FFRAMERATE'))
+            self.framerate = int(db.get_config('FRAMERATE'))
     
             # 
             # Otros valores no tomados de la base de datos
