@@ -82,6 +82,24 @@ class Enemigo(pygame.sprite.Sprite):
         if pygame.sprite.collide_rect(self, sprites_activos['jugador']):
             raise Exception("Perdiste!")
 
+        # Gemas
+        # Comprueba si ha habido colisión con alguna de las gemas activas, si es que
+        # hay alguna
+        if sprites_activos['gema']:
+
+            # Comprueba si ha habido colisión con alguna de las gemas activas
+            for gema in sprites_activos['gema']:
+       
+                if pygame.sprite.collide_rect(self, gema):
+
+                    # Las gemas hacen que el enemigo rebote
+                    if self.rect.left <= gema.rect.right or self.rect.right >= gema.rect.left:
+                        self.__rebote(self.config.eje_x, tiempo)
+
+                    if self.rect.top <= gema.rect.bottom or self.rect.bottom >= gema.rect.top:
+                        self.__rebote(self.config.eje_y, tiempo)
+
+
     def __get_spawn(self):
         """
             Selecciona aleatoriamente un punto de spawn de entre los disponibles
