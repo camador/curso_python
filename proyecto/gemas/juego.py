@@ -8,6 +8,7 @@ from lib.db import DB
 from lib.config import Config
 from lib.jugador import Jugador
 from lib.enemigo import Enemigo
+from lib.gema import Gema
 
 # Pygame
 import pygame
@@ -60,6 +61,9 @@ def main():
 
         # Instancia dos enemigos y los añade a la lista de sprites activos
         sprites_activos['enemigo'] = [Enemigo(config, 0), Enemigo(config, 1)]
+
+        # Instancia tres gemas y las añade a la lista de sprites activos
+        sprites_activos['gema'] = [Gema(config), Gema(config), Gema(config)]
 
         #
         # BUCLE DE EVENTOS
