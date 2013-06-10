@@ -14,11 +14,11 @@ class Jugador(pygame.sprite.Sprite):
     """
     def __init__(self, config):
 
-        # Valores de configuración
-        self.config = config
-
         # Inicializa el ancestro
         pygame.sprite.Sprite.__init__(self)
+
+        # Valores de configuración
+        self.config = config
 
         # Carga la imagen (convert_alpha() convierte la imagen con transparencias (per pixel transparency))
         self.imagen = pygame.image.load(os.path.join(self.config.dir_img, 'jugador.png')).convert_alpha() 
