@@ -16,6 +16,10 @@ create database gemas_camador;
 -- Usuario para la conexión
 grant all on gemas_camador.* to 'gemas'@'localhost' identified by 'gemas';
 
+--
+-- CONFIGURACIÓN GENERAL
+--
+
 -- Creación de la tabla
 use gemas_camador;
 create table config (
@@ -32,3 +36,19 @@ insert into config (clave, valor, descripcion) values ('VENTANA_ANCHO', '1024', 
                                                       ('DIR_IMG', 'imagenes', 'Directorio de las imágenes'),
                                                       ('VELOCIDAD_BASE', '1', 'Velocidad base para todos los sprites'),
                                                       ('FRAMERATE', '60', 'Número máximo de frames por segundo');
+
+--
+-- RESOLUCIONES
+--
+
+-- Creación de la tabla
+create table resoluciones (
+  id int not null auto_increment,
+  descripcion varchar(12),
+  ancho varchar(4),
+  alto varchar(4),
+  primary key (id)
+);
+
+insert into resoluciones (descripcion, ancho, alto) values ('800 x 600', '800', '600'),
+                                                           ('1024 x 768', '1024', '768');
