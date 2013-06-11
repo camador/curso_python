@@ -27,6 +27,9 @@ class Enemigo(pygame.sprite.Sprite):
         # Valores de configuración
         self.config = config
 
+        # Tipo de enemigo
+        self.tipo = tipo
+
         # Carga la imagen (convert_alpha() convierte la imagen con transparencias (per pixel transparency)
         self.imagen = pygame.image.load(os.path.join(self.config.dir_img, self.ENEMIGO[tipo]['fichero'])).convert_alpha() 
 
@@ -98,6 +101,10 @@ class Enemigo(pygame.sprite.Sprite):
 
                     if self.rect.top <= gema.rect.bottom or self.rect.bottom >= gema.rect.top:
                         self.__rebote(self.config.eje_y, tiempo)
+
+                    # Las rocas (tipo 1) destruyen las gemas
+                    if self.tipo == 1:
+                        gema.vida = 0
 
 
     def __get_spawn(self):
