@@ -39,21 +39,21 @@ class Gema(pygame.sprite.Sprite):
 
         # Si no hay otras gemas no hay que comprobar si hay colisión
         if sprites_activos['gema']:
-            comprobar_colision = False
-        else:
             comprobar_colision = True
+        else:
+            comprobar_colision = False
 
         # Realiza comprobaciones de colisión hasta que la nueva gema no colisiona con
         # las ya existentes
         while comprobar_colision:
-
+            
             comprobar_colision = False
 
             # Comprueba si ha habido colisión con alguna de las gemas activas
             for gema in sprites_activos['gema']:
-       
+                
                 if pygame.sprite.collide_rect(self, gema):
-
+                    
                     # Calcula una nueva posición de inicio y fuerza la comprobación
                     self.rect.centerx, self.rect.centery = self.__get_spawn()
                     comprobar_colision = True
