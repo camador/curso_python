@@ -60,6 +60,31 @@ class DB():
     ##
     ## RESOLUCIONES
     ##
+    def get_resoluciones(self):
+        """
+            Recupera los registros de la tabla 'resoluciones'
+        """
+        pass
+
+    def get_resolucion(self, resolucion = ''):
+        """
+            Recupera de la tabla resoluciones el registro cuyo campo 'descripcion'
+            es igual al parámetro 'resolucion'
+        """
+        pass
+        
+    
+    ##
+    ## CLOSE
+    ##
+    def close(self):
+        """
+            Cierra el cursor y la conexión
+        """
+
+        # Cierra cursor y conexión de la base de datos
+        self.cursor.close()
+        self.db.close()
 
 
 if __name__ == '__main__':
