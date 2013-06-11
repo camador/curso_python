@@ -17,7 +17,7 @@ class Gema(pygame.sprite.Sprite):
     # La vida viene dada por un número de segundos
     vida = 3
 
-    def __init__(self, config):
+    def __init__(self, config, sprites_activos = {}):
 
         # Inicializa el ancestro
         pygame.sprite.Sprite.__init__(self)
@@ -33,6 +33,32 @@ class Gema(pygame.sprite.Sprite):
 
         # Fila la posición de inicio
         self.rect.centerx, self.rect.centery = self.__get_spawn()
+        
+        #
+        # Evita que las gemas aparezcan unas sobre otras
+        #
+
+        # Si no hay otras gemas no hay que comprobar si hay colisión
+        if sprites_activos['gema']:
+            comprobar_colision = False
+        else:
+            comprobar_colision = True
+
+        # Realiza comprobaciones de colisión hasta que la nueva gema no colisiona con
+        # las ya existentes
+        while comprobar_colision:
+
+            comprobar_colision = False
+
+            # Comprueba si ha habido colisión con alguna de las gemas activas
+            for gema in sprites_activos['gema']:
+       
+                if pygame.sprite.collide_rect(self, gema):
+
+                    # Calcula una nueva posición de inicio y fuerza la comprobación
+                    self.rect.centerx, self.rect.centery = self.__get_spawn()
+                    comprobar_colision = True
+
 
     def __get_spawn(self):
         """

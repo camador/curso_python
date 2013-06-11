@@ -63,7 +63,10 @@ def main():
         sprites_activos['enemigo'] = [Enemigo(config, 0), Enemigo(config, 1)]
 
         # Instancia tres gemas y las añade a la lista de sprites activos
-        sprites_activos['gema'] = [Gema(config), Gema(config), Gema(config)]
+        sprites_activos['gema'] = []
+        for i in range(1, 4):
+            gema = Gema(config, sprites_activos)
+            sprites_activos['gema'].append(gema)
 
         #
         # BUCLE DE EVENTOS
