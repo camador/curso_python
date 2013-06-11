@@ -86,6 +86,11 @@ def main():
 
                 # Si encuentra el evento QUIT termina la ejecución
                 if evento.type == QUIT:
+
+                    # Cierra la conexión con la base de datos
+                    self.db.close()
+                    
+                    # Termina la ejecución
                     sys.exit(0)
 
             #

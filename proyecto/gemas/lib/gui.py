@@ -76,6 +76,9 @@ class GUI():
             Termina la ejecución del programa
         """
 
+        # Cierra la conexión con la base de datos
+        self.db.close()
+
         # Saliendo
         Gtk.main_quit()
 
