@@ -109,7 +109,12 @@ def main():
                 # procesa cada elemento
                 if isinstance(sprites_activos[nombre], list):
                     for elemento in sprites_activos[nombre]:
-                        ventana.blit(elemento.imagen, elemento.rect)
+
+                        # Si el sprite es una gema sin vida la elimina de los sprites activos
+                        if nombre == 'gema' and elemento.vida <= 0:
+                            sprites_activos[nombre].remove(elemento)
+                        else:
+                            ventana.blit(elemento.imagen, elemento.rect)
                 else:
                     ventana.blit(sprites_activos[nombre].imagen, sprites_activos[nombre].rect)
 
