@@ -13,8 +13,7 @@ class Gema(pygame.sprite.Sprite):
         Sprite para las gemas
     """
 
-    # Vida de la gema
-    # La vida viene dada por un número de segundos
+    # Vida de la gema en segundos
     vida = 3
 
     def __init__(self, config, sprites_activos = {}):
@@ -59,6 +58,29 @@ class Gema(pygame.sprite.Sprite):
                     self.rect.centerx, self.rect.centery = self.__get_spawn()
                     comprobar_colision = True
 
+    def tick(self):
+        """
+            Resta puntos de vida a la gema por cada frame que el jugador pase colisionando con
+            ella
+        """
+        
+        # La gema ha de seguir viva
+        if self.vida > 0:
+
+            # La cantidad de vida restada por cada frame viene dada por la fórmula:
+            #
+            # vida_restada_por_frame = 1 / FRAMERATE
+            #
+            # Como el framerate es el número de frames por segundo (fps) y la vida de la gema
+            # viene expresada en segundos, dividiendo un segundo entre el número de frames
+            # que tienen lugar en él se obtiene la cantidad de vida que pierde la gema en cada frame.
+            vida_perdida = (1.0 / self.config.framerate)
+            self.vida -= vida_perdida
+
+        else:
+            vida_perdida = 0
+
+        return vida_perdida
 
     def __get_spawn(self):
         """

@@ -89,6 +89,14 @@ def main():
                     sys.exit(0)
 
             #
+            # CALCULO DEL MOVIMIENTO
+            #
+
+            jugador.mover(tiempo, sprites_activos)
+            for enemigo in sprites_activos['enemigo']:
+                enemigo.mover(tiempo, sprites_activos)
+
+            #
             # ACTUALIZACIÓN DE POSICIONES EN PANTALLA
             #
 
@@ -104,14 +112,6 @@ def main():
                         ventana.blit(elemento.imagen, elemento.rect)
                 else:
                     ventana.blit(sprites_activos[nombre].imagen, sprites_activos[nombre].rect)
-
-            #
-            # CALCULO DEL MOVIMIENTO
-            #
-
-            jugador.mover(tiempo)
-            for enemigo in sprites_activos['enemigo']:
-                enemigo.mover(tiempo, sprites_activos)
 
             #
             # ACTUALIZACIÓN DE LA PANTALLA

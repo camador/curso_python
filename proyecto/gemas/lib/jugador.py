@@ -12,6 +12,10 @@ class Jugador(pygame.sprite.Sprite):
     """
         Sprite para el jugador
     """
+
+    # Puntuación
+    puntos = 0
+
     def __init__(self, config):
 
         # Inicializa el ancestro
@@ -37,7 +41,7 @@ class Jugador(pygame.sprite.Sprite):
         self.velocidad = self.config.velocidad_base
         
 
-    def mover(self, tiempo):
+    def mover(self, tiempo, sprites_activos = {}):
         """
             Gestiona el movimiento del personaje: movimiento con los cursores
 
@@ -86,6 +90,23 @@ class Jugador(pygame.sprite.Sprite):
 
                 # Desplazamiento hacia la derecha
                 self.rect.centerx += distancia
+
+        #
+        # COLISIONES
+        #
+
+        # Cuando el jugador se situa sobre una gema ésta pierde cierta cantidad de puntos de vida
+        # y el jugador suma dicha cantidad a su puntuación
+        if sprites_activos['gema']:
+
+            # Comprueba si ha habido colisión con alguna de las gemas activas
+            for gema in sprites_activos['gema']:
+       
+                if pygame.sprite.collide_rect(self, gema):
+
+                    # Aumenta la puntuación
+                    self.puntos += gema.tick()
+
 
 if __name__ == '__main__':
     print u'Módulo no ejecutable.'
