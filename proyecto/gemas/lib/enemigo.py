@@ -99,6 +99,7 @@ class Enemigo(pygame.sprite.Sprite):
                     if self.rect.left <= gema.rect.right or self.rect.right >= gema.rect.left:
                         self.__rebote(self.config.eje_x, tiempo)
 
+
                     if self.rect.top <= gema.rect.bottom or self.rect.bottom >= gema.rect.top:
                         self.__rebote(self.config.eje_y, tiempo)
 
@@ -129,6 +130,10 @@ class Enemigo(pygame.sprite.Sprite):
 
         # Invierte el sentido del movimiento
         self.velocidad[eje] *= -1
+
+        # El enemigo de tipo 0 invierte su imagen al rebotar horizontalmente
+        if self.tipo == 0 and eje == self.config.eje_x:
+            self.imagen = pygame.transform.flip(self.imagen, True, False)
 
         # Recalcula la distancia recorrida
         distancia = self.__get_distancia(eje, tiempo)
