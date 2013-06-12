@@ -16,6 +16,9 @@ class Jugador(pygame.sprite.Sprite):
     # Puntuación
     puntos = 0
 
+    # Indica si el jugador sigue vivo
+    vivo = True
+
     def __init__(self, config):
 
         # Inicializa el ancestro

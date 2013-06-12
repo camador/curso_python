@@ -83,7 +83,7 @@ class Enemigo(pygame.sprite.Sprite):
 
         # Jugador
         if pygame.sprite.collide_rect(self, sprites_activos['jugador']):
-            raise Exception("Perdiste!. Tu puntuacion: {0}".format(int(sprites_activos['jugador'].puntos)))
+            sprites_activos['jugador'].vivo = False
 
         # Gemas
         # Comprueba si ha habido colisión con alguna de las gemas activas, si es que

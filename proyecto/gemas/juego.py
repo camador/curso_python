@@ -137,9 +137,18 @@ def main():
             # Dibuja la escena
             pygame.display.flip()
 
+            # Comprueba si el jugador sigue vivo. Si no lo está sale del bucle
+            if not jugador.vivo:
+                salir = True
+
         #
         # FIN DE LA EJECUCIÓN
         #
+
+        print '\n'
+        print u'Game Over ^_^'
+        print u'Tu puntuación: ', jugador.puntos
+        print '\n'
 
         # Cierra la conexión con la base de datos
         db.close()
