@@ -93,16 +93,17 @@ def main():
                 if evento.type == QUIT:
 
                     # Cierra la conexión con la base de datos
-                    self.db.close()
+                    db.close()
                     
                     # Termina la ejecución
                     sys.exit(0)
 
             #
-            # CALCULO DEL MOVIMIENTO
+            # CALCULO DEL MOVIMIENTO Y PUNTUACIÓN
             #
 
             jugador.mover(tiempo, sprites_activos)
+            marcador.render_puntos(jugador.puntos)
             for enemigo in sprites_activos['enemigo']:
                 enemigo.mover(tiempo, sprites_activos)
 
@@ -145,6 +146,11 @@ def main():
 
 if __name__ == '__main__':
 
+    # Inicializa Pygame
+    pygame.init()
+
+    # Empezando...
+    main()
     try:
         
         # Inicializa Pygame

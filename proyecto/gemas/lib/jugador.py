@@ -104,8 +104,9 @@ class Jugador(pygame.sprite.Sprite):
        
                 if pygame.sprite.collide_rect(self, gema):
 
-                    # Aumenta la puntuación
-                    self.puntos += gema.tick()
+                    # Aumenta la puntuación (multiplicando por mil tomar los decimales
+                    # como puntos)
+                    self.puntos += int(gema.tick() * 1000)
 
 
 if __name__ == '__main__':
