@@ -146,11 +146,6 @@ def main():
 
 if __name__ == '__main__':
 
-    # Inicializa Pygame
-    pygame.init()
-
-    # Empezando...
-    main()
     try:
         
         # Inicializa Pygame
