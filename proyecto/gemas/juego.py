@@ -9,6 +9,7 @@ from lib.config import Config
 from lib.jugador import Jugador
 from lib.enemigo import Enemigo
 from lib.gema import Gema
+from lib.marcador import Marcador
 
 # Pygame
 import pygame
@@ -67,6 +68,10 @@ def main():
         for i in range(1, 4):
             gema = Gema(config, sprites_activos)
             sprites_activos['gema'].append(gema)
+
+        # Marcador
+        marcador = Marcador(config)
+        sprites_activos['marcador'] = marcador
 
         #
         # BUCLE DE EVENTOS
