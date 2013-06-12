@@ -69,6 +69,9 @@ def main():
             gema = Gema(config, sprites_activos)
             sprites_activos['gema'].append(gema)
 
+        # Indica el momento de respawn de la próxima gema (0 = no hay próximo respawn)
+        respawn_gema = 0
+
         # Marcador
         marcador = Marcador(config)
         sprites_activos['marcador'] = marcador
@@ -125,6 +128,12 @@ def main():
                         # Si el sprite es una gema sin vida la elimina de los sprites activos
                         if nombre == 'gema' and elemento.vida <= 0:
                             sprites_activos[nombre].remove(elemento)
+
+                            # Calcula el tiempo para la creación de la próxima gema (2 segundos)
+                            # La desaparición de una gema no resetea el tiempo
+                            if respawn_gema == 0:
+                                respawn_gema = pygame.time.get_ticks() + 2000
+
                         else:
                             ventana.blit(elemento.imagen, elemento.rect)
                 else:
@@ -137,9 +146,25 @@ def main():
             # Dibuja la escena
             pygame.display.flip()
 
-            # Comprueba si el jugador sigue vivo. Si no lo está sale del bucle
+            #
+            # EVALUACIÓN DEL ESTADO DE LOS SPRITES
+            #
+
+            # Comprueba si el jugador sigue vivo
             if not jugador.vivo:
+                # Si no sigue vivo sale del bucle
                 salir = True
+
+            else:
+                # Si sigue vivo comprueba el número de gemas activas, si hay menos de 3
+                # crea una nueva
+                gemas = sprites_activos['gema']
+                if len(gemas) < 3 and respawn_gema > 0 and pygame.time.get_ticks() >= respawn_gema:
+                    gema = Gema(config, sprites_activos)
+                    sprites_activos['gema'].append(gema)
+
+                    # Indica el momento de respawn de la próxima gema (0 = no hay próximo respawn)
+                    respawn_gema = 0
 
         #
         # FIN DE LA EJECUCIÓN
