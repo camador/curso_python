@@ -79,7 +79,8 @@ def main():
 
         # El programa permanece funcionando hasta que se cierra la ventana
         # Cada iteración del bucle es un frame
-        while True:
+        salir = False
+        while not salir:
 
             # Averigua el tiempo (en milisegundos) transcurrido por cada frame
             # Además, al usar FRAMERATE en la llamada, se fija el número de frames por segundo
@@ -91,12 +92,12 @@ def main():
 
                 # Si encuentra el evento QUIT termina la ejecución
                 if evento.type == QUIT:
+                    salir = True
 
-                    # Cierra la conexión con la base de datos
-                    db.close()
-                    
-                    # Termina la ejecución
-                    sys.exit(0)
+                # La tecla ESC termina la ejecución
+                elif evento.type == KEYDOWN:
+                    if evento.key == K_ESCAPE:
+                        salir = True
 
             #
             # CALCULO DEL MOVIMIENTO Y PUNTUACIÓN
@@ -136,8 +137,15 @@ def main():
             # Dibuja la escena
             pygame.display.flip()
 
+        #
+        # FIN DE LA EJECUCIÓN
+        #
 
-        return 0
+        # Cierra la conexión con la base de datos
+        db.close()
+        
+        # Termina la ejecución
+        sys.exit(0)
 
     except pygame.error, e:
         print '\n'
