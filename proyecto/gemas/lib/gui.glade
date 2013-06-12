@@ -8,6 +8,14 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
+  <object class="GtkListStore" id="liststoreResoluciones">
+    <columns>
+      <!-- column-name Descripción -->
+      <column type="gchararray"/>
+      <!-- column-name ID -->
+      <column type="gint"/>
+    </columns>
+  </object>
   <object class="GtkWindow" id="windowMain">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Gemas - Configuración</property>
@@ -145,9 +153,17 @@
               </packing>
             </child>
             <child>
-              <object class="GtkComboBox" id="comboboxResolucion">
+              <object class="GtkComboBox" id="comboboxResoluciones">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="model">liststoreResoluciones</property>
+                <property name="id_column">1</property>
+                <child>
+                  <object class="GtkCellRendererText" id="cellrenderertextResolucion"/>
+                  <attributes>
+                    <attribute name="text">0</attribute>
+                  </attributes>
+                </child>
               </object>
               <packing>
                 <property name="left_attach">1</property>

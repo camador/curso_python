@@ -33,6 +33,10 @@ class GUI():
         # Ventana principal
         self.window = self.builder.get_object('windowMain')
 
+        # Resolución
+        self.list_store_Resoluciones = self.builder.get_object('liststoreResoluciones')
+        self.combo_box_Resoluciones = self.builder.get_object('comboboxResoluciones')
+
         # FPS
         self.spinbutton_fps = self.builder.get_object('spinbuttonFPS')
 
@@ -58,12 +62,24 @@ class GUI():
         # Lee de la base de datos la información para cada widget
         #
 
+        # Resoluciones
+        resolucion_id = 0
+        resoluciones = self.db.get_resoluciones()
+        for resolucion in resoluciones:
+            self.list_store_Resoluciones.append([resolucion['descripcion'], int(resolucion['id'])])
+
+            # Comprueba si se trata de la resolución actual
+            if resolucion['ancho'] == self.db.get_config('VENTANA_ANCHO') and resolucion['alto'] == self.db.get_config('VENTANA_ALTO'):
+                resolucion_actual = resolucion_id
+
+            resolucion_id += 1
+
+        # Seleccion la resolución actual
+        self.combo_box_Resoluciones.set_active(resolucion_actual) 
+
         # FPS
         framerate = int(self.db.get_config('FRAMERATE'))
         self.spinbutton_fps.set_value(framerate)
-
-        # Resoluciones
-        #resoluciones = db.get_resoluciones()
 
         # A la espera de evento
         Gtk.main()
@@ -89,8 +105,27 @@ class GUI():
         """
             Guarda en la base de datos los valores de los widgets
         """
+
+        # 
+        # Resoluciones
+        # 
+
+        # Resolución seleccionada
+        item = self.combo_box_Resoluciones.get_active() 
+
+        # Lista de resoluciones del combobox
+        resoluciones = self.combo_box_Resoluciones.get_model()
         
+        # Recupera el registro correspondiente a la resolución seleccionada
+        resolucion = self.db.get_resolucion(resoluciones[item][0])
+
+        # Actualiza la configuración
+        self.db.set_config('VENTANA_ANCHO', resolucion['ancho'])
+        self.db.set_config('VENTANA_ALTO', resolucion['alto'])
+
+        # 
         # FPS
+        # 
         self.db.set_config('FRAMERATE', self.spinbutton_fps.get_value_as_int())
     
         # Informa al usuario

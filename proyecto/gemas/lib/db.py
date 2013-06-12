@@ -64,14 +64,26 @@ class DB():
         """
             Recupera los registros de la tabla 'resoluciones'
         """
-        pass
+
+        consulta = 'select * from resoluciones;'
+
+        self.cursor.execute(consulta)
+        registros = self.cursor.fetchall()
+        
+        return registros
 
     def get_resolucion(self, resolucion = ''):
         """
             Recupera de la tabla resoluciones el registro cuyo campo 'descripcion'
             es igual al parámetro 'resolucion'
         """
-        pass
+
+        consulta = 'select * from resoluciones where descripcion = "{0}";'.format(resolucion)
+
+        self.cursor.execute(consulta)
+        registro = self.cursor.fetchone()
+        
+        return registro
         
     
     ##
