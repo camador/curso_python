@@ -125,6 +125,7 @@
                         <property name="margin_bottom">5</property>
                         <property name="model">liststoreResoluciones</property>
                         <property name="id_column">1</property>
+                        <signal name="changed" handler="onComboboxResolucionesChanged" swapped="no"/>
                         <child>
                           <object class="GtkCellRendererText" id="cellrenderertextResolucion"/>
                           <attributes>
@@ -156,6 +157,7 @@
                         <property name="adjustment">adjustmentFPS</property>
                         <property name="snap_to_ticks">True</property>
                         <property name="numeric">True</property>
+                        <signal name="value-changed" handler="onSpinbuttonFPSChangeValue" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>

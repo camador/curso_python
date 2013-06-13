@@ -24,6 +24,9 @@ class GUI():
                     'onWindowMainDestroy': self.window_main_destroy,
                     'onImagemenuitemSalirActivate': self.window_main_destroy,
 
+                    'onSpinbuttonFPSChangeValue': self.limpia_statusbar,
+                    'onComboboxResolucionesChanged': self.limpia_statusbar,
+
                     'onButtonGuardarClicked': self.on_guardar
                    }
 
@@ -130,6 +133,18 @@ class GUI():
     
         # Informa al usuario
         self.status.push(self.status_context_id, 'Configuración actualizada')
+
+    ##
+    ## BARRA DE ESTADO
+    ##
+    def limpia_statusbar(self, *args):
+        """
+            Limpia de mensajes la barra de estado
+        """
+
+        self.status.remove_all(self.status_context_id)
+
+    
 
 if __name__ == '__main__':
     print u'Módulo no ejecutable.'
