@@ -10,6 +10,7 @@ from lib.jugador import Jugador
 from lib.enemigo import Enemigo
 from lib.gema import Gema
 from lib.marcador import Marcador
+from lib.record import Record
 
 # Pygame
 import pygame
@@ -75,6 +76,11 @@ def main():
         # Marcador
         marcador = Marcador(config)
         sprites_activos['marcador'] = marcador
+
+        # Puntuación máxima
+        record = Record(config, db)
+        sprites_activos['record'] = record
+        
 
         #
         # BUCLE DE EVENTOS
