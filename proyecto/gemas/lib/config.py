@@ -41,12 +41,12 @@ class Config():
             # Tiempo necesario para el respawn de una nueva gema (en milisegundos)
             self.gema_respawn = int(db.get_config('GEMA_RESPAWN'))
 
-            # Vida (en segundos) de las gemas
-            self.gema_vida = int(db.get_config('GEMA_VIDA'))
+            # Tipos de gemas
+            self.gemas = db.get_gemas()
 
 
             #
-            # Gemas
+            # Enemigos
             #
 
             # Tipos de enemigos

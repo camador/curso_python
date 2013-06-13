@@ -13,7 +13,7 @@ class Gema(pygame.sprite.Sprite):
         Sprite para las gemas
     """
 
-    def __init__(self, config, sprites_activos = {}):
+    def __init__(self, config, tipo = 0, sprites_activos = {}):
 
         # Inicializa el ancestro
         pygame.sprite.Sprite.__init__(self)
@@ -21,11 +21,14 @@ class Gema(pygame.sprite.Sprite):
         # Valores de configuración
         self.config = config
 
+        # Tipo de gema 
+        self.parametros = config.gemas[tipo]
+
         # Vida de la gema en segundos
-        self.vida = config.gema_vida
+        self.vida = self.parametros['vida']
 
         # Carga la imagen (convert_alpha() convierte la imagen con transparencias (per pixel transparency)
-        self.imagen = pygame.image.load(os.path.join(self.config.dir_img, 'gema1.png')).convert_alpha() 
+        self.imagen = pygame.image.load(os.path.join(self.config.dir_img, self.parametros['fichero'])).convert_alpha() 
 
         # Obtiene un rectángulo con las dimensiones y posición de la imagen
         self.rect = self.imagen.get_rect()

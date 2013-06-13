@@ -86,6 +86,21 @@ class DB():
         return registro
         
     ##
+    ## GEMAS
+    ##
+    def get_gemas(self):
+        """
+            Recupera los registros de la tabla 'gemas'
+        """
+
+        consulta = 'select * from gemas;'
+
+        self.cursor.execute(consulta)
+        registros = self.cursor.fetchall()
+        
+        return registros
+
+    ##
     ## ENEMIGOS
     ##
     def get_enemigos(self):

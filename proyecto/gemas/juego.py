@@ -66,7 +66,7 @@ def main():
         # Instancia las gemas y las añade a la lista de sprites activos
         sprites_activos['gema'] = []
         for i in range(1, config.gema_max_activas + 1):
-            gema = Gema(config, sprites_activos)
+            gema = Gema(config, 0, sprites_activos)
             sprites_activos['gema'].append(gema)
 
         # Indica el momento de respawn de la próxima gema (0 = no hay próximo respawn)
@@ -160,7 +160,7 @@ def main():
                 # crea una nueva
                 gemas = sprites_activos['gema']
                 if len(gemas) < config.gema_max_activas and respawn_gema > 0 and pygame.time.get_ticks() >= respawn_gema:
-                    gema = Gema(config, sprites_activos)
+                    gema = Gema(config, 0, sprites_activos)
                     sprites_activos['gema'].append(gema)
 
                     # Indica el momento de respawn de la próxima gema (0 = no hay próximo respawn)

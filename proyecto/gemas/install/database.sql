@@ -62,6 +62,27 @@ insert into resoluciones (descripcion, ancho, alto) values ('800 x 600', '800', 
 
 
 --
+-- GEMAS
+--
+
+-- Creación de la tabla
+create table gemas (
+  id int not null auto_increment,
+  tipo int,
+  fichero varchar(50),
+  vida float,
+  tamanio_x int,
+  tamanio_y int,
+  indestructible int,
+  descripcion varchar(128),
+  primary key (id)
+);
+
+insert into gemas (tipo, fichero, vida, tamanio_x, tamanio_y, indestructible, descripcion) values (0, 'gema1.png', 2, 95, 111, 0, 'Gema básica'),
+                                                                                                  (1, 'gema2.png', 4, 48, 112, 1, 'Gema un poco más duradera');
+                                                                                                  (2, 'gema3.png', 1, 48, 112, 1, 'Gema indestructible');
+                                                                                                
+--
 -- ENEMIGOS
 --
 
