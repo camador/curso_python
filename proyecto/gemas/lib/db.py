@@ -3,6 +3,8 @@
 
 import MySQLdb
 
+import sys
+
 class DB():
     """
         Gestiona las operaciones con la base de datos
@@ -31,6 +33,12 @@ class DB():
             print '\n'
             print u'Error de base de datos: '
             print '\n\t', e, '\n'
+            print u"¿Creo la base de datos con 'mysql -u root -p < lib/database.sql'?"
+            print '\n'
+
+            # Termina la ejecución
+            sys.exit(0)
+
 
     ##
     ## CONFIG
