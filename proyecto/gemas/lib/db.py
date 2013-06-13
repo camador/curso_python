@@ -33,7 +33,7 @@ class DB():
             print '\n'
             print u'Error de base de datos: '
             print '\n\t', e, '\n'
-            print u"¿Creo la base de datos con 'mysql -u root -p < lib/database.sql'?"
+            print u"¿Instaló la base de datos con 'mysql -u root -p < install/database.sql'?"
             print '\n'
 
             # Termina la ejecución
