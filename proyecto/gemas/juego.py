@@ -70,9 +70,6 @@ def main():
             gema = Gema(config, 0, sprites_activos)
             sprites_activos['gema'].append(gema)
 
-        # Indica el momento de respawn de la próxima gema (0 = no hay próximo respawn)
-        respawn_gema = 0
-
         # Marcador
         marcador = Marcador(config)
         sprites_activos['marcador'] = marcador
@@ -135,11 +132,6 @@ def main():
                         if nombre == 'gema' and elemento.vida <= 0:
                             sprites_activos[nombre].remove(elemento)
 
-                            # Calcula el tiempo para la creación de la próxima gema 
-                            # La desaparición de una gema no resetea el tiempo
-                            if respawn_gema == 0:
-                                respawn_gema = pygame.time.get_ticks() + config.gema_respawn
-
                         else:
                             ventana.blit(elemento.imagen, elemento.rect)
                 else:
@@ -162,15 +154,45 @@ def main():
                 salir = True
 
             else:
-                # Si sigue vivo comprueba el número de gemas activas, si hay menos del número máximo 
-                # crea una nueva
-                gemas = sprites_activos['gema']
-                if len(gemas) < config.gema_max_activas and respawn_gema > 0 and pygame.time.get_ticks() >= respawn_gema:
-                    gema = Gema(config, 0, sprites_activos)
-                    sprites_activos['gema'].append(gema)
 
-                    # Indica el momento de respawn de la próxima gema (0 = no hay próximo respawn)
-                    respawn_gema = 0
+                # Si sigue vivo comprueba si es necesario generar una nueva gema
+
+                # Las gemas se generan siempre que haya menos del máximo permitido y 
+                # siempre después de pasado cierto tiempo (config.gema_respawn) desde la
+                # desaparición de una gema o desde la generación de una nueva, lo que ocurra
+                # antes. Es decir, mientras haya menos gemas de las permitidas se genera una
+                # nueva cada 'config.gema_respawn' milisegundos
+
+
+
+                """
+
+                if respawn_gema:
+                    print 'respawn_gema'
+
+                    # Calcula el tiempo para el próximo respawn si todavía no hay ninguno fijado
+                    if proximo_respawn_gema == 0:
+                        print 'calculando spawn 1'
+                        proximo_respawn_gema = pygame.time.get_ticks() + config.gema_respawn
+
+                    # Si el tiempo para el próximo respawn se ha cumplido crea la gema
+                    if pygame.time.get_ticks() >= proximo_respawn_gema:
+                        print 'generando gema'
+                        gema = Gema(config, 0, sprites_activos)
+                        sprites_activos['gema'].append(gema)
+                        proximo_respawn_gema = 0
+
+                    # Si hay menos gemas de las máximas posibles calcula el siguiente respawn
+                    if len(sprites_activos['gema']) < config.gema_max_activas and proximo_respawn_gema == 0:
+                        print 'calculando spawn 2'
+                        proximo_respawn_gema = pygame.time.get_ticks() + config.gema_respawn
+
+                    else:
+                        # Si no, elimina el tiempo para el próximo respawn e indica que no es
+                        # necesario generar más gemas
+                        print 'no hay que generar gemas'
+                        respawn_gema = False
+                """
 
         #
         # FIN DE LA EJECUCIÓN
