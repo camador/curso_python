@@ -84,7 +84,22 @@ class DB():
         registro = self.cursor.fetchone()
         
         return registro
+
+    ##
+    ## JUGADOR
+    ##
+    def get_jugador(self, tipo = 0):
+        """
+            Recupera el registro de la tabla 'jugadores' correspondiente a 'tipo'
+        """
+
+        consulta = 'select * from jugadores where tipo = {0};'.format(tipo)
+
+        self.cursor.execute(consulta)
+        registro = self.cursor.fetchone()
         
+        return registro
+       
     ##
     ## GEMAS
     ##

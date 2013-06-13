@@ -27,11 +27,14 @@ class Jugador(pygame.sprite.Sprite):
         # Valores de configuración
         self.config = config
 
+        # Recupera la definición del jugador
+        jugador = self.config.jugador
+
         # Carga la imagen (convert_alpha() convierte la imagen con transparencias (per pixel transparency))
-        self.imagen = pygame.image.load(os.path.join(self.config.dir_img, 'jugador.png')).convert_alpha() 
+        self.imagen = pygame.image.load(os.path.join(self.config.dir_img, jugador['fichero'])).convert_alpha() 
 
         # Disminuye el tamaño del sprite para que no se vea demasiado grande
-        self.imagen = pygame.transform.scale(self.imagen, (57, 67))
+        self.imagen = pygame.transform.scale(self.imagen, (int(jugador['tamanio_x'] * .75), int(jugador['tamanio_y'] * .75)))
 
         # Obtiene un rectángulo con las dimensiones y posición de la imagen
         self.rect = self.imagen.get_rect()
@@ -41,7 +44,7 @@ class Jugador(pygame.sprite.Sprite):
         self.rect.centery = self.config.ventana_alto / 2
 
         # Velocidad de movimiento
-        self.velocidad = self.config.velocidad_base
+        self.velocidad = jugador['factor_velocidad']
         
 
     def mover(self, tiempo, sprites_activos = {}):
@@ -107,7 +110,7 @@ class Jugador(pygame.sprite.Sprite):
        
                 if pygame.sprite.collide_rect(self, gema):
 
-                    # Aumenta la puntuación (multiplicando por mil tomar los decimales
+                    # Aumenta la puntuación (multiplicando por mil para tomar los decimales
                     # como puntos)
                     self.puntos += int(gema.tick() * 1000)
 

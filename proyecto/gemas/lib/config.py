@@ -32,6 +32,14 @@ class Config():
 
 
             #
+            # Jugadores
+            #
+
+            # Tipos de jugadores 
+            self.jugador = db.get_jugador(int(db.get_config('JUGADOR_TIPO')))
+    
+
+            #
             # Gemas
             #
 
