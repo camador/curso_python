@@ -15,6 +15,15 @@ Requisitos
 * [MySQLdb](http://sourceforge.net/projects/mysql-python/)
 * [PyGObjet](https://live.gnome.org/PyGObject)
 
+Instalación
+-----------
+Además de los requisitos listados arriba es necesario disponer de un servidor 
+[MySQL](http://www.mysql.com/) y un usuario con permisos para la creación de bases de datos (por ejemplo: root).
+
+Para crear la base de datos necesaria sólo hay que ejecutar el siguiente comando:
+
+    $ mysql -u root -p < install/database.sql
+
 To-Do
 -----
 - [X] Almacenamiento de configuraciones y datos en MySQL
