@@ -25,7 +25,14 @@ class GUI():
                     'onImagemenuitemSalirActivate': self.window_main_destroy,
 
                     'onSpinbuttonFPSChangeValue': self.limpia_statusbar,
+
                     'onComboboxResolucionesChanged': self.limpia_statusbar,
+
+                    'onRadiobuttonJugador1Toggled': self.limpia_statusbar,
+                    'onRadiobuttonJugador2Toggled': self.limpia_statusbar,
+                    'onRadiobuttonJugador3Toggled': self.limpia_statusbar,
+                    'onRadiobuttonJugador4Toggled': self.limpia_statusbar,
+                    'onRadiobuttonJugador5Toggled': self.limpia_statusbar,
 
                     'onButtonGuardarClicked': self.on_guardar
                    }
@@ -42,6 +49,15 @@ class GUI():
 
         # FPS
         self.spinbutton_fps = self.builder.get_object('spinbuttonFPS')
+
+        # Jugador
+        self.radiobutton_jugador = [
+                                    self.builder.get_object('radiobuttonJugador1'),
+                                    self.builder.get_object('radiobuttonJugador2'),
+                                    self.builder.get_object('radiobuttonJugador3'),
+                                    self.builder.get_object('radiobuttonJugador4'),
+                                    self.builder.get_object('radiobuttonJugador5')
+                                   ]
 
         # Barra de estado
         self.status = self.builder.get_object('statusBar')
@@ -84,6 +100,10 @@ class GUI():
         framerate = int(self.db.get_config('FRAMERATE'))
         self.spinbutton_fps.set_value(framerate)
 
+        # Jugador
+        jugador_tipo = int(self.db.get_config('JUGADOR_TIPO'))
+        self.radiobutton_jugador[jugador_tipo].set_active(True)
+
         # A la espera de evento
         Gtk.main()
     
@@ -100,6 +120,16 @@ class GUI():
 
         # Saliendo
         Gtk.main_quit()
+
+    ##
+    ## BARRA DE ESTADO
+    ##
+    def limpia_statusbar(self, *args):
+        """
+            Limpia de mensajes la barra de estado
+        """
+
+        self.status.remove_all(self.status_context_id)
 
     ##
     ## GUARDAR
@@ -131,18 +161,26 @@ class GUI():
         # 
         self.db.set_config('FRAMERATE', self.spinbutton_fps.get_value_as_int())
     
+        #
+        # JUGADOR
+        #
+
+        # Recorre los radiobuttons para localizar el seleccionado
+        jugador_seleccionado = 0
+        for radio in self.radiobutton_jugador:
+
+            # Cuando encuentra el activo sale del bucle
+            if radio.get_active():
+                break;
+            
+            # Si no es el activo incrementa el índice
+            jugador_seleccionado += 1
+
+        # Actualiza la base de datos
+        self.db.set_config('JUGADOR_TIPO', jugador_seleccionado)
+
         # Informa al usuario
         self.status.push(self.status_context_id, 'Configuración actualizada')
-
-    ##
-    ## BARRA DE ESTADO
-    ##
-    def limpia_statusbar(self, *args):
-        """
-            Limpia de mensajes la barra de estado
-        """
-
-        self.status.remove_all(self.status_context_id)
 
     
 
