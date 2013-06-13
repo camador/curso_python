@@ -59,3 +59,23 @@ create table resoluciones (
 
 insert into resoluciones (descripcion, ancho, alto) values ('800 x 600', '800', '600'),
                                                            ('1024 x 768', '1024', '768');
+
+
+--
+-- ENEMIGOS
+--
+
+-- Creación de la tabla
+create table enemigos (
+  id int not null auto_increment,
+  tipo int,
+  fichero varchar(50),
+  tamanio_x int,
+  tamanio_y int,
+  factor_velocidad float,
+  descripcion varchar(128),
+  primary key (id)
+);
+
+insert into enemigos (tipo, fichero, tamanio_x, tamanio_y, factor_velocidad, descripcion) values (0, 'enemigo.png', 49, 38, 0.5, 'Enemigo rápido'),
+                                                                                                 (1, 'roca.png', 48, 49, 0.15, 'Enemigo lento que rompe las gemas');

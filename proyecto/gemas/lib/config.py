@@ -30,6 +30,7 @@ class Config():
             # Número de frames por segundo
             self.framerate = int(db.get_config('FRAMERATE'))
 
+
             #
             # Gemas
             #
@@ -42,7 +43,16 @@ class Config():
 
             # Vida (en segundos) de las gemas
             self.gema_vida = int(db.get_config('GEMA_VIDA'))
+
+
+            #
+            # Gemas
+            #
+
+            # Tipos de enemigos
+            self.enemigos = db.get_enemigos()
     
+
             # 
             # Otros valores no tomados de la base de datos
             # 

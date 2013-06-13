@@ -85,6 +85,20 @@ class DB():
         
         return registro
         
+    ##
+    ## ENEMIGOS
+    ##
+    def get_enemigos(self):
+        """
+            Recupera los registros de la tabla 'enemigos'
+        """
+
+        consulta = 'select * from enemigos;'
+
+        self.cursor.execute(consulta)
+        registros = self.cursor.fetchall()
+        
+        return registros
     
     ##
     ## CLOSE
