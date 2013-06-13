@@ -155,13 +155,19 @@ class DB():
         """
             Devuelve la puntuación más alta
         """
+        
+        # Valor a devolver si todavía no hay puntuaciones registradas
+        record = 0
 
         consulta = 'select max(puntos) as record from puntuaciones;'
 
         self.cursor.execute(consulta)
-        record = self.cursor.fetchone()
+        registro = self.cursor.fetchone()
 
-        return int(record['record'])
+        if registro['record']:
+            record = int(registro['record'])
+
+        return record
 
     ##
     ## CLOSE
