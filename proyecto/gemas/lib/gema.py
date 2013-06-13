@@ -13,9 +13,6 @@ class Gema(pygame.sprite.Sprite):
         Sprite para las gemas
     """
 
-    # Vida de la gema en segundos
-    vida = 3
-
     def __init__(self, config, sprites_activos = {}):
 
         # Inicializa el ancestro
@@ -23,6 +20,9 @@ class Gema(pygame.sprite.Sprite):
 
         # Valores de configuración
         self.config = config
+
+        # Vida de la gema en segundos
+        self.vida = config.gema_vida
 
         # Carga la imagen (convert_alpha() convierte la imagen con transparencias (per pixel transparency)
         self.imagen = pygame.image.load(os.path.join(self.config.dir_img, 'gema1.png')).convert_alpha() 

@@ -33,9 +33,16 @@ create table config (
 -- Configuración predeterminada
 insert into config (clave, valor, descripcion) values ('VENTANA_ANCHO', '1024', 'Ancho de la ventana en pixels '),
                                                       ('VENTANA_ALTO', '768', 'Alto de la ventana en pixels'),
+
                                                       ('DIR_IMG', 'imagenes', 'Directorio de las imágenes'),
+
                                                       ('VELOCIDAD_BASE', '1', 'Velocidad base para todos los sprites'),
-                                                      ('FRAMERATE', '60', 'Número máximo de frames por segundo');
+
+                                                      ('FRAMERATE', '60', 'Número máximo de frames por segundo'),
+
+                                                      ('GEMA_MAX_ACTIVAS', '4', 'Número máximo de gemas activas'),
+                                                      ('GEMA_RESPAWN', '1200', 'Tiempo (en milisegundos) para el respawn de las gemas'),
+                                                      ('GEMA_VIDA', '3', 'Vida (en segundos) de las gemas');
 
 --
 -- RESOLUCIONES

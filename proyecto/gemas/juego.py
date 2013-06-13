@@ -63,9 +63,9 @@ def main():
         # Instancia dos enemigos y los añade a la lista de sprites activos
         sprites_activos['enemigo'] = [Enemigo(config, 0), Enemigo(config, 1)]
 
-        # Instancia tres gemas y las añade a la lista de sprites activos
+        # Instancia las gemas y las añade a la lista de sprites activos
         sprites_activos['gema'] = []
-        for i in range(1, 4):
+        for i in range(1, config.gema_max_activas + 1):
             gema = Gema(config, sprites_activos)
             sprites_activos['gema'].append(gema)
 
@@ -129,10 +129,10 @@ def main():
                         if nombre == 'gema' and elemento.vida <= 0:
                             sprites_activos[nombre].remove(elemento)
 
-                            # Calcula el tiempo para la creación de la próxima gema (2 segundos)
+                            # Calcula el tiempo para la creación de la próxima gema 
                             # La desaparición de una gema no resetea el tiempo
                             if respawn_gema == 0:
-                                respawn_gema = pygame.time.get_ticks() + 2000
+                                respawn_gema = pygame.time.get_ticks() + config.gema_respawn
 
                         else:
                             ventana.blit(elemento.imagen, elemento.rect)
@@ -159,7 +159,7 @@ def main():
                 # Si sigue vivo comprueba el número de gemas activas, si hay menos de 3
                 # crea una nueva
                 gemas = sprites_activos['gema']
-                if len(gemas) < 3 and respawn_gema > 0 and pygame.time.get_ticks() >= respawn_gema:
+                if len(gemas) < config.gema_max_activas and respawn_gema > 0 and pygame.time.get_ticks() >= respawn_gema:
                     gema = Gema(config, sprites_activos)
                     sprites_activos['gema'].append(gema)
 

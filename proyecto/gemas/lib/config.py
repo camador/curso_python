@@ -29,6 +29,19 @@ class Config():
 
             # Número de frames por segundo
             self.framerate = int(db.get_config('FRAMERATE'))
+
+            #
+            # Gemas
+            #
+
+            # Número máximo de gemas activas
+            self.gema_max_activas = int(db.get_config('GEMA_MAX_ACTIVAS'))
+
+            # Tiempo necesario para el respawn de una nueva gema (en milisegundos)
+            self.gema_respawn = int(db.get_config('GEMA_RESPAWN'))
+
+            # Vida (en segundos) de las gemas
+            self.gema_vida = int(db.get_config('GEMA_VIDA'))
     
             # 
             # Otros valores no tomados de la base de datos
