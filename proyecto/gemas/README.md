@@ -26,9 +26,7 @@ Para crear la base de datos necesaria sólo hay que ejecutar el siguiente comand
 
 To-Do
 -----
-- [X] Almacenamiento de configuraciones y datos en MySQL
-- [ ] GUI para la configuración
-- [X] Versión jugable del juego
+[Tareas pendientes](https://github.com/camador/curso_python/issues?milestone=2&state=open)
 
 Créditos
 --------
