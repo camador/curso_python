@@ -17,9 +17,9 @@ Requisitos
 
 To-Do
 -----
-- [ ] Almacenamiento de configuraciones y datos en MySQL
+- [X] Almacenamiento de configuraciones y datos en MySQL
 - [ ] GUI para la configuración
-- [ ] Versión jugable del juego
+- [X] Versión jugable del juego
 
 Créditos
 --------
