@@ -129,7 +129,32 @@ class DB():
         registros = self.cursor.fetchall()
         
         return registros
-    
+
+    ##
+    ## PUNTUACION
+    ##
+    def guarda_puntuacion(self, puntos = 0):
+        """
+            Guarda una puntuación
+        """
+
+        insert = "insert into puntuaciones (nombre, puntos, fecha) values ('Jugador', {0}, now());".format(puntos)
+
+        self.cursor.execute(insert)
+        self.db.commit()
+
+    def get_record(self):
+        """
+            Devuelve la puntuación más alta
+        """
+
+        consulta = 'select max(puntos) as record from puntuaciones;'
+
+        self.cursor.execute(consulta)
+        record = self.cursor.fetchone()
+
+        return int(record['record'])
+
     ##
     ## CLOSE
     ##

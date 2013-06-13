@@ -122,3 +122,17 @@ create table enemigos (
 
 insert into enemigos (tipo, fichero, tamanio_x, tamanio_y, factor_velocidad, descripcion) values (0, 'enemigo.png', 49, 38, 0.5, 'Enemigo rápido'),
                                                                                                  (1, 'roca.png', 48, 49, 0.15, 'Enemigo lento que rompe las gemas');
+
+
+--
+-- PUNTUACIONES
+--
+
+-- Creación de la tabla
+create table puntuaciones (
+  id int not null auto_increment,
+  nombre varchar(50),
+  puntos int,
+  fecha datetime,
+  primary key (id)
+);

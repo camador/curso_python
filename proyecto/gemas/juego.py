@@ -156,7 +156,7 @@ def main():
                 salir = True
 
             else:
-                # Si sigue vivo comprueba el número de gemas activas, si hay menos de 3
+                # Si sigue vivo comprueba el número de gemas activas, si hay menos del número máximo 
                 # crea una nueva
                 gemas = sprites_activos['gema']
                 if len(gemas) < config.gema_max_activas and respawn_gema > 0 and pygame.time.get_ticks() >= respawn_gema:
@@ -170,6 +170,10 @@ def main():
         # FIN DE LA EJECUCIÓN
         #
 
+        # Guarda la puntución
+        db.guarda_puntuacion(jugador.puntos)
+
+        # Informa al usuario
         print '\n'
         print u'Game Over ^_^'
         print u'Tu puntuación: ', jugador.puntos
