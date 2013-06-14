@@ -73,7 +73,7 @@ def main():
         # Hay varios tipos de gemas, cada una con una probabilidad distinta de ser
         # generada. La generación de las gemas es aleatoria pero teniendo en cuenta
         # dicha probabilidad
-        probabilidad_gemas = db.get_probabilidad_gemas()
+        probabilidad_gemas = db.get_probabilidad('gemas')
         sprites_activos['gema'] = []
         for i in range(1, config.gema_max_activas + 1):
             tipo_gema = get_tipo(probabilidad_gemas)

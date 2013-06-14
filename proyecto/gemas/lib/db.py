@@ -123,23 +123,6 @@ class DB():
         
         return registros
 
-    def get_probabilidad_gemas(self):
-        """
-            Devuelve una lista con las probabilidades de las gemas
-        """
-
-        consulta = 'select probabilidad from gemas order by tipo;'
-
-        self.cursor.execute(consulta)
-        registros = self.cursor.fetchall()
-        
-        # Genera la lista tomando el valor de cada registro
-        probabilidades = []
-        for registro in registros:
-            probabilidades.append(int(registro['probabilidad']))
-
-        return probabilidades
-
     ##
     ## ENEMIGOS
     ##
@@ -185,6 +168,27 @@ class DB():
             record = int(registro['record'])
 
         return record
+
+
+    ##
+    ## COMUNES
+    ##
+    def get_probabilidad(self, tabla = 'gemas'):
+        """
+            Devuelve una lista con las probabilidades de las gemas
+        """
+
+        consulta = 'select probabilidad from {0} order by tipo;'.format(tabla)
+
+        self.cursor.execute(consulta)
+        registros = self.cursor.fetchall()
+        
+        # Genera la lista tomando el valor de cada registro
+        probabilidades = []
+        for registro in registros:
+            probabilidades.append(int(registro['probabilidad']))
+
+        return probabilidades
 
     ##
     ## CLOSE
