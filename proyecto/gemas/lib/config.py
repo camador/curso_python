@@ -60,6 +60,8 @@ class Config():
             # Tipos de enemigos
             self.enemigos = db.get_enemigos()
     
+            # Tiempo necesario para el respawn de un nuevo enemigo (en milisegundos)
+            self.enemigo_respawn = int(db.get_config('ENEMIGO_RESPAWN'))
 
             # 
             # Otros valores no tomados de la base de datos

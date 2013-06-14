@@ -66,7 +66,11 @@ def main():
         sprites_activos['jugador'] = jugador
 
         # Instancia dos enemigos y los añade a la lista de sprites activos
+        probabilidad_enemigos = db.get_probabilidad('enemigos')
         sprites_activos['enemigo'] = [Enemigo(config, 0), Enemigo(config, 1)]
+
+        # Indica el momento en el que se generó el último enemigo
+        ultimo_enemigo_respawn = 0
 
         # Instancia las gemas y las añade a la lista de sprites activos
         #
@@ -167,7 +171,13 @@ def main():
 
             else:
 
-                # Si sigue vivo comprueba si es necesario generar una nueva gema
+                # Si el jugador sigue vivo:
+                # - Genera nuevas gemas si es necesario
+                # - Genera nuevos enemigos según aumenta el tiempo de juego
+
+                #
+                # Generación de gemas
+                #
 
                 # Las gemas se generan siempre que haya menos del máximo permitido y 
                 # siempre después de pasado cierto tiempo (config.gema_respawn) desde la
@@ -197,6 +207,19 @@ def main():
 
                         # Resetea el momento para la creación de la siguiente gema
                         proximo_respawn_gema = 0
+
+                #
+                # Generación de enemigos 
+                #
+
+                # Cada cierto tiempo se genera un enemigo nuevo. El tipo es aleatorio pero
+                # sujeto a la probabilidad de generación de cada enemigo
+                if (pygame.time.get_ticks() - ultimo_enemigo_respawn) / config.enemigo_respawn > 0:
+                    tipo_enemigo = get_tipo(probabilidad_enemigos)
+                    sprites_activos['enemigo'].append(Enemigo(config, tipo_enemigo))
+
+                    # Anota el momento en el que se ha generado el último enemigo
+                    ultimo_enemigo_respawn = pygame.time.get_ticks()
 
         #
         # FIN DE LA EJECUCIÓN
@@ -254,7 +277,6 @@ def get_tipo(pesos):
 
             # Item encontrado
             return indice
-    
 
 if __name__ == '__main__':
 
