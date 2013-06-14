@@ -250,12 +250,8 @@ def get_tipo(pesos):
         suma_pesos += pesos[indice]
         
         # Comprueba si el número aleatorio 'pertenece' al elemento actual
-        if num_aleatorio > suma_pesos:
+        if num_aleatorio <= suma_pesos:
 
-            # No pertence al elemento, siguiente índice
-            indice +=1 
-
-        else:
             # Item encontrado
             return indice
     
