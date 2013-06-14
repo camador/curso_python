@@ -43,7 +43,7 @@ insert into config (clave, valor, descripcion) values ('VENTANA_ANCHO', '1024', 
                                                       ('JUGADOR_TIPO', '0', 'Tipo de jugador'),
 
                                                       ('GEMA_MAX_ACTIVAS', '4', 'Número máximo de gemas activas'),
-                                                      ('GEMA_RESPAWN', '1200', 'Tiempo (en milisegundos) para el respawn de las gemas');
+                                                      ('GEMA_RESPAWN', '1800', 'Tiempo (en milisegundos) para el respawn de las gemas');
 
 --
 -- RESOLUCIONES
