@@ -19,7 +19,11 @@ from pygame.locals import *
 # Otros
 import os
 import sys
+from random import randint
 
+##
+## MAIN
+##
 def main():
 
     try :
@@ -65,9 +69,15 @@ def main():
         sprites_activos['enemigo'] = [Enemigo(config, 0), Enemigo(config, 1)]
 
         # Instancia las gemas y las añade a la lista de sprites activos
+        #
+        # Hay varios tipos de gemas, cada una con una probabilidad distinta de ser
+        # generada. La generación de las gemas es aleatoria pero teniendo en cuenta
+        # dicha probabilidad
+        probabilidad_gemas = db.get_probabilidad_gemas()
         sprites_activos['gema'] = []
         for i in range(1, config.gema_max_activas + 1):
-            gema = Gema(config, 0, sprites_activos)
+            tipo_gema = get_tipo(probabilidad_gemas)
+            gema = Gema(config, tipo_gema, sprites_activos)
             sprites_activos['gema'].append(gema)
 
         # Indica el momento en que ha de generarse una nueva gema (0 = no se genera ninguna)
@@ -181,7 +191,8 @@ def main():
                     if proximo_respawn_gema <= pygame.time.get_ticks():
 
                         # Ya se puede crear la gema y añadirla a la lista de sprites activos
-                        gema = Gema(config, 0, sprites_activos)
+                        tipo_gema = get_tipo(probabilidad_gemas)
+                        gema = Gema(config, tipo_gema, sprites_activos)
                         sprites_activos['gema'].append(gema)
 
                         # Resetea el momento para la creación de la siguiente gema
@@ -210,6 +221,44 @@ def main():
         print '\n'
         print u'Error en Pygame: '
         print '\n\t' , e, '\n'
+
+##
+## FUNCIONES AUXILIARES
+##
+def get_tipo(pesos):
+    """
+        Genera aleatoriamente un índice de la lista recibida pero teniendo en cuenta
+        el peso (la probabilidad) de cada uno de los elementos.
+
+        El valor de cada elemento de la lista es el peso de dicho elemento.
+    """
+    
+    # Genera un número aleatorio entre 1 y la suma total de los pesos
+    num_aleatorio = randint(1, sum(pesos))
+
+    # Recorre la lista de pesos buscando el elemento al que pertenece el número aleatorio:
+    #
+    # Si el número es menor que el peso del primer item, el índice a devolver será el de dicho item,
+    # si no lo es suma el valor del primer item y del segundo y repite la comparación. Si el número
+    # es menor que la suma devuelve el índice del segundo item, si no, suma el valor del tercero, y 
+    # así hasta que encuentre el item correcto
+
+    suma_pesos = 0
+    for indice in range(0, len(pesos)):
+
+        # Añade el peso del elemento a la suma de pesos
+        suma_pesos += pesos[indice]
+        
+        # Comprueba si el número aleatorio 'pertenece' al elemento actual
+        if num_aleatorio > suma_pesos:
+
+            # No pertence al elemento, siguiente índice
+            indice +=1 
+
+        else:
+            # Item encontrado
+            return indice
+    
 
 if __name__ == '__main__':
 

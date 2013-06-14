@@ -97,12 +97,13 @@ create table gemas (
   tamanio_y int,
   indestructible int,
   descripcion varchar(128),
+  probabilidad int,
   primary key (id)
 );
 
-insert into gemas (tipo, fichero, vida, tamanio_x, tamanio_y, indestructible, descripcion) values (0, 'gema1.png', 2, 95, 111, 0, 'Gema básica'),
-                                                                                                  (1, 'gema2.png', 4, 48, 112, 1, 'Gema un poco más duradera'),
-                                                                                                  (2, 'gema3.png', 1, 48, 112, 1, 'Gema indestructible');
+insert into gemas (tipo, fichero, vida, tamanio_x, tamanio_y, indestructible, descripcion, probabilidad) values (0, 'gema1.png', 2, 95, 111, 0, 'Gema básica', 50),
+                                                                                                                (1, 'gema2.png', 4, 48, 112, 0, 'Gema un poco más duradera', 30),
+                                                                                                                (2, 'gema3.png', 1, 48, 112, 1, 'Gema indestructible', 20);
                                                                                                 
 --
 -- ENEMIGOS
