@@ -24,8 +24,13 @@ class Gema(pygame.sprite.Sprite):
         # Tipo de gema 
         self.parametros = config.gemas[tipo]
 
+        # Tamaño original
+        self.tamanio_x = self.parametros['tamanio_x']
+        self.tamanio_y = self.parametros['tamanio_y']
+
         # Vida de la gema en segundos
         self.vida = self.parametros['vida']
+        self.vida_original = self.vida
 
         # Indestructibilidad de la gema
         self.indestructible = self.parametros['indestructible']
@@ -82,6 +87,15 @@ class Gema(pygame.sprite.Sprite):
             # que tienen lugar en él se obtiene la cantidad de vida que pierde la gema en cada frame.
             vida_perdida = (1.0 / self.config.framerate)
             self.vida -= vida_perdida
+
+            # Cada pérdida de vida hace a la gema más pequeña
+            centro = self.rect.center
+            factor_reduccion = self.vida / self.vida_original
+            self.imagen = pygame.transform.scale(self.imagen, (int(self.tamanio_x * factor_reduccion), int(self.tamanio_y * factor_reduccion)))
+
+            # Reposiciona la nueva imagen usando el centro de la original
+            self.rect = self.imagen.get_rect()
+            self.rect.center = centro
 
         else:
             vida_perdida = 0
