@@ -280,10 +280,6 @@ def get_tipo(pesos):
 
 if __name__ == '__main__':
 
-    pygame.init()
-
-    # Empezando...
-    main()
     try:
         
         # Inicializa Pygame
