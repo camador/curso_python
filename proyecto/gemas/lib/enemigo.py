@@ -29,7 +29,7 @@ class Enemigo(pygame.sprite.Sprite):
         self.imagen = pygame.image.load(os.path.join(self.config.dir_img, enemigo['fichero'])).convert_alpha() 
 
         # Disminuye el tamaño del sprite para que no se vea demasiado grande
-        self.imagen = pygame.transform.scale(self.imagen, (enemigo['tamanio_x'], enemigo['tamanio_y']))
+        self.imagen = pygame.transform.smoothscale(self.imagen, (enemigo['tamanio_x'], enemigo['tamanio_y']))
 
         # Obtiene un rectángulo con las dimensiones y posición de la imagen
         self.rect = self.imagen.get_rect()

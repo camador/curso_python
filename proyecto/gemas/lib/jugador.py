@@ -34,7 +34,7 @@ class Jugador(pygame.sprite.Sprite):
         self.imagen = pygame.image.load(os.path.join(self.config.dir_img, jugador['fichero'])).convert_alpha() 
 
         # Disminuye el tamaño del sprite para que no se vea demasiado grande
-        self.imagen = pygame.transform.scale(self.imagen, (int(jugador['tamanio_x'] * .75), int(jugador['tamanio_y'] * .75)))
+        self.imagen = pygame.transform.smoothscale(self.imagen, (int(jugador['tamanio_x'] * .75), int(jugador['tamanio_y'] * .75)))
 
         # Obtiene un rectángulo con las dimensiones y posición de la imagen
         self.rect = self.imagen.get_rect()
