@@ -27,6 +27,9 @@ class Gema(pygame.sprite.Sprite):
         # Vida de la gema en segundos
         self.vida = self.parametros['vida']
 
+        # Indestructibilidad de la gema
+        self.indestructible = self.parametros['indestructible']
+
         # Carga la imagen (convert_alpha() convierte la imagen con transparencias (per pixel transparency)
         self.imagen = pygame.image.load(os.path.join(self.config.dir_img, self.parametros['fichero'])).convert_alpha() 
 

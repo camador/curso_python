@@ -99,7 +99,7 @@ class Enemigo(pygame.sprite.Sprite):
                         self.__rebote(self.config.eje_y, tiempo)
 
                     # Las rocas (tipo 1) destruyen las gemas
-                    if self.tipo == 1:
+                    if self.tipo == 1 and not gema.indestructible:
                         gema.vida = 0
 
 
