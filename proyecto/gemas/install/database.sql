@@ -101,9 +101,9 @@ create table gemas (
   primary key (id)
 );
 
-insert into gemas (tipo, fichero, vida, tamanio_x, tamanio_y, indestructible, descripcion, probabilidad) values (0, 'gema1.png', 2, 95, 111, 0, 'Gema básica', 50),
+insert into gemas (tipo, fichero, vida, tamanio_x, tamanio_y, indestructible, descripcion, probabilidad) values (0, 'gema1.png', 2, 95, 111, 0, 'Gema básica', 60),
                                                                                                                 (1, 'gema2.png', 4, 48, 112, 0, 'Gema un poco más duradera', 30),
-                                                                                                                (2, 'gema3.png', 1, 48, 112, 1, 'Gema indestructible', 20);
+                                                                                                                (2, 'gema3.png', 1, 48, 112, 1, 'Gema indestructible', 10);
                                                                                                 
 --
 -- ENEMIGOS
