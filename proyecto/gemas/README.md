@@ -8,6 +8,8 @@ Avanzada en Python, 2ª Edición** del [Centro de Enseñanzas Virtuales de la
 Universidad de Granada](http://cevug.ugr.es), y su objetivo es poner en práctica
 algunas de las técnicas aprendidas.
 
+[Gemas v0.5 rocks !](https://www.dropbox.com/s/6p8c5wob04xcusb/Gemas_Screencast.webm)
+
 Requisitos
 ----------
 * [Python 2.7](http://www.python.org/)
