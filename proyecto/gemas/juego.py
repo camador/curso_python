@@ -11,6 +11,7 @@ from lib.enemigo import Enemigo
 from lib.gema import Gema
 from lib.marcador import Marcador
 from lib.record import Record
+from lib.gameover import GameOver
 
 # Pygame
 import pygame
@@ -101,6 +102,9 @@ def main():
             record = Record(config, db)
             sprites_activos['record'] = record
             
+            # Fin de partida
+            gameover = GameOver(config)
+
 
             #
             # BUCLE DE EVENTOS
@@ -161,12 +165,6 @@ def main():
                     else:
                         ventana.blit(sprites_activos[nombre].imagen, sprites_activos[nombre].rect)
 
-                #
-                # ACTUALIZACIÓN DE LA PANTALLA
-                #
-
-                # Dibuja la escena
-                pygame.display.flip()
 
                 #
                 # EVALUACIÓN DEL ESTADO DE LOS SPRITES
@@ -174,7 +172,15 @@ def main():
 
                 # Comprueba si el jugador sigue vivo
                 if not jugador.vivo:
-                    # Si no sigue vivo sale del bucle
+
+                    # Guarda la puntución
+                    db.guarda_puntuacion(jugador.puntos)
+
+                    # Avisa al jugador
+                    ventana.blit(gameover.imagen, gameover.rect)
+                    pygame.draw.rect(ventana, (255, 255, 255), gameover.rect.inflate(7, 5), 2)
+
+                    # y finaliza la partida
                     fin_partida = True
 
                 else:
@@ -229,22 +235,20 @@ def main():
                         # Anota el momento en el que se ha generado el último enemigo
                         ultimo_enemigo_respawn = pygame.time.get_ticks()
 
+                #
+                # ACTUALIZACIÓN DE LA PANTALLA
+                #
+
+                # Dibuja la escena
+                pygame.display.flip()
+
             #
             # FIN DE LA PARTIDA
             #
             if fin_partida:
 
-                # Guarda la puntución
-                db.guarda_puntuacion(jugador.puntos)
-
-                # Informa al usuario
-                print '\n'
-                print u'Game Over ^_^'
-                print u'Tu puntuación: ', jugador.puntos
-                print '\n'
-
                 #
-                # ************* AÑADIR CONTROL PARA JUGAR UNA NUEVA PARTIDA O TERMINAR EL PROGRAMA
+                # CONTROL PARA JUGAR UNA NUEVA PARTIDA O TERMINAR EL PROGRAMA
                 # 
 
                 while not salir and fin_partida: 
