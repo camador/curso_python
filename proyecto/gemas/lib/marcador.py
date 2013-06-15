@@ -43,7 +43,7 @@ class Marcador(pygame.sprite.Sprite):
         """
 
         # Título del marcador más puntuación
-        self.imagen = pygame.font.Font.render(self.tipo_letra, 'Puntos: {0}'.format(puntos), 1, self.COLOR)
+        self.imagen = self.tipo_letra.render('Puntos: {0}'.format(puntos), 1, self.COLOR)
 
         # Obtiene un rectángulo con las dimensiones y posición de la imagen
         self.rect = self.imagen.get_rect()

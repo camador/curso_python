@@ -49,7 +49,7 @@ class Record(pygame.sprite.Sprite):
         record = self.db.get_record()
 
         # Título del marcador más puntuación
-        self.imagen = pygame.font.Font.render(self.tipo_letra, 'Record: {0}'.format(record), 1, self.COLOR)
+        self.imagen = self.tipo_letra.render('Record: {0}'.format(record), 1, self.COLOR)
 
         # Obtiene un rectángulo con las dimensiones y posición de la imagen
         self.rect = self.imagen.get_rect()
