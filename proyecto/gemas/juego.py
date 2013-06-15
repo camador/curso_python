@@ -77,7 +77,7 @@ def main():
             sprites_activos['enemigo'] = [Enemigo(config, 0), Enemigo(config, 1)]
 
             # Indica el momento en el que se generó el último enemigo
-            ultimo_enemigo_respawn = 0
+            ultimo_enemigo_respawn = pygame.time.get_ticks()
 
             # Instancia las gemas y las añade a la lista de sprites activos
             #
@@ -127,8 +127,8 @@ def main():
                     # La tecla ESC termina la ejecución
                     elif evento.type == KEYDOWN:
                         if evento.key == K_ESCAPE:
-                            fin_partida = True
                             salir = True
+                            fin_partida = True
 
                 #
                 # CALCULO DEL MOVIMIENTO Y PUNTUACIÓN
@@ -243,9 +243,29 @@ def main():
                 print u'Tu puntuación: ', jugador.puntos
                 print '\n'
 
-            #
-            # ************* AÑADIR CONTROL PARA JUGAR UNA NUEVA PARTIDA O TERMINAR EL PROGRAMA
-            # 
+                #
+                # ************* AÑADIR CONTROL PARA JUGAR UNA NUEVA PARTIDA O TERMINAR EL PROGRAMA
+                # 
+
+                while not salir and fin_partida: 
+
+                    # Obtiene y recorre la lista de eventos que están teniendo lugar
+                    for evento in pygame.event.get():
+
+                        # Si encuentra el evento QUIT termina la ejecución
+                        if evento.type == QUIT:
+                            salir = True
+
+                        # Pulsaciones de teclas
+                        elif evento.type == KEYDOWN:
+
+                            # La tecla ESC termina la ejecución
+                            if evento.key == K_ESCAPE:
+                                salir = True
+
+                            # La tecla RETURN inicia una nueva partida
+                            elif evento.key == K_RETURN:
+                                fin_partida = False
 
         #
         # FIN DE LA EJECUCIÓN DEL PROGRAMA
