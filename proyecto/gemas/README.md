@@ -35,6 +35,8 @@ Créditos
 - [PlanetCute](http://www.lostgarden.com/2007/05/dancs-miraculously-flexible-game.html) art by Daniel Cook 
 - Gráficos adaptados por José Antonio Rodríguez Vázquez
 - Tipo de letra: [Jet Set](http://www.fontspace.com/captain-falcon/jet-set) de [Captain Falcon](http://www.fontspace.com/captain-falcon)
+- Sonidos
+  - 'gameover.ogg' de [hellkt](http://www.freesound.org/people/hellkt/)
 
 Licencia
 --------
