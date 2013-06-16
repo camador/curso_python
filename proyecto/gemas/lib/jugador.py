@@ -45,6 +45,9 @@ class Jugador(pygame.sprite.Sprite):
 
         # Velocidad de movimiento
         self.velocidad = jugador['factor_velocidad']
+
+        # Sonido para la muerte del jugador
+        self.sonido_muerte = pygame.mixer.Sound(os.path.join(self.config.dir_snd, jugador['gameover']))
         
 
     def mover(self, tiempo, sprites_activos = {}):
@@ -113,6 +116,15 @@ class Jugador(pygame.sprite.Sprite):
                     # Aumenta la puntuación (multiplicando por mil para tomar los decimales
                     # como puntos)
                     self.puntos += int(gema.tick() * 1000)
+
+    def muerto(self):
+        """
+            Indica la muerte del jugador
+        """
+
+        self.sonido_muerte.play()    
+        self.vivo = False
+    
 
 
 if __name__ == '__main__':

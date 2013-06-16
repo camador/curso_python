@@ -23,6 +23,7 @@ class Config():
 
             # Ubicación de los ficheros
             self.dir_img = db.get_config('DIR_IMG')
+            self.dir_snd = db.get_config('DIR_SND')
 
             # Velocidad base para todos los sprites
             self.velocidad_base = int(db.get_config('VELOCIDAD_BASE'))

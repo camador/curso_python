@@ -35,6 +35,7 @@ insert into config (clave, valor, descripcion) values ('VENTANA_ANCHO', '1024', 
                                                       ('VENTANA_ALTO', '768', 'Alto de la ventana en pixels'),
 
                                                       ('DIR_IMG', 'imagenes', 'Directorio de las imágenes'),
+                                                      ('DIR_SND', 'sonidos', 'Directorio de los sonidos'),
 
                                                       ('VELOCIDAD_BASE', '1', 'Velocidad base para todos los sprites'),
 
@@ -73,17 +74,18 @@ create table jugadores (
   id int not null auto_increment,
   tipo int,
   fichero varchar(50),
+  gameover varchar(50),
   tamanio_x int,
   tamanio_y int,
   factor_velocidad float,
   primary key (id)
 );
 
-insert into jugadores (tipo, fichero, tamanio_x, tamanio_y, factor_velocidad) values (0, 'jugador1.png', 77, 90, 1),
-                                                                                     (1, 'jugador2.png', 67, 88, 1),
-                                                                                     (2, 'jugador3.png', 68, 91, 1),
-                                                                                     (3, 'jugador4.png', 76, 89, 1),
-                                                                                     (4, 'jugador5.png', 76, 99, 1);
+insert into jugadores (tipo, fichero, gameover, tamanio_x, tamanio_y, factor_velocidad) values (0, 'jugador1.png', 'gameover.ogg', 77, 90, 1),
+                                                                                               (1, 'jugador2.png', 'gameover.ogg', 67, 88, 1),
+                                                                                               (2, 'jugador3.png', 'gameover.ogg', 68, 91, 1),
+                                                                                               (3, 'jugador4.png', 'gameover.ogg', 76, 89, 1),
+                                                                                               (4, 'jugador5.png', 'gameover.ogg', 76, 99, 1);
 
 --
 -- GEMAS

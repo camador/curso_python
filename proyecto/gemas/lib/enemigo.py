@@ -78,7 +78,7 @@ class Enemigo(pygame.sprite.Sprite):
 
         # Jugador
         if pygame.sprite.collide_rect(self, sprites_activos['jugador']):
-            sprites_activos['jugador'].vivo = False
+            sprites_activos['jugador'].muerto()
 
         # Gemas
         # Comprueba si ha habido colisión con alguna de las gemas activas, si es que
