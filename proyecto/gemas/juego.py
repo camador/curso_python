@@ -176,6 +176,9 @@ def main():
                     # Guarda la puntución
                     db.guarda_puntuacion(jugador.puntos)
 
+                    # Pequeña pausa para que el mensaje de game over no salte brúscamente
+                    pygame.time.delay(1000)
+
                     # Avisa al jugador
                     ventana.blit(gameover.imagen, gameover.rect)
                     pygame.draw.rect(ventana, (255, 255, 255), gameover.rect.inflate(7, 5), 2)

@@ -41,6 +41,9 @@ class Gema(pygame.sprite.Sprite):
         # Obtiene un rectángulo con las dimensiones y posición de la imagen
         self.rect = self.imagen.get_rect()
 
+        # Sonido para la gema desaparece o es destruida
+        self.sonido_rota = pygame.mixer.Sound(os.path.join(self.config.dir_snd, 'gemarota.ogg'))
+
         # Fila la posición de inicio
         self.rect.centerx, self.rect.centery = self.__get_spawn()
         
@@ -97,10 +100,22 @@ class Gema(pygame.sprite.Sprite):
             self.rect = self.imagen.get_rect()
             self.rect.center = centro
 
+            # Si no le queda vida la gema es destruida
+            if self.vida <= 0:
+                self.romper()
+
         else:
             vida_perdida = 0
 
         return vida_perdida
+
+    def romper(self):
+        """
+            Destruye la gema
+        """
+
+        self.sonido_rota.play()
+        self.vida = 0
 
     def __get_spawn(self):
         """

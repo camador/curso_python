@@ -100,7 +100,7 @@ class Enemigo(pygame.sprite.Sprite):
 
                     # Las rocas (tipo 1) destruyen las gemas
                     if self.tipo == 1 and not gema.indestructible:
-                        gema.vida = 0
+                        gema.romper()
 
 
     def __get_spawn(self):
