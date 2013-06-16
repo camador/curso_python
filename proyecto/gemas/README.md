@@ -36,7 +36,8 @@ Créditos
 - Gráficos adaptados por José Antonio Rodríguez Vázquez
 - Tipo de letra: [Jet Set](http://www.fontspace.com/captain-falcon/jet-set) de [Captain Falcon](http://www.fontspace.com/captain-falcon)
 - Sonidos
-  - 'gameover.ogg' de [hellkt](http://www.freesound.org/people/hellkt/)
+  - 'gameover.ogg' basado en [nooo-without_effects.wav](http://www.freesound.org/people/hellkt/sounds/80922/) de [hellkt](http://www.freesound.org/people/hellkt/)
+  - 'gemarota.ogg' basado en [broken_bottle_01.wav](http://www.freesound.org/people/cdrk/sounds/68449/) de [cdrk](http://www.freesound.org/people/cdrk/)
 
 Licencia
 --------
