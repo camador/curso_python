@@ -188,7 +188,7 @@
                         <property name="adjustment">adjustmentFPS</property>
                         <property name="snap_to_ticks">True</property>
                         <property name="numeric">True</property>
-                        <signal name="value-changed" handler="onSpinbuttonFPSChangeValue" swapped="no"/>
+                        <signal name="value-changed" handler="onSpinbuttonFPSValueChanged" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -545,6 +545,7 @@
                         <property name="adjustment">adjustmentGemasMaxActivas</property>
                         <property name="snap_to_ticks">True</property>
                         <property name="numeric">True</property>
+                        <signal name="value-changed" handler="onSpinbuttonGemasMaxActivasValueChanged" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -566,6 +567,7 @@
                         <property name="adjustment">adjustmentGemasRespawn</property>
                         <property name="snap_to_ticks">True</property>
                         <property name="numeric">True</property>
+                        <signal name="value-changed" handler="onSpinbuttonGemasRespawnValueChanged" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -587,6 +589,7 @@
                         <property name="adjustment">adjustmentEnemigosRespawn</property>
                         <property name="snap_to_ticks">True</property>
                         <property name="numeric">True</property>
+                        <signal name="value-changed" handler="onSpinbuttonEnemigosRespawnValueChanged" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">2</property>
