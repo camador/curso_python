@@ -182,6 +182,8 @@ class GUI():
         # Informa al usuario
         self.status.push(self.status_context_id, 'Configuración actualizada')
 
+        # Sale
+        self.window_main_destroy()
     
 
 if __name__ == '__main__':
