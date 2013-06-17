@@ -24,7 +24,10 @@ class GUI():
                     'onWindowMainDestroy': self.window_main_destroy,
                     'onImagemenuitemSalirActivate': self.window_main_destroy,
 
-                    'onSpinbuttonFPSChangeValue': self.limpia_statusbar,
+                    'onSpinbuttonFPSValueChanged': self.limpia_statusbar,
+                    'onSpinbuttonGemasMaxActivasValueChanged': self.limpia_statusbar,
+                    'onSpinbuttonGemasRespawnValueChanged': self.limpia_statusbar,
+                    'onSpinbuttonEnemigosRespawnValueChanged': self.limpia_statusbar,
 
                     'onComboboxResolucionesChanged': self.limpia_statusbar,
 
@@ -58,6 +61,15 @@ class GUI():
                                     self.builder.get_object('radiobuttonJugador4'),
                                     self.builder.get_object('radiobuttonJugador5')
                                    ]
+
+        # Gemas Máx. Activas
+        self.spinbutton_gemas_max_activas = self.builder.get_object('spinbuttonGemasMaxActivas')
+
+        # Gemas Respawn
+        self.spinbutton_gemas_respawn = self.builder.get_object('spinbuttonGemasRespawn')
+
+        # Enemigos Respawn
+        self.spinbutton_enemigos_respawn = self.builder.get_object('spinbuttonEnemigosRespawn')
 
         # Barra de estado
         self.status = self.builder.get_object('statusBar')
@@ -103,6 +115,18 @@ class GUI():
         # Jugador
         jugador_tipo = int(self.db.get_config('JUGADOR_TIPO'))
         self.radiobutton_jugador[jugador_tipo].set_active(True)
+
+        # Gemas Máx. Activas 
+        gemas_max_activas = int(self.db.get_config('GEMA_MAX_ACTIVAS'))
+        self.spinbutton_gemas_max_activas.set_value(gemas_max_activas)
+
+        # Gemas Respawn
+        gemas_respawn = int(self.db.get_config('GEMA_RESPAWN'))
+        self.spinbutton_gemas_respawn.set_value(gemas_respawn)
+
+        # Enemigos Respawn
+        enemigos_respawn = int(self.db.get_config('ENEMIGO_RESPAWN'))
+        self.spinbutton_enemigos_respawn.set_value(enemigos_respawn)
 
         # A la espera de evento
         Gtk.main()
@@ -178,6 +202,20 @@ class GUI():
 
         # Actualiza la base de datos
         self.db.set_config('JUGADOR_TIPO', jugador_seleccionado)
+
+        #
+        # GEMAS
+        #
+
+        # Gemas Máx. Activas 
+        self.db.set_config('GEMA_MAX_ACTIVAS', self.spinbutton_gemas_max_activas.get_value_as_int())
+        self.db.set_config('GEMA_RESPAWN', self.spinbutton_gemas_respawn.get_value_as_int())
+
+        #
+        # ENEMIGOS
+        #
+        self.db.set_config('ENEMIGO_RESPAWN', self.spinbutton_enemigos_respawn.get_value_as_int())
+
 
         # Informa al usuario
         self.status.push(self.status_context_id, 'Configuración actualizada')
