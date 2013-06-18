@@ -96,6 +96,7 @@ create table gemas (
   id int not null auto_increment,
   tipo int,
   fichero varchar(50),
+  gemarota varchar(50),
   tick varchar(50),
   vida float,
   tamanio_x int,
@@ -106,9 +107,9 @@ create table gemas (
   primary key (id)
 );
 
-insert into gemas (tipo, fichero, tick, vida, tamanio_x, tamanio_y, indestructible, descripcion, probabilidad) values (0, 'gema1.png', 'minando.ogg', 2, 95, 111, 0, 'Gema básica', 65),
-                                                                                                                      (1, 'gema2.png', 'minando.ogg', 4, 95, 112, 0, 'Gema un poco más duradera', 30),
-                                                                                                                      (2, 'gema3.png', 'minando.ogg', 1, 95, 112, 1, 'Gema indestructible', 5);
+insert into gemas (tipo, fichero, gemarota, tick, vida, tamanio_x, tamanio_y, indestructible, descripcion, probabilidad) values (0, 'gema1.png', 'gemarota.ogg', 'minando.ogg', 2, 95, 111, 0, 'Gema básica', 65),
+                                                                                                                                (1, 'gema2.png', 'gemarota.ogg', 'minando.ogg', 4, 95, 112, 0, 'Gema un poco más duradera', 30),
+                                                                                                                                (2, 'gema3.png', 'gemarota.ogg', 'minando.ogg', 1, 95, 112, 1, 'Gema indestructible', 5);
                                                                                                 
 --
 -- ENEMIGOS
