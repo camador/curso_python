@@ -165,6 +165,12 @@ def main():
                     else:
                         ventana.blit(sprites_activos[nombre].imagen, sprites_activos[nombre].rect)
 
+                #
+                # ACTUALIZACIÓN DE LA PANTALLA
+                #
+
+                # Dibuja la escena
+                pygame.display.flip()
 
                 #
                 # EVALUACIÓN DEL ESTADO DE LOS SPRITES
@@ -182,6 +188,9 @@ def main():
                     # Avisa al jugador
                     ventana.blit(gameover.imagen, gameover.rect)
                     pygame.draw.rect(ventana, (255, 255, 255), gameover.rect.inflate(7, 5), 2)
+
+                    # Actualiza la pantalla
+                    pygame.display.flip()
 
                     # y finaliza la partida
                     fin_partida = True
@@ -238,12 +247,6 @@ def main():
                         # Anota el momento en el que se ha generado el último enemigo
                         ultimo_enemigo_respawn = pygame.time.get_ticks()
 
-                #
-                # ACTUALIZACIÓN DE LA PANTALLA
-                #
-
-                # Dibuja la escena
-                pygame.display.flip()
 
             #
             # FIN DE LA PARTIDA

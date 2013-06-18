@@ -34,6 +34,10 @@ class Enemigo(pygame.sprite.Sprite):
         # Obtiene un rectángulo con las dimensiones y posición de la imagen
         self.rect = self.imagen.get_rect()
 
+        # Disminuye el tamaño del rect para evitar que en las colisiones parezca que los 
+        # sprites no se tocan
+        self.rect.inflate_ip(-10, -10)
+
         # Fila la posición de inicio
         self.rect.centerx, self.rect.centery = self.__get_spawn()
 
