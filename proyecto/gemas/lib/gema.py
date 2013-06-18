@@ -91,9 +91,11 @@ class Gema(pygame.sprite.Sprite):
             vida_perdida = (1.0 / self.config.framerate)
             self.vida -= vida_perdida
 
-            # Cada pérdida de vida hace a la gema más pequeña
+            # La gema disminuye su tamaño al llegar a la mitad de su vida
             centro = self.rect.center
-            factor_reduccion = self.vida / self.vida_original
+            factor_reduccion = 1 
+            if self.vida <= (self.vida_original / 2):
+                factor_reduccion = 0.66
             self.imagen = pygame.transform.smoothscale(self.imagen, (int(self.tamanio_x * factor_reduccion), int(self.tamanio_y * factor_reduccion)))
 
             # Reposiciona la nueva imagen usando el centro de la original
