@@ -42,7 +42,7 @@ class Gema(pygame.sprite.Sprite):
         self.rect = self.imagen.get_rect()
 
         # Sonido para la gema desaparece o es destruida
-        self.sonido_rota = pygame.mixer.Sound(os.path.join(self.config.dir_snd, 'gemarota.ogg'))
+        self.sonido_rota = pygame.mixer.Sound(os.path.join(self.config.dir_snd, self.parametros['tick']))
 
         # Fila la posición de inicio
         self.rect.centerx, self.rect.centery = self.__get_spawn()
@@ -72,6 +72,9 @@ class Gema(pygame.sprite.Sprite):
                     self.rect.centerx, self.rect.centery = self.__get_spawn()
                     comprobar_colision = True
 
+        # Sonido para cada tick
+        self.sonido_tick = pygame.mixer.Sound(os.path.join(self.config.dir_snd, 'minando.ogg'))
+
     def tick(self):
         """
             Resta puntos de vida a la gema por cada frame que el jugador pase colisionando con
@@ -80,6 +83,9 @@ class Gema(pygame.sprite.Sprite):
         
         # La gema ha de seguir viva
         if self.vida > 0:
+
+            # Indicación sonora de que la gema está perdiendo vida
+            self.sonido_tick.play()
 
             # La cantidad de vida restada por cada frame viene dada por la fórmula:
             #

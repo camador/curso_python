@@ -38,6 +38,7 @@ Créditos
 - Sonidos
   - 'gameover.ogg' basado en [nooo-without_effects.wav](http://www.freesound.org/people/hellkt/sounds/80922/) de [hellkt](http://www.freesound.org/people/hellkt/)
   - 'gemarota.ogg' basado en [broken_bottle_01.wav](http://www.freesound.org/people/cdrk/sounds/68449/) de [cdrk](http://www.freesound.org/people/cdrk/)
+  - 'minando.ogg' basado en [Pick Axe.wav](http://www.freesound.org/people/MV4824/sounds/61307/) de [RutgerMuller](http://www.freesound.org/people/RutgerMuller/)
   - Sonido por [Edwar](https://soundcloud.com/edwar-rodriguez)
   
 Licencia
